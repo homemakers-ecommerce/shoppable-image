@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoppable Image Creator - Homemakers Professional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Lato:wght@400;700&family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700&family=Playfair+Display:wght@400;700&family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 500px;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        @media (max-width: 1100px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .workspace {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 500px;
+        }
+
+        .workspace-header {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-toggle {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #ddd;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: #e74c3c;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(24px);
+        }
+
+        .upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .upload-area:hover {
+            border-color: #e74c3c;
+            background: #fff5f5;
+        }
+
+        .upload-area.active {
+            border-color: #c0392b;
+            background: #fff5f5;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            background: white;
+            border: 3px solid #e74c3c;
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s;
+            z-index: 10;
+            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(231, 76, 60, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+            }
+        }
+
+        .hotspot:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+            background: #e74c3c;
+        }
+
+        .hotspot.active {
+            background: #c0392b;
+            border-color: #c0392b;
+        }
+
+        .hotspot-content {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        .hotspot:hover .hotspot-content,
+        .hotspot.active .hotspot-content {
+            color: white;
+        }
+
+        .hotspot-icon {
+            width: 20px;
+            height: 20px;
+            fill: #e74c3c;
+        }
+
+        .hotspot:hover .hotspot-icon,
+        .hotspot.active .hotspot-icon {
+            fill: white;
+        }
+
+        .popup {
+            position: absolute;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            padding: 20px;
+            width: 340px;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transform: scale(0.95);
+        }
+
+        .popup.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        .popup-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .popup-arrow.top {
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 10px 10px 10px;
+            border-color: transparent transparent white transparent;
+        }
+
+        .popup-arrow.bottom {
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px 10px 0 10px;
+            border-color: white transparent transparent transparent;
+        }
+
+        .popup-arrow.left {
+            right: 100%;
+            top: 30px;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+
+        .popup-arrow.right {
+            left: 100%;
+            top: 30px;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: #f1f3f5;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: #495057;
+            transition: all 0.3s;
+        }
+
+        .popup-close:hover {
+            background: #e9ecef;
+            transform: rotate(90deg);
+        }
+
+        .popup-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .popup-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #212529;
+        }
+
+        .popup-text {
+            color: #6c757d;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .popup-price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .popup-button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .popup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .controls {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .control-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 10px 15px;
+            background: none;
+            border: none;
+            color: #6c757d;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            font-size: 0.9em;
+        }
+
+        .tab-button.active {
+            color: #e74c3c;
+            border-bottom-color: #e74c3c;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.95em;
+        }
+
+        .control-group input,
+        .control-group textarea,
+        .control-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .control-group input:focus,
+        .control-group textarea:focus,
+        .control-group select:focus {
+            outline: none;
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+        }
+
+        .control-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .color-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .color-input-group input[type="color"] {
+            width: 60px;
+            height: 40px;
+            padding: 2px;
+            cursor: pointer;
+        }
+
+        .color-input-group input[type="text"] {
+            flex: 1;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+
+        .hotspot-list {
+            margin-top: 20px;
+        }
+
+        .hotspot-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .hotspot-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .hotspot-item.active {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid #e74c3c;
+        }
+
+        .code-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+
+        .code-stats {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .instructions h3 {
+            color: #495057;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #6c757d;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        .section-divider {
+            margin: 25px 0;
+            padding-top: 25px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .section-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .preview-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-family: var(--preview-font, 'Inter');
+        }
+
+        @media (max-width: 640px) {
+            .popup {
+                width: 280px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛍️ Shoppable Image Creator</h1>
+            <p>Create interactive product hotspots on your images</p>
+            <div class="version-badge">Professional v3.0</div>
+        </div>
+
+        <div class="main-content">
+            <div class="workspace">
+                <div class="workspace-header">
+                    <h2>Workspace</h2>
+                    <div class="preview-toggle">
+                        <span>Preview Mode</span>
+                        <div id="previewToggle" class="toggle-switch" onclick="togglePreviewMode()">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="uploadArea" class="upload-area">
+                    <div>
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <h3 style="margin: 15px 0; color: #495057;">Upload Your Image</h3>
+                        <p style="color: #6c757d;">Click to browse or drag and drop</p>
+                        <p style="color: #adb5bd; font-size: 0.9em; margin-top: 10px;">Supports: JPG, PNG, GIF</p>
+                    </div>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div id="imageWrapper" style="display: none; text-align: center;">
+                    <div id="successMessage" class="success-message"></div>
+                    <div id="errorMessage" class="error-message"></div>
+                    <div id="imageContainer" class="image-container"></div>
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="changeImage()">Change Image</button>
+                        <button class="btn btn-secondary" onclick="clearAll()">Clear All</button>
+                        <button class="btn btn-warning" onclick="undoLastAction()">↶ Undo</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control-tabs">
+                    <button class="tab-button active" data-tab="edit">Edit</button>
+                    <button class="tab-button" data-tab="style">Style</button>
+                    <button class="tab-button" data-tab="list">List</button>
+                    <button class="tab-button" data-tab="export">Export</button>
+                </div>
+
+                <div id="editTab" class="tab-content active">
+                    <div class="instructions">
+                        <h3>📌 Quick Guide</h3>
+                        <ol>
+                            <li>Upload an image</li>
+                            <li>Click on the image to add hotspots</li>
+                            <li>Customize appearance in Style tab</li>
+                            <li>Export the HTML code</li>
+                        </ol>
+                    </div>
+
+                    <div id="hotspotForm" style="display: none;">
+                        <h3>Hotspot Details</h3>
+                        
+                        <div class="control-group">
+                            <label>Display Style</label>
+                            <select id="displayStyle" onchange="updateDisplayStyle()">
+                                <option value="number">Number</option>
+                                <option value="plus">Plus Icon (+)</option>
+                                <option value="dot">Simple Dot</option>
+                                <option value="info">Info Icon (i)</option>
+                                <option value="custom">Custom Text</option>
+                            </select>
+                        </div>
+
+                        <div class="control-group" id="customTextGroup" style="display: none;">
+                            <label>Custom Text (2 chars max)</label>
+                            <input type="text" id="customText" maxlength="2" placeholder="A1">
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Product Image URL</label>
+                            <input type="text" id="productImage" placeholder="https://example.com/product.jpg">
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Product Title *</label>
+                            <input type="text" id="productTitle" placeholder="Modern Chair" required>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Description</label>
+                            <textarea id="productText" placeholder="Comfortable and stylish chair perfect for any room"></textarea>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Price</label>
+                            <input type="text" id="productPrice" placeholder="$299">
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Button Text</label>
+                            <input type="text" id="buttonText" placeholder="Shop Now">
+                        </div>
+                        
+                        <div class="control-group">
+                            <label>Button Link (URL) *</label>
+                            <input type="url" id="buttonLink" placeholder="https://example.com/product">
+                        </div>
+
+                        <div class="control-group">
+                            <label>Hover Delay (ms)</label>
+                            <input type="number" id="hoverDelay" value="200" min="0" max="2000" step="100">
+                        </div>
+                        
+                        <button class="btn btn-primary" onclick="updateHotspot()">💾 Save Changes</button>
+                        <button class="btn btn-danger" onclick="deleteHotspot()">🗑️ Delete</button>
+                        <button class="btn btn-secondary" onclick="duplicateHotspot()">📋 Duplicate</button>
+                    </div>
+                </div>
+
+                <div id="styleTab" class="tab-content">
+                    <h3>🎨 Style Customization</h3>
+                    
+                    <div class="section-title">📝 Typography</div>
+                    
+                    <div class="control-group">
+                        <label>Font Family</label>
+                        <select id="globalFont" onchange="updateGlobalStyles()">
+                            <option value="Inter">Inter (Modern)</option>
+                            <option value="Roboto">Roboto (Clean)</option>
+                            <option value="Open Sans">Open Sans (Friendly)</option>
+                            <option value="Lato">Lato (Professional)</option>
+                            <option value="Montserrat">Montserrat (Bold)</option>
+                            <option value="Poppins">Poppins (Rounded)</option>
+                            <option value="Playfair Display">Playfair Display (Elegant)</option>
+                            <option value="Raleway">Raleway (Thin)</option>
+                            <option value="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">System Default</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Text Alignment</label>
+                        <select id="textAlign" onchange="updateGlobalStyles()">
+                            <option value="left">Left</option>
+                            <option value="center">Center</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+
+                    <div class="section-divider">
+                        <div class="section-title">🎨 Colors</div>
+                        
+                        <div class="control-group">
+                            <label>Hotspot Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="hotspotColor" value="#e74c3c" onchange="updateGlobalStyles()">
+                                <input type="text" id="hotspotColorText" value="#e74c3c" onchange="syncColorInputs('hotspot')">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>Hotspot Hover Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="hotspotHoverColor" value="#c0392b" onchange="updateGlobalStyles()">
+                                <input type="text" id="hotspotHoverColorText" value="#c0392b" onchange="syncColorInputs('hotspotHover')">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>Icon/Text Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="iconColor" value="#e74c3c" onchange="updateGlobalStyles()">
+                                <input type="text" id="iconColorText" value="#e74c3c" onchange="syncColorInputs('icon')">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>Title Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="titleColor" value="#212529" onchange="updateGlobalStyles()">
+                                <input type="text" id="titleColorText" value="#212529" onchange="syncColorInputs('title')">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>Text Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="textColor" value="#6c757d" onchange="updateGlobalStyles()">
+                                <input type="text" id="textColorText" value="#6c757d" onchange="syncColorInputs('text')">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>Price Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="priceColor" value="#e74c3c" onchange="updateGlobalStyles()">
+                                <input type="text" id="priceColorText" value="#e74c3c" onchange="syncColorInputs('price')">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>Button Background</label>
+                            <div class="color-input-group">
+                                <input type="color" id="buttonBgColor" value="#e74c3c" onchange="updateGlobalStyles()">
+                                <input type="text" id="buttonBgColorText" value="#e74c3c" onchange="syncColorInputs('buttonBg')">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label>Button Text Color</label>
+                            <div class="color-input-group">
+                                <input type="color" id="buttonTextColor" value="#ffffff" onchange="updateGlobalStyles()">
+                                <input type="text" id="buttonTextColorText" value="#ffffff" onchange="syncColorInputs('buttonText')">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider">
+                        <div class="section-title">👁️ Preview</div>
+                        <div class="preview-box" id="stylePreview">
+                            <div style="font-weight: bold; margin-bottom: 10px;">Sample Title</div>
+                            <div style="margin-bottom: 10px;">This is how your text will appear in the popup.</div>
+                            <div style="font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">$99.99</div>
+                            <div style="padding: 10px; background: #e74c3c; color: white; text-align: center; border-radius: 8px;">Shop Now</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="resetToDefaults()">Reset to Defaults</button>
+                </div>
+
+                <div id="listTab" class="tab-content">
+                    <h3>Hotspot Management</h3>
+                    <div id="hotspotList"></div>
+                    <div class="code-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalHotspots">0</div>
+                            <div class="stat-label">Total Hotspots</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalProducts">0</div>
+                            <div class="stat-label">Products Linked</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="exportTab" class="tab-content">
+                    <h3>Export Options</h3>
+                    <p style="color: #6c757d; margin-bottom: 15px;">Generate optimized HTML code for your website</p>
+
+                    <button class="btn btn-success" onclick="exportHTML()">🚀 Generate Code</button>
+                    <button class="btn btn-primary" onclick="copyCode()" style="display: none;" id="copyBtn">📋 Copy to Clipboard</button>
+                    
+                    <div id="codeOutput" class="code-output" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let hotspots = [];
+        let currentHotspotIndex = -1;
+        let imageUrl = '';
+        let history = [];
+        let previewMode = false;
+        let globalStyles = {
+            font: 'Inter',
+            textAlign: 'left',
+            hotspotColor: '#e74c3c',
+            hotspotHoverColor: '#c0392b',
+            iconColor: '#e74c3c',
+            titleColor: '#212529',
+            textColor: '#6c757d',
+            priceColor: '#e74c3c',
+            buttonBgColor: '#e74c3c',
+            buttonTextColor: '#ffffff'
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateHotspotList();
+            updateStats();
+            setupTabSwitching();
+            updateGlobalStyles();
+        });
+
+        // Tab switching
+        function setupTabSwitching() {
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const tabName = btn.dataset.tab;
+                    
+                    // Update buttons
+                    document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Update content
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    document.getElementById(tabName + 'Tab').classList.add('active');
+                });
+            });
+        }
+
+        // Upload functionality
+        const uploadArea = document.getElementById('uploadArea');
+        const imageInput = document.getElementById('imageInput');
+        const imageWrapper = document.getElementById('imageWrapper');
+        const imageContainer = document.getElementById('imageContainer');
+
+        uploadArea.addEventListener('click', () => imageInput.click());
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('active');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('active');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('active');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleImage(files[0]);
+            }
+        });
+
+        imageInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleImage(e.target.files[0]);
+            }
+        });
+
+        function handleImage(file) {
+            if (!file.type.startsWith('image/')) {
+                showError('Please upload an image file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imageUrl = e.target.result;
+                displayImage(imageUrl);
+                showSuccess('Image uploaded successfully!');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function displayImage(url) {
+            uploadArea.style.display = 'none';
+            imageWrapper.style.display = 'block';
+            
+            const img = document.createElement('img');
+            img.src = url;
+            img.addEventListener('click', addHotspot);
+            
+            imageContainer.innerHTML = '';
+            imageContainer.appendChild(img);
+            
+            renderHotspots();
+        }
+
+        function changeImage() {
+            imageInput.click();
+        }
+
+        function clearAll() {
+            if (confirm('Are you sure you want to remove all hotspots?')) {
+                saveHistory();
+                hotspots = [];
+                currentHotspotIndex = -1;
+                renderHotspots();
+                updateHotspotList();
+                updateStats();
+                document.getElementById('hotspotForm').style.display = 'none';
+                showSuccess('All hotspots cleared');
+            }
+        }
+
+        function addHotspot(e) {
+            if (previewMode) return;
+            
+            const rect = e.target.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            saveHistory();
+            
+            const hotspot = {
+                id: Date.now(),
+                x: x,
+                y: y,
+                displayStyle: 'number',
+                customText: '',
+                productImage: '',
+                title: `Product ${hotspots.length + 1}`,
+                text: 'Add your product description here',
+                price: '$0',
+                buttonText: 'Shop Now',
+                buttonLink: 'https://example.com',
+                hoverDelay: 200
+            };
+            
+            hotspots.push(hotspot);
+            currentHotspotIndex = hotspots.length - 1;
+            
+            renderHotspots();
+            loadHotspotForm();
+            updateHotspotList();
+            updateStats();
+            showSuccess('Hotspot added!');
+        }
+
+        function renderHotspots() {
+            // Remove existing hotspots and popups
+            document.querySelectorAll('.hotspot, .popup').forEach(el => el.remove());
+            
+            hotspots.forEach((hotspot, index) => {
+                // Create hotspot element
+                const hotspotEl = document.createElement('div');
+                hotspotEl.className = 'hotspot';
+                if (index === currentHotspotIndex) {
+                    hotspotEl.classList.add('active');
+                }
+                hotspotEl.style.left = hotspot.x + '%';
+                hotspotEl.style.top = hotspot.y + '%';
+                hotspotEl.style.borderColor = globalStyles.hotspotColor;
+                
+                // Apply hover styles dynamically
+                hotspotEl.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.background = globalStyles.hotspotColor;
+                    }
+                });
+                
+                hotspotEl.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.background = 'white';
+                    }
+                });
+                
+                // Add content based on display style
+                let content = '';
+                switch(hotspot.displayStyle) {
+                    case 'number':
+                        content = `<span class="hotspot-content" style="color: ${globalStyles.iconColor}">${index + 1}</span>`;
+                        break;
+                    case 'plus':
+                        content = `<span class="hotspot-content" style="color: ${globalStyles.iconColor}">+</span>`;
+                        break;
+                    case 'dot':
+                        content = '';
+                        break;
+                    case 'info':
+                        content = `<span class="hotspot-content" style="color: ${globalStyles.iconColor}">i</span>`;
+                        break;
+                    case 'custom':
+                        content = `<span class="hotspot-content" style="color: ${globalStyles.iconColor}">${hotspot.customText || 'A'}</span>`;
+                        break;
+                }
+                hotspotEl.innerHTML = content;
+                
+                // Create popup
+                const popup = document.createElement('div');
+                popup.className = 'popup';
+                popup.id = `popup-${index}`;
+                popup.style.fontFamily = globalStyles.font;
+                popup.style.textAlign = globalStyles.textAlign;
+                
+                // Calculate optimal popup position (fixed to align with arrow)
+                const popupPosition = calculatePopupPosition(hotspot.x, hotspot.y);
+                popup.style.left = popupPosition.x + '%';
+                popup.style.top = popupPosition.y + '%';
+                
+                // Add arrow
+                const arrow = document.createElement('div');
+                arrow.className = `popup-arrow ${popupPosition.arrow}`;
+                popup.appendChild(arrow);
+                
+                // Build popup content
+                let popupHTML = `<button class="popup-close" onclick="closePopup(${index})">×</button>`;
+                
+                if (hotspot.productImage) {
+                    popupHTML += `<img src="${hotspot.productImage}" alt="${hotspot.title}" class="popup-image" onerror="this.style.display='none'">`;
+                }
+                
+                popupHTML += `
+                    <div class="popup-title" style="color: ${globalStyles.titleColor}">${hotspot.title}</div>
+                    <div class="popup-text" style="color: ${globalStyles.textColor}">${hotspot.text}</div>
+                    <div class="popup-price" style="color: ${globalStyles.priceColor}">${hotspot.price}</div>
+                    <a href="${hotspot.buttonLink}" class="popup-button" style="background: ${globalStyles.buttonBgColor}; color: ${globalStyles.buttonTextColor}" target="_blank" rel="noopener">${hotspot.buttonText}</a>
+                `;
+                
+                popup.innerHTML += popupHTML;
+                
+                // Add event listeners
+                let hoverTimeout;
+                let isHoveringHotspot = false;
+                let isHoveringPopup = false;
+                
+                hotspotEl.addEventListener('click', (e) => {
+                    if (!previewMode) {
+                        e.stopPropagation();
+                        selectHotspot(index);
+                    }
+                });
+                
+                hotspotEl.addEventListener('mouseenter', () => {
+                    isHoveringHotspot = true;
+                    clearTimeout(hoverTimeout);
+                    hoverTimeout = setTimeout(() => {
+                        if (isHoveringHotspot) {
+                            popup.classList.add('active');
+                        }
+                    }, hotspot.hoverDelay || 200);
+                });
+                
+                hotspotEl.addEventListener('mouseleave', () => {
+                    isHoveringHotspot = false;
+                    clearTimeout(hoverTimeout);
+                    hoverTimeout = setTimeout(() => {
+                        if (!isHoveringPopup && !isHoveringHotspot) {
+                            popup.classList.remove('active');
+                        }
+                    }, 300);
+                });
+                
+                popup.addEventListener('mouseenter', () => {
+                    isHoveringPopup = true;
+                    clearTimeout(hoverTimeout);
+                });
+                
+                popup.addEventListener('mouseleave', () => {
+                    isHoveringPopup = false;
+                    hoverTimeout = setTimeout(() => {
+                        if (!isHoveringPopup && !isHoveringHotspot) {
+                            popup.classList.remove('active');
+                        }
+                    }, 300);
+                });
+                
+                imageContainer.appendChild(hotspotEl);
+                imageContainer.appendChild(popup);
+            });
+        }
+
+        function calculatePopupPosition(hotspotX, hotspotY) {
+            let x = hotspotX;
+            let y = hotspotY;
+            let arrow = 'bottom';
+            
+            // Fixed positioning logic for proper arrow alignment
+            if (hotspotX < 20) {
+                // Popup to the right
+                x = hotspotX + 3;
+                y = hotspotY - 5;
+                arrow = 'left';
+            } else if (hotspotX > 80) {
+                // Popup to the left
+                x = hotspotX - 28;
+                y = hotspotY - 5;
+                arrow = 'right';
+            } else if (hotspotY < 25) {
+                // Popup below
+                x = hotspotX - 14;
+                y = hotspotY + 3;
+                arrow = 'top';
+            } else {
+                // Popup above (default)
+                x = hotspotX - 14;
+                y = hotspotY - 25;
+                arrow = 'bottom';
+            }
+            
+            return { x, y, arrow };
+        }
+
+        function closePopup(index) {
+            document.getElementById(`popup-${index}`).classList.remove('active');
+        }
+
+        function selectHotspot(index) {
+            currentHotspotIndex = index;
+            renderHotspots();
+            loadHotspotForm();
+            updateHotspotList();
+            
+            // Switch to edit tab
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelector('[data-tab="edit"]').classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById('editTab').classList.add('active');
+        }
+
+        function loadHotspotForm() {
+            if (currentHotspotIndex < 0 || currentHotspotIndex >= hotspots.length) return;
+            
+            const hotspot = hotspots[currentHotspotIndex];
+            document.getElementById('hotspotForm').style.display = 'block';
+            
+            document.getElementById('displayStyle').value = hotspot.displayStyle || 'number';
+            document.getElementById('customText').value = hotspot.customText || '';
+            document.getElementById('productImage').value = hotspot.productImage || '';
+            document.getElementById('productTitle').value = hotspot.title || '';
+            document.getElementById('productText').value = hotspot.text || '';
+            document.getElementById('productPrice').value = hotspot.price || '';
+            document.getElementById('buttonText').value = hotspot.buttonText || '';
+            document.getElementById('buttonLink').value = hotspot.buttonLink || '';
+            document.getElementById('hoverDelay').value = hotspot.hoverDelay || 200;
+            
+            updateDisplayStyle();
+        }
+
+        function updateDisplayStyle() {
+            const style = document.getElementById('displayStyle').value;
+            document.getElementById('customTextGroup').style.display = 
+                style === 'custom' ? 'block' : 'none';
+        }
+
+        function updateHotspot() {
+            if (currentHotspotIndex < 0 || currentHotspotIndex >= hotspots.length) return;
+            
+            saveHistory();
+            
+            hotspots[currentHotspotIndex] = {
+                ...hotspots[currentHotspotIndex],
+                displayStyle: document.getElementById('displayStyle').value,
+                customText: document.getElementById('customText').value,
+                productImage: document.getElementById('productImage').value,
+                title: document.getElementById('productTitle').value,
+                text: document.getElementById('productText').value,
+                price: document.getElementById('productPrice').value,
+                buttonText: document.getElementById('buttonText').value,
+                buttonLink: document.getElementById('buttonLink').value,
+                hoverDelay: parseInt(document.getElementById('hoverDelay').value)
+            };
+            
+            renderHotspots();
+            updateHotspotList();
+            updateStats();
+            showSuccess('Hotspot updated!');
+        }
+
+        function deleteHotspot() {
+            if (currentHotspotIndex < 0 || currentHotspotIndex >= hotspots.length) return;
+            
+            if (confirm('Delete this hotspot?')) {
+                saveHistory();
+                hotspots.splice(currentHotspotIndex, 1);
+                currentHotspotIndex = -1;
+                document.getElementById('hotspotForm').style.display = 'none';
+                renderHotspots();
+                updateHotspotList();
+                updateStats();
+                showSuccess('Hotspot deleted');
+            }
+        }
+
+        function duplicateHotspot() {
+            if (currentHotspotIndex < 0 || currentHotspotIndex >= hotspots.length) return;
+            
+            saveHistory();
+            const original = hotspots[currentHotspotIndex];
+            const duplicate = {
+                ...original,
+                id: Date.now(),
+                x: Math.min(original.x + 5, 95),
+                y: Math.min(original.y + 5, 95),
+                title: original.title + ' (Copy)'
+            };
+            
+            hotspots.push(duplicate);
+            currentHotspotIndex = hotspots.length - 1;
+            
+            renderHotspots();
+            loadHotspotForm();
+            updateHotspotList();
+            updateStats();
+            showSuccess('Hotspot duplicated!');
+        }
+
+        function updateHotspotList() {
+            const list = document.getElementById('hotspotList');
+            
+            if (hotspots.length === 0) {
+                list.innerHTML = '<p style="color: #6c757d;">No hotspots added yet</p>';
+                return;
+            }
+            
+            list.innerHTML = hotspots.map((hotspot, index) => `
+                <div class="hotspot-item ${index === currentHotspotIndex ? 'active' : ''}" onclick="selectHotspot(${index})">
+                    <div>
+                        <strong>${index + 1}.</strong> ${hotspot.title}
+                        <br><small style="color: #6c757d;">${hotspot.price}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateStats() {
+            document.getElementById('totalHotspots').textContent = hotspots.length;
+            document.getElementById('totalProducts').textContent = 
+                hotspots.filter(h => h.buttonLink && h.buttonLink !== '#').length;
+        }
+
+        function togglePreviewMode() {
+            previewMode = !previewMode;
+            document.getElementById('previewToggle').classList.toggle('active');
+            
+            if (previewMode) {
+                showSuccess('Preview mode enabled - interact with hotspots as visitors would');
+            } else {
+                showSuccess('Edit mode enabled - click hotspots to edit');
+            }
+        }
+
+        function saveHistory() {
+            history.push(JSON.parse(JSON.stringify(hotspots)));
+            if (history.length > 20) {
+                history.shift();
+            }
+        }
+
+        function undoLastAction() {
+            if (history.length > 0) {
+                hotspots = history.pop();
+                currentHotspotIndex = -1;
+                document.getElementById('hotspotForm').style.display = 'none';
+                renderHotspots();
+                updateHotspotList();
+                updateStats();
+                showSuccess('Action undone');
+            } else {
+                showError('No actions to undo');
+            }
+        }
+
+        function updateGlobalStyles() {
+            // Update global styles object
+            globalStyles.font = document.getElementById('globalFont').value;
+            globalStyles.textAlign = document.getElementById('textAlign').value;
+            globalStyles.hotspotColor = document.getElementById('hotspotColor').value;
+            globalStyles.hotspotHoverColor = document.getElementById('hotspotHoverColor').value;
+            globalStyles.iconColor = document.getElementById('iconColor').value;
+            globalStyles.titleColor = document.getElementById('titleColor').value;
+            globalStyles.textColor = document.getElementById('textColor').value;
+            globalStyles.priceColor = document.getElementById('priceColor').value;
+            globalStyles.buttonBgColor = document.getElementById('buttonBgColor').value;
+            globalStyles.buttonTextColor = document.getElementById('buttonTextColor').value;
+            
+            // Update preview
+            const preview = document.getElementById('stylePreview');
+            if (preview) {
+                preview.style.fontFamily = globalStyles.font;
+                preview.style.textAlign = globalStyles.textAlign;
+                preview.querySelector('div:nth-child(1)').style.color = globalStyles.titleColor;
+                preview.querySelector('div:nth-child(2)').style.color = globalStyles.textColor;
+                preview.querySelector('div:nth-child(3)').style.color = globalStyles.priceColor;
+                const button = preview.querySelector('div:nth-child(4)');
+                button.style.background = globalStyles.buttonBgColor;
+                button.style.color = globalStyles.buttonTextColor;
+            }
+            
+            // Re-render hotspots with new styles
+            renderHotspots();
+        }
+
+        function syncColorInputs(type) {
+            const colorInput = document.getElementById(type + 'Color');
+            const textInput = document.getElementById(type + 'ColorText');
+            
+            if (event.target.type === 'text') {
+                colorInput.value = textInput.value;
+            } else {
+                textInput.value = colorInput.value;
+            }
+            
+            updateGlobalStyles();
+        }
+
+        function resetToDefaults() {
+            document.getElementById('globalFont').value = 'Inter';
+            document.getElementById('textAlign').value = 'left';
+            document.getElementById('hotspotColor').value = '#e74c3c';
+            document.getElementById('hotspotColorText').value = '#e74c3c';
+            document.getElementById('hotspotHoverColor').value = '#c0392b';
+            document.getElementById('hotspotHoverColorText').value = '#c0392b';
+            document.getElementById('iconColor').value = '#e74c3c';
+            document.getElementById('iconColorText').value = '#e74c3c';
+            document.getElementById('titleColor').value = '#212529';
+            document.getElementById('titleColorText').value = '#212529';
+            document.getElementById('textColor').value = '#6c757d';
+            document.getElementById('textColorText').value = '#6c757d';
+            document.getElementById('priceColor').value = '#e74c3c';
+            document.getElementById('priceColorText').value = '#e74c3c';
+            document.getElementById('buttonBgColor').value = '#e74c3c';
+            document.getElementById('buttonBgColorText').value = '#e74c3c';
+            document.getElementById('buttonTextColor').value = '#ffffff';
+            document.getElementById('buttonTextColorText').value = '#ffffff';
+            
+            updateGlobalStyles();
+            showSuccess('Styles reset to defaults');
+        }
+
+        function showSuccess(message) {
+            const el = document.getElementById('successMessage');
+            el.textContent = message;
+            el.style.display = 'block';
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 3000);
+        }
+
+        function showError(message) {
+            const el = document.getElementById('errorMessage');
+            el.textContent = message;
+            el.style.display = 'block';
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 3000);
+        }
+
+        function exportHTML() {
+            if (!imageUrl) {
+                showError('Please upload an image first');
+                return;
+            }
+            
+            if (hotspots.length === 0) {
+                showError('Please add at least one hotspot');
+                return;
+            }
+            
+            const html = generateHTML();
+            
+            document.getElementById('codeOutput').textContent = html;
+            document.getElementById('codeOutput').style.display = 'block';
+            document.getElementById('copyBtn').style.display = 'inline-block';
+            
+            showSuccess('HTML code generated successfully!');
+        }
+
+        function generateHTML() {
+            // Include Google Fonts link if not system font
+            let fontLink = '';
+            if (globalStyles.font !== '-apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif') {
+                const fontName = globalStyles.font.replace(' ', '+');
+                fontLink = `<link href="https://fonts.googleapis.com/css2?family=${fontName}:wght@400;600;700&display=swap" rel="stylesheet">`;
+            }
+            
+            const hotspotsHTML = hotspots.map((hotspot, index) => {
+                let hotspotContent = '';
+                switch(hotspot.displayStyle) {
+                    case 'number':
+                        hotspotContent = `<span class="si-hotspot-content">${index + 1}</span>`;
+                        break;
+                    case 'plus':
+                        hotspotContent = `<span class="si-hotspot-content">+</span>`;
+                        break;
+                    case 'dot':
+                        hotspotContent = '';
+                        break;
+                    case 'info':
+                        hotspotContent = `<span class="si-hotspot-content">i</span>`;
+                        break;
+                    case 'custom':
+                        hotspotContent = `<span class="si-hotspot-content">${hotspot.customText || 'A'}</span>`;
+                        break;
+                }
+                
+                // Determine popup position and arrow direction
+                let popupStyles = '';
+                let arrowClass = '';
+                
+                if (hotspot.y > 25) {
+                    // Popup above hotspot (most common)
+                    popupStyles = `left: ${hotspot.x}%; bottom: ${100 - hotspot.y + 2}%; transform: translateX(-50%);`;
+                    arrowClass = 'bottom';
+                } else {
+                    // Popup below hotspot
+                    popupStyles = `left: ${hotspot.x}%; top: ${hotspot.y + 2}%; transform: translateX(-50%);`;
+                    arrowClass = 'top';
+                }
+                
+                return `
+        <div class="si-hotspot" style="left: ${hotspot.x}%; top: ${hotspot.y}%;" data-delay="${hotspot.hoverDelay}">
+            ${hotspotContent}
+        </div>
+        <div class="si-popup" data-hotspot="${index}" style="${popupStyles}">
+            <div class="si-popup-arrow ${arrowClass}"></div>
+            <button class="si-popup-close">×</button>
+            ${hotspot.productImage ? `<img src="${hotspot.productImage}" alt="${hotspot.title}" class="si-popup-image" onerror="this.style.display='none'">` : ''}
+            <div class="si-popup-title">${hotspot.title}</div>
+            <div class="si-popup-text">${hotspot.text}</div>
+            <div class="si-popup-price">${hotspot.price}</div>
+            <a href="${hotspot.buttonLink}" class="si-popup-button" target="_blank" rel="noopener">${hotspot.buttonText}</a>
+        </div>`;
+            }).join('');
+
+            return `<!-- Shoppable Image - Homemakers -->
+${fontLink}
+<div class="shoppable-image-container">
+    <style>
+        .shoppable-image-container {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            font-family: '${globalStyles.font}', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .shoppable-image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .si-hotspot {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            background: white;
+            border: 3px solid ${globalStyles.hotspotColor};
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s;
+            z-index: 10;
+            animation: si-pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @keyframes si-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+        
+        .si-hotspot:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+            background: ${globalStyles.hotspotColor};
+        }
+        
+        .si-hotspot-content {
+            color: ${globalStyles.iconColor};
+            font-weight: bold;
+            font-size: 14px;
+            pointer-events: none;
+        }
+        
+        .si-hotspot:hover .si-hotspot-content {
+            color: white;
+        }
+        
+        .si-popup {
+            position: absolute;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            padding: 20px;
+            width: 340px;
+            max-width: calc(100vw - 20px);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transform: scale(0.95);
+            text-align: ${globalStyles.textAlign};
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .si-popup.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+        
+        .si-popup[style*="transform: translateX(-50%)"].active {
+            transform: scale(1) translateX(-50%);
+        }
+        
+        .si-popup-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        
+        .si-popup-arrow.top {
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 10px 10px 10px;
+            border-color: transparent transparent white transparent;
+        }
+        
+        .si-popup-arrow.bottom {
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px 10px 0 10px;
+            border-color: white transparent transparent transparent;
+        }
+        
+        .si-popup-arrow.bottom.arrow-offset-left,
+        .si-popup-arrow.top.arrow-offset-left {
+            left: 30px;
+        }
+        
+        .si-popup-arrow.bottom.arrow-offset-right,
+        .si-popup-arrow.top.arrow-offset-right {
+            left: auto;
+            right: 30px;
+        }
+        
+        .si-popup-arrow.left {
+            right: 100%;
+            top: 30px;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+        
+        .si-popup-arrow.right {
+            left: 100%;
+            top: 30px;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+        
+        .si-popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: #f1f3f5;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: #495057;
+            z-index: 1;
+        }
+        
+        .si-popup-close:hover {
+            background: #e9ecef;
+        }
+        
+        .si-popup-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .si-popup-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: ${globalStyles.titleColor};
+            word-wrap: break-word;
+        }
+        
+        .si-popup-text {
+            color: ${globalStyles.textColor};
+            margin-bottom: 15px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        
+        .si-popup-price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: ${globalStyles.priceColor};
+            margin-bottom: 15px;
+        }
+        
+        .si-popup-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: ${globalStyles.buttonBgColor};
+            color: ${globalStyles.buttonTextColor};
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .si-popup-button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        
+        @media (max-width: 768px) {
+            .si-popup {
+                width: 280px;
+                padding: 15px;
+                font-size: 0.95em;
+            }
+            
+            .si-popup-image {
+                height: 120px;
+            }
+            
+            .si-popup-title {
+                font-size: 1.1em;
+            }
+            
+            .si-popup-price {
+                font-size: 1.3em;
+            }
+            
+            .si-popup-button {
+                padding: 10px;
+                font-size: 0.95em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .si-popup {
+                width: 90vw;
+                max-width: 260px;
+                left: 5vw !important;
+                right: auto !important;
+                transform: none !important;
+            }
+            
+            .si-popup-arrow {
+                display: none;
+            }
+        }
+        
+        .si-popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            background: #f1f3f5;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: #495057;
+        }
+        
+        .si-popup-close:hover {
+            background: #e9ecef;
+        }
+        
+        .si-popup-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .si-popup-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: ${globalStyles.titleColor};
+        }
+        
+        .si-popup-text {
+            color: ${globalStyles.textColor};
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .si-popup-price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: ${globalStyles.priceColor};
+            margin-bottom: 15px;
+        }
+        
+        .si-popup-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: ${globalStyles.buttonBgColor};
+            color: ${globalStyles.buttonTextColor};
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .si-popup-button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        
+        @media (max-width: 640px) {
+            .si-popup {
+                width: 280px;
+            }
+        }
+    </style>
+    
+    <img src="${imageUrl}" alt="Shoppable Image">
+    ${hotspotsHTML}
+    
+    <script>
+        (function() {
+            const container = document.currentScript.parentElement;
+            const hotspots = container.querySelectorAll('.si-hotspot');
+            const popups = container.querySelectorAll('.si-popup');
+            let activePopup = null;
+            
+            hotspots.forEach((hotspot, index) => {
+                const popup = popups[index];
+                const hoverDelay = parseInt(hotspot.dataset.delay) || 200;
+                let hoverTimeout;
+                let isHoveringHotspot = false;
+                let isHoveringPopup = false;
+                
+                function showPopup() {
+                    if (activePopup && activePopup !== popup) {
+                        activePopup.classList.remove('active');
+                    }
+                    popup.classList.add('active');
+                    activePopup = popup;
+                }
+                
+                function hidePopup() {
+                    clearTimeout(hoverTimeout);
+                    hoverTimeout = setTimeout(() => {
+                        if (!isHoveringHotspot && !isHoveringPopup) {
+                            popup.classList.remove('active');
+                            if (activePopup === popup) {
+                                activePopup = null;
+                            }
+                        }
+                    }, 300);
+                }
+                
+                // Desktop hover
+                hotspot.addEventListener('mouseenter', () => {
+                    isHoveringHotspot = true;
+                    clearTimeout(hoverTimeout);
+                    hoverTimeout = setTimeout(() => {
+                        if (isHoveringHotspot) {
+                            showPopup();
+                        }
+                    }, hoverDelay);
+                });
+                
+                hotspot.addEventListener('mouseleave', () => {
+                    isHoveringHotspot = false;
+                    hidePopup();
+                });
+                
+                popup.addEventListener('mouseenter', () => {
+                    isHoveringPopup = true;
+                    clearTimeout(hoverTimeout);
+                });
+                
+                popup.addEventListener('mouseleave', () => {
+                    isHoveringPopup = false;
+                    hidePopup();
+                });
+                
+                // Mobile tap
+                hotspot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    showPopup();
+                });
+                
+                // Close button
+                const closeBtn = popup.querySelector('.si-popup-close');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        popup.classList.remove('active');
+                    });
+                }
+            });
+            
+            // Close popups when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!container.contains(e.target)) {
+                    popups.forEach(popup => popup.classList.remove('active'));
+                    activePopup = null;
+                }
+            });
+        })();
+    <\/script>
+</div>`;
+        }
+
+        function copyCode() {
+            const code = document.getElementById('codeOutput').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.getElementById('copyBtn');
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+                showSuccess('Code copied to clipboard!');
+            }).catch(() => {
+                showError('Failed to copy. Please select and copy manually.');
+            });
+        }
+
+        // Initialize color text inputs
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sync color inputs on load
+            document.getElementById('hotspotColorText').value = document.getElementById('hotspotColor').value;
+            document.getElementById('hotspotHoverColorText').value = document.getElementById('hotspotHoverColor').value;
+            document.getElementById('iconColorText').value = document.getElementById('iconColor').value;
+            document.getElementById('titleColorText').value = document.getElementById('titleColor').value;
+            document.getElementById('textColorText').value = document.getElementById('textColor').value;
+            document.getElementById('priceColorText').value = document.getElementById('priceColor').value;
+            document.getElementById('buttonBgColorText').value = document.getElementById('buttonBgColor').value;
+            document.getElementById('buttonTextColorText').value = document.getElementById('buttonTextColor').value;
+        });
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Delete selected hotspot
+            if ((e.key === 'Delete' || e.key === 'Backspace') && currentHotspotIndex >= 0 && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                deleteHotspot();
+            }
+            
+            // Duplicate selected hotspot
+            if ((e.ctrlKey || e.metaKey) && e.key === 'd' && currentHotspotIndex >= 0) {
+                e.preventDefault();
+                duplicateHotspot();
+            }
+            
+            // Undo
+            if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+                e.preventDefault();
+                undoLastAction();
+            }
+            
+            // Export
+            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+                e.preventDefault();
+                document.querySelector('[data-tab="export"]').click();
+                exportHTML();
+            }
+            
+            // Toggle preview
+            if (e.key === 'p' && !e.ctrlKey && !e.metaKey && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                togglePreviewMode();
+            }
+        });
+
+        // Auto-save to localStorage
+        function autoSave() {
+            const data = {
+                hotspots,
+                imageUrl,
+                globalStyles
+            };
+            localStorage.setItem('shoppableImageData', JSON.stringify(data));
+        }
+
+        // Load from localStorage
+        function loadSavedData() {
+            const saved = localStorage.getItem('shoppableImageData');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    if (data.imageUrl) {
+                        imageUrl = data.imageUrl;
+                        displayImage(imageUrl);
+                    }
+                    if (data.hotspots) {
+                        hotspots = data.hotspots;
+                        renderHotspots();
+                        updateHotspotList();
+                        updateStats();
+                    }
+                    if (data.globalStyles) {
+                        globalStyles = data.globalStyles;
+                        // Update UI controls
+                        document.getElementById('globalFont').value = globalStyles.font || 'Inter';
+                        document.getElementById('textAlign').value = globalStyles.textAlign || 'left';
+                        document.getElementById('hotspotColor').value = globalStyles.hotspotColor || '#e74c3c';
+                        document.getElementById('hotspotColorText').value = globalStyles.hotspotColor || '#e74c3c';
+                        document.getElementById('hotspotHoverColor').value = globalStyles.hotspotHoverColor || '#c0392b';
+                        document.getElementById('hotspotHoverColorText').value = globalStyles.hotspotHoverColor || '#c0392b';
+                        document.getElementById('iconColor').value = globalStyles.iconColor || '#e74c3c';
+                        document.getElementById('iconColorText').value = globalStyles.iconColor || '#e74c3c';
+                        document.getElementById('titleColor').value = globalStyles.titleColor || '#212529';
+                        document.getElementById('titleColorText').value = globalStyles.titleColor || '#212529';
+                        document.getElementById('textColor').value = globalStyles.textColor || '#6c757d';
+                        document.getElementById('textColorText').value = globalStyles.textColor || '#6c757d';
+                        document.getElementById('priceColor').value = globalStyles.priceColor || '#e74c3c';
+                        document.getElementById('priceColorText').value = globalStyles.priceColor || '#e74c3c';
+                        document.getElementById('buttonBgColor').value = globalStyles.buttonBgColor || '#e74c3c';
+                        document.getElementById('buttonBgColorText').value = globalStyles.buttonBgColor || '#e74c3c';
+                        document.getElementById('buttonTextColor').value = globalStyles.buttonTextColor || '#ffffff';
+                        document.getElementById('buttonTextColorText').value = globalStyles.buttonTextColor || '#ffffff';
+                        updateGlobalStyles();
+                    }
+                    showSuccess('Previous session restored');
+                } catch (e) {
+                    console.error('Failed to load saved data:', e);
+                }
+            }
+        }
+
+        // Auto-save every 5 seconds
+        setInterval(autoSave, 5000);
+
+        // Load saved data on startup
+        window.addEventListener('load', () => {
+            if (confirm('Do you want to restore your previous session?')) {
+                loadSavedData();
+            }
+        });
+
+        // Prevent accidental page close with unsaved changes
+        window.addEventListener('beforeunload', (e) => {
+            if (hotspots.length > 0) {
+                autoSave();
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+    </script>
+</body>
+</html>
