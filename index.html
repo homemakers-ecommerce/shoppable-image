@@ -2,20 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shoppable Image Creator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Shoppable Image Creator - Enterprise Edition</title>
     <style>
+        /* CSS Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        :root {
+            --primary-color: #e74c3c;
+            --primary-dark: #c0392b;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+            --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+            --shadow-xl: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
+            --border-radius: 12px;
+            --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            font-family: var(--font-system);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
+            line-height: 1.6;
+            color: var(--gray-900);
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+            }
         }
 
         .container {
@@ -23,68 +54,105 @@
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-xl);
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 30px;
+            padding: 1.5rem;
             text-align: center;
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.95;
+            font-size: 0.95rem;
+        }
+
+        @media (min-width: 768px) {
+            .header {
+                padding: 2rem;
+            }
+            .header h1 {
+                font-size: 2.25rem;
+            }
+            .header p {
+                font-size: 1rem;
+            }
         }
 
         .main-content {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 30px;
-            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
         }
 
-        @media (max-width: 1100px) {
+        @media (min-width: 1100px) {
             .main-content {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: 1fr 400px;
+                gap: 2rem;
+                padding: 2rem;
             }
         }
 
         .workspace {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            min-height: 500px;
+            background: var(--gray-100);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            min-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .workspace {
+                padding: 1.5rem;
+                min-height: 500px;
+            }
         }
 
         .workspace-header {
-            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .workspace-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
         }
 
         .preview-toggle {
             display: flex;
-            gap: 10px;
             align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--gray-700);
         }
 
         .toggle-switch {
             position: relative;
-            width: 50px;
+            width: 48px;
             height: 26px;
-            background: #ddd;
+            background: var(--gray-400);
             border-radius: 13px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background-color 0.3s ease;
         }
 
         .toggle-switch.active {
-            background: #e74c3c;
+            background: var(--primary-color);
         }
 
         .toggle-slider {
@@ -95,272 +163,173 @@
             height: 20px;
             background: white;
             border-radius: 50%;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
 
         .toggle-switch.active .toggle-slider {
-            transform: translateX(24px);
+            transform: translateX(22px);
         }
 
         .upload-area {
-            border: 3px dashed #ddd;
-            border-radius: 10px;
-            padding: 40px;
+            border: 2px dashed var(--gray-400);
+            border-radius: var(--border-radius);
+            padding: 2rem 1rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             background: white;
-            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .upload-area {
+                padding: 3rem 2rem;
+            }
         }
 
         .upload-area:hover {
-            border-color: #e74c3c;
-            background: #fff5f5;
+            border-color: var(--primary-color);
+            background: rgba(231, 76, 60, 0.03);
         }
 
         .upload-area.dragging {
-            border-color: #c0392b;
-            background: #fff5f5;
+            border-color: var(--primary-dark);
+            background: rgba(231, 76, 60, 0.05);
         }
 
-        .upload-content svg {
-            margin-bottom: 15px;
+        .upload-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            stroke: var(--primary-color);
         }
 
         .upload-content h3 {
-            color: #495057;
-            margin-bottom: 10px;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
         .upload-content p {
-            color: #6c757d;
-            margin-bottom: 5px;
+            color: var(--gray-600);
+            font-size: 0.9rem;
         }
 
         .image-wrapper {
             display: none;
-            text-align: center;
         }
 
         .image-container {
             position: relative;
             display: inline-block;
             max-width: 100%;
-            margin: 20px auto;
+            margin: 1rem auto;
             user-select: none;
+            overflow: visible; /* Allow popups to show outside during editing */
         }
 
         .image-container img {
             max-width: 100%;
             height: auto;
             display: block;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .hotspot {
-            position: absolute;
-            width: 36px;
-            height: 36px;
-            background: white;
-            border: 3px solid #e74c3c;
-            border-radius: 50%;
-            cursor: pointer;
-            transform: translate(-50%, -50%);
-            transition: all 0.3s;
-            z-index: 10;
-            animation: pulse 2s infinite;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            user-select: none;
-        }
-
-        .hotspot.dragging {
-            opacity: 0.8;
-            cursor: grabbing !important;
-            animation: none;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(231, 76, 60, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
-            }
-        }
-
-        .hotspot:hover {
-            transform: translate(-50%, -50%) scale(1.2);
-            background: #e74c3c;
-        }
-
-        .hotspot.active {
-            background: #c0392b;
-            border-color: #c0392b;
-        }
-
-        .hotspot-content {
-            color: #e74c3c;
-            font-weight: bold;
-            font-size: 14px;
-            pointer-events: none;
-        }
-
-        .hotspot:hover .hotspot-content,
-        .hotspot.active .hotspot-content {
-            color: white;
-        }
-
-        .popup {
-            position: absolute;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-            padding: 20px;
-            width: 300px;
-            max-width: 90vw;
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s ease, visibility 0.2s ease;
-            pointer-events: none;
-        }
-
-        .popup.active {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-
-        .popup-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            background: #f1f3f5;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
-            color: #495057;
-        }
-
-        .popup-image {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        .popup-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #212529;
-        }
-
-        .popup-text {
-            color: #6c757d;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-
-        .popup-price {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #e74c3c;
-            margin-bottom: 15px;
-        }
-
-        .popup-button {
-            width: 100%;
-            padding: 12px;
-            background: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: block;
-            text-align: center;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
         }
 
         .controls {
             background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: var(--border-radius);
+            padding: 1.25rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        @media (min-width: 768px) {
+            .controls {
+                padding: 1.5rem;
+            }
         }
 
         .control-tabs {
             display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e9ecef;
+            gap: 2px;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--gray-200);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .control-tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .tab-button {
-            padding: 10px 15px;
+            padding: 0.75rem 1rem;
             background: none;
             border: none;
-            color: #6c757d;
-            font-weight: 600;
+            color: var(--gray-600);
+            font-weight: 500;
             cursor: pointer;
             border-bottom: 3px solid transparent;
             margin-bottom: -2px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .tab-button:hover {
+            color: var(--gray-800);
         }
 
         .tab-button.active {
-            color: #e74c3c;
-            border-bottom-color: #e74c3c;
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
         }
 
         .tab-content {
             display: none;
+            animation: fadeIn 0.3s ease;
         }
 
         .tab-content.active {
             display: block;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         .control-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem;
         }
 
         .control-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #495057;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-800);
+            font-size: 0.95rem;
         }
 
         .control-group input,
         .control-group textarea,
         .control-group select {
             width: 100%;
-            padding: 10px;
-            border: 2px solid #e9ecef;
+            padding: 0.625rem 0.875rem;
+            border: 1.5px solid var(--gray-300);
             border-radius: 8px;
-            font-size: 1em;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            font-family: var(--font-system);
         }
 
         .control-group input:focus,
         .control-group textarea:focus,
         .control-group select:focus {
             outline: none;
-            border-color: #e74c3c;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
         }
 
         .control-group textarea {
@@ -368,24 +337,61 @@
             min-height: 80px;
         }
 
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            padding: 0.875rem;
+            background: var(--gray-100);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 0.625rem;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
         .btn {
-            padding: 12px 20px;
+            padding: 0.625rem 1.25rem;
             border: none;
             border-radius: 8px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
-            margin-right: 10px;
-            margin-bottom: 10px;
+            margin-right: 0.625rem;
+            margin-bottom: 0.625rem;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
         .btn-primary {
-            background: #e74c3c;
+            background: var(--primary-color);
             color: white;
         }
 
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
         .btn-secondary {
-            background: #6c757d;
+            background: var(--gray-600);
             color: white;
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-700);
         }
 
         .btn-danger {
@@ -393,47 +399,73 @@
             color: white;
         }
 
+        .btn-danger:hover {
+            background: #bb2d3b;
+        }
+
         .btn-success {
-            background: #28a745;
+            background: #198754;
             color: white;
         }
 
+        .btn-success:hover {
+            background: #146c43;
+        }
+
         .instructions {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            background: var(--gray-100);
+            padding: 1.25rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
         }
 
         .instructions h3 {
-            margin-bottom: 10px;
-            color: #495057;
+            margin-bottom: 0.75rem;
+            color: var(--gray-800);
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
         .instructions ol {
-            margin-left: 20px;
-            color: #6c757d;
+            margin-left: 1.25rem;
+            color: var(--gray-700);
         }
 
         .instructions li {
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
         }
 
         .message {
-            padding: 15px;
+            padding: 0.875rem 1.25rem;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
             display: none;
+            font-size: 0.95rem;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .message.success {
-            background: #d4edda;
-            color: #155724;
+            background: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
         }
 
         .message.error {
             background: #f8d7da;
-            color: #721c24;
+            color: #842029;
+            border: 1px solid #f5c2c7;
         }
 
         .hotspot-form {
@@ -443,38 +475,71 @@
         .hotspot-list {
             max-height: 300px;
             overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gray-400) transparent;
+        }
+
+        .hotspot-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .hotspot-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .hotspot-list::-webkit-scrollbar-thumb {
+            background: var(--gray-400);
+            border-radius: 3px;
         }
 
         .hotspot-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            background: var(--gray-100);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.625rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
         }
 
         .hotspot-item:hover {
-            background: #e9ecef;
+            background: var(--gray-200);
+            transform: translateX(4px);
         }
 
         .hotspot-item.active {
-            background: rgba(231, 76, 60, 0.1);
-            border-left: 4px solid #e74c3c;
+            background: rgba(231, 76, 60, 0.08);
+            border-color: var(--primary-color);
         }
 
         .code-output {
             background: #1e1e1e;
             color: #d4d4d4;
-            padding: 20px;
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
+            padding: 1.25rem;
+            border-radius: var(--border-radius);
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85rem;
             overflow-x: auto;
             max-height: 400px;
             overflow-y: auto;
-            margin-top: 10px;
+            margin-top: 1rem;
             display: none;
+            scrollbar-width: thin;
+            scrollbar-color: #3e3e3e transparent;
+        }
+
+        .code-output::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .code-output::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .code-output::-webkit-scrollbar-thumb {
+            background: #3e3e3e;
+            border-radius: 4px;
         }
 
         #file-input {
@@ -487,118 +552,294 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.1);
-            z-index: 999;
+            background: rgba(0, 0, 0, 0.05);
+            z-index: 9999;
             display: none;
             cursor: grabbing;
         }
 
-        /* Hotspot Animations */
-        @keyframes bounce {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.2); }
+        .color-preview {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-300);
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-left: 0.5rem;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translate(-50%, -50%); }
-            25% { transform: translate(-48%, -50%); }
-            75% { transform: translate(-52%, -50%); }
+        .color-input-group {
+            display: flex;
+            gap: 0.625rem;
+            align-items: center;
         }
 
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-            50% { box-shadow: 0 0 0 20px rgba(231, 76, 60, 0); }
+        .color-input-group input[type="color"] {
+            width: 48px;
+            height: 36px;
+            padding: 2px;
+            cursor: pointer;
+            border: 1.5px solid var(--gray-300);
         }
 
-        @keyframes rotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+        .color-input-group input[type="text"] {
+            flex: 1;
         }
 
-        @keyframes scaleAnim {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.1); }
+        /* Hotspot Styles */
+        .hotspot {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            background: white;
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+            z-index: 10;
+            animation: pulse 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Hover Animations */
-        .hotspot.hover-bounce:hover {
-            animation: bounce 0.6s ease-in-out;
+        .hotspot.dragging {
+            opacity: 0.85;
+            cursor: grabbing !important;
+            animation: none;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translate(-50%, -50%) scale(1.1);
         }
 
-        .hotspot.hover-wobble:hover {
-            animation: wobble 0.8s ease-in-out;
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.6);
+            }
+            70% {
+                box-shadow: 0 0 0 12px rgba(231, 76, 60, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+            }
         }
 
-        @keyframes wobble {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            25% { transform: translate(-50%, -50%) rotate(-5deg); }
-            50% { transform: translate(-50%, -50%) rotate(0deg); }
-            75% { transform: translate(-50%, -50%) rotate(5deg); }
-            100% { transform: translate(-50%, -50%) rotate(0deg); }
+        .hotspot:hover {
+            transform: translate(-50%, -50%) scale(1.15);
+            background: var(--primary-color);
         }
 
-        .hotspot.hover-flip:hover {
-            animation: flip 0.6s ease-in-out;
+        .hotspot.active {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
         }
 
-        @keyframes flip {
-            0% { transform: translate(-50%, -50%) rotateY(0deg); }
-            50% { transform: translate(-50%, -50%) rotateY(180deg); }
-            100% { transform: translate(-50%, -50%) rotateY(0deg); }
+        .hotspot-content {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 14px;
+            pointer-events: none;
         }
 
-        .hotspot.hover-spin:hover {
-            animation: spin 0.8s ease-in-out;
+        .hotspot:hover .hotspot-content,
+        .hotspot.active .hotspot-content {
+            color: white;
+        }
+
+        /* Popup Styles */
+        .popup {
+            position: absolute;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-xl);
+            padding: 1.25rem;
+            width: 280px;
+            max-width: calc(100vw - 2rem);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        @media (min-width: 480px) {
+            .popup {
+                width: 320px;
+                padding: 1.5rem;
+            }
+        }
+
+        .popup.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* Mobile-specific popup positioning */
+        @media (max-width: 767px) {
+            .popup.active {
+                position: fixed !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                bottom: auto !important;
+                right: auto !important;
+                width: min(90vw, 360px) !important;
+            }
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 32px;
+            height: 32px;
+            background: var(--gray-100);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--gray-600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .popup-close:hover {
+            background: var(--gray-200);
+            color: var(--gray-800);
+        }
+
+        .popup-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: var(--gray-100);
+        }
+
+        .popup-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--gray-900);
+            line-height: 1.3;
+        }
+
+        .popup-text {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .popup-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .popup-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .popup-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Style Preview */
+        .style-preview-container {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--gray-100);
+            border-radius: var(--border-radius);
+        }
+
+        .style-preview-container h4 {
+            margin-bottom: 1rem;
+            color: var(--gray-800);
+            font-weight: 600;
+        }
+
+        #style-preview-hotspot {
+            position: relative !important;
+            transform: none !important;
+            margin: 1.5rem auto;
+            display: flex !important;
+        }
+
+        /* Touch optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .hotspot {
+                width: 44px;
+                height: 44px;
+            }
+            
+            .popup-close {
+                width: 44px;
+                height: 44px;
+                font-size: 24px;
+            }
+        }
+
+        /* Loading state */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--gray-300);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
         }
 
         @keyframes spin {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+            to { transform: rotate(360deg); }
         }
 
-        .hotspot.hover-pulse:hover {
-            animation: pulse-hover 0.6s ease-in-out;
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
-        @keyframes pulse-hover {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.3); }
-        }
-
-        .hotspot.hover-glow:hover {
-            animation: glow-expand 0.6s ease-in-out;
-        }
-
-        @keyframes glow-expand {
-            0%, 100% { 
-                transform: translate(-50%, -50%) scale(1);
-                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
             }
-            50% { 
-                transform: translate(-50%, -50%) scale(1.2);
-                box-shadow: 0 0 0 25px rgba(231, 76, 60, 0);
+            .controls,
+            .btn,
+            .popup-close {
+                display: none !important;
             }
-        }
-
-        /* Animation classes */
-        .anim-bounce {
-            animation: bounce 2s infinite;
-        }
-
-        .anim-shake {
-            animation: shake 1s infinite;
-        }
-
-        .anim-glow {
-            animation: glow 2s infinite;
-        }
-
-        .anim-rotate {
-            animation: rotate 3s linear infinite;
-        }
-
-        .anim-scale {
-            animation: scaleAnim 2s infinite;
         }
     </style>
 </head>
@@ -623,14 +864,14 @@
                 
                 <div class="upload-area" id="upload-area">
                     <div class="upload-content">
-                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2">
+                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="17 8 12 3 7 8"></polyline>
                             <line x1="12" y1="3" x2="12" y2="15"></line>
                         </svg>
                         <h3>Upload Your Image</h3>
                         <p>Click to browse or drag and drop</p>
-                        <p style="color: #adb5bd; font-size: 0.9em;">Supports: JPG, PNG, GIF</p>
+                        <p style="color: var(--gray-500); font-size: 0.875rem; margin-top: 0.25rem;">Supports: JPG, PNG, GIF, WebP</p>
                     </div>
                     <input type="file" id="file-input" accept="image/*">
                 </div>
@@ -638,9 +879,9 @@
                 <div class="image-wrapper" id="image-wrapper">
                     <div class="message" id="message"></div>
                     <div class="image-container" id="image-container"></div>
-                    <div style="margin-top: 20px;">
+                    <div style="margin-top: 1.5rem; text-align: center;">
                         <button class="btn btn-primary" id="change-image-btn">Change Image</button>
-                        <button class="btn btn-secondary" id="clear-all-btn">Clear All</button>
+                        <button class="btn btn-secondary" id="clear-all-btn">Clear All Hotspots</button>
                     </div>
                 </div>
             </div>
@@ -657,57 +898,68 @@
                     <div class="instructions">
                         <h3>📌 Quick Guide</h3>
                         <ol>
-                            <li>Upload an image</li>
+                            <li>Upload an image to get started</li>
                             <li>Click on the image to add hotspots</li>
                             <li>Drag hotspots to reposition them</li>
-                            <li>Fill in product details</li>
-                            <li>Export the HTML code</li>
+                            <li>Fill in product details for each hotspot</li>
+                            <li>Export the HTML code for your website</li>
                         </ol>
                     </div>
 
                     <div class="hotspot-form" id="hotspot-form">
-                        <h3>Hotspot Details</h3>
+                        <h3 style="margin-bottom: 1rem; color: var(--gray-800);">Hotspot Details</h3>
                         
                         <div class="control-group">
-                            <label>Product Title</label>
-                            <input type="text" id="product-title" placeholder="Product Name">
+                            <label for="product-title">Product Title *</label>
+                            <input type="text" id="product-title" placeholder="Enter product name">
                         </div>
                         
                         <div class="control-group">
-                            <label>Description</label>
-                            <textarea id="product-description" placeholder="Product description"></textarea>
+                            <label for="product-description">Description</label>
+                            <textarea id="product-description" placeholder="Describe the product"></textarea>
                         </div>
                         
                         <div class="control-group">
-                            <label>Price</label>
-                            <input type="text" id="product-price" placeholder="$99">
+                            <label for="product-price">Price</label>
+                            <input type="text" id="product-price" placeholder="$99.99">
                         </div>
                         
                         <div class="control-group">
-                            <label>Product Image URL</label>
-                            <input type="text" id="product-image" placeholder="https://example.com/image.jpg">
+                            <label for="product-image">Product Image URL</label>
+                            <input type="url" id="product-image" placeholder="https://example.com/product.jpg">
                         </div>
                         
                         <div class="control-group">
-                            <label>Button Text</label>
-                            <input type="text" id="button-text" placeholder="Shop Now">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="show-cta" checked>
+                                <label for="show-cta">Show Call-to-Action Button</label>
+                            </div>
                         </div>
                         
-                        <div class="control-group">
-                            <label>Button Link</label>
-                            <input type="url" id="button-link" placeholder="https://example.com/product">
+                        <div id="cta-fields">
+                            <div class="control-group">
+                                <label for="button-text">Button Text</label>
+                                <input type="text" id="button-text" placeholder="Shop Now">
+                            </div>
+                            
+                            <div class="control-group">
+                                <label for="button-link">Button Link</label>
+                                <input type="url" id="button-link" placeholder="https://example.com/product">
+                            </div>
                         </div>
                         
-                        <button class="btn btn-primary" id="save-hotspot-btn">💾 Save</button>
-                        <button class="btn btn-danger" id="delete-hotspot-btn">🗑️ Delete</button>
+                        <div style="margin-top: 1.5rem;">
+                            <button class="btn btn-primary" id="save-hotspot-btn">💾 Save Changes</button>
+                            <button class="btn btn-danger" id="delete-hotspot-btn">🗑️ Delete</button>
+                        </div>
                     </div>
                 </div>
 
                 <div id="style-tab" class="tab-content">
-                    <h3>🎨 Style Customization</h3>
+                    <h3 style="margin-bottom: 1.25rem; color: var(--gray-800);">🎨 Style Customization</h3>
                     
                     <div class="control-group">
-                        <label>Hotspot Animation</label>
+                        <label for="hotspot-animation">Hotspot Animation</label>
                         <select id="hotspot-animation">
                             <option value="pulse">Pulse (Default)</option>
                             <option value="bounce">Bounce</option>
@@ -720,7 +972,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label>Hover Animation</label>
+                        <label for="hover-animation">Hover Animation</label>
                         <select id="hover-animation">
                             <option value="scale">Scale Up</option>
                             <option value="bounce">Bounce</option>
@@ -733,144 +985,104 @@
                     </div>
 
                     <div class="control-group">
-                        <label>Hotspot Size (px)</label>
-                        <input type="range" id="hotspot-size" min="24" max="60" value="36" oninput="document.getElementById('size-value').textContent = this.value + 'px'">
-                        <span id="size-value">36px</span>
+                        <label for="hotspot-size">Hotspot Size: <span id="size-value" style="color: var(--primary-color); font-weight: 600;">36px</span></label>
+                        <input type="range" id="hotspot-size" min="24" max="60" value="36">
                     </div>
 
                     <div class="control-group">
-                        <label>Hotspot Color</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="color" id="hotspot-color" value="#e74c3c" style="width: 50px;">
-                            <input type="text" id="hotspot-color-text" value="#e74c3c" style="flex: 1;">
+                        <label>Hotspot Color <span class="color-preview" id="hotspot-color-preview"></span></label>
+                        <div class="color-input-group">
+                            <input type="color" id="hotspot-color" value="#e74c3c">
+                            <input type="text" id="hotspot-color-text" value="#e74c3c" placeholder="#e74c3c">
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label>Hotspot Background</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="color" id="hotspot-bg" value="#ffffff" style="width: 50px;">
-                            <input type="text" id="hotspot-bg-text" value="#ffffff" style="flex: 1;">
+                        <label>Hotspot Background <span class="color-preview" id="hotspot-bg-preview"></span></label>
+                        <div class="color-input-group">
+                            <input type="color" id="hotspot-bg" value="#ffffff">
+                            <input type="text" id="hotspot-bg-text" value="#ffffff" placeholder="#ffffff">
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label>Border Width (px)</label>
-                        <input type="range" id="border-width" min="1" max="8" value="3" oninput="document.getElementById('border-value').textContent = this.value + 'px'">
-                        <span id="border-value">3px</span>
+                        <label for="border-width">Border Width: <span id="border-value" style="color: var(--primary-color); font-weight: 600;">3px</span></label>
+                        <input type="range" id="border-width" min="1" max="8" value="3">
                     </div>
 
-                    <div class="control-group">
-                        <label>Border Radius</label>
-                        <select id="border-radius">
-                            <option value="50%">Circle (Default)</option>
-                            <option value="8px">Rounded Square</option>
-                            <option value="0px">Square</option>
-                            <option value="20px">Very Rounded</option>
-                        </select>
-                    </div>
+                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--gray-200);">
+
+                    <h4 style="margin-bottom: 1rem; color: var(--gray-800);">Popup Styling</h4>
 
                     <div class="control-group">
-                        <label>Shadow Style</label>
-                        <select id="shadow-style">
-                            <option value="default">Default</option>
-                            <option value="soft">Soft Shadow</option>
-                            <option value="hard">Hard Shadow</option>
-                            <option value="glow">Color Glow</option>
-                            <option value="none">No Shadow</option>
-                        </select>
-                    </div>
-
-                    <hr style="margin: 20px 0; border: none; border-top: 1px solid #e9ecef;">
-
-                    <h4>Popup Styling</h4>
-
-                    <div class="control-group">
-                        <label>Popup Background</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="color" id="popup-bg" value="#ffffff" style="width: 50px;">
-                            <input type="text" id="popup-bg-text" value="#ffffff" style="flex: 1;">
+                        <label>Popup Background <span class="color-preview" id="popup-bg-preview"></span></label>
+                        <div class="color-input-group">
+                            <input type="color" id="popup-bg" value="#ffffff">
+                            <input type="text" id="popup-bg-text" value="#ffffff" placeholder="#ffffff">
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label>Title Color</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="color" id="title-color" value="#212529" style="width: 50px;">
-                            <input type="text" id="title-color-text" value="#212529" style="flex: 1;">
+                        <label>Title Color <span class="color-preview" id="title-color-preview"></span></label>
+                        <div class="color-input-group">
+                            <input type="color" id="title-color" value="#212529">
+                            <input type="text" id="title-color-text" value="#212529" placeholder="#212529">
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label>Text Color</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="color" id="text-color" value="#6c757d" style="width: 50px;">
-                            <input type="text" id="text-color-text" value="#6c757d" style="flex: 1;">
+                        <label>Text Color <span class="color-preview" id="text-color-preview"></span></label>
+                        <div class="color-input-group">
+                            <input type="color" id="text-color" value="#6c757d">
+                            <input type="text" id="text-color-text" value="#6c757d" placeholder="#6c757d">
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label>Price Color</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="color" id="price-color" value="#e74c3c" style="width: 50px;">
-                            <input type="text" id="price-color-text" value="#e74c3c" style="flex: 1;">
+                        <label>Price Color <span class="color-preview" id="price-color-preview"></span></label>
+                        <div class="color-input-group">
+                            <input type="color" id="price-color" value="#e74c3c">
+                            <input type="text" id="price-color-text" value="#e74c3c" placeholder="#e74c3c">
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label>Button Background</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="color" id="button-bg" value="#e74c3c" style="width: 50px;">
-                            <input type="text" id="button-bg-text" value="#e74c3c" style="flex: 1;">
+                        <label>Button Background <span class="color-preview" id="button-bg-preview"></span></label>
+                        <div class="color-input-group">
+                            <input type="color" id="button-bg" value="#e74c3c">
+                            <input type="text" id="button-bg-text" value="#e74c3c" placeholder="#e74c3c">
                         </div>
                     </div>
 
-                    <div class="control-group">
-                        <label>Button Text Color</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="color" id="button-text-color" value="#ffffff" style="width: 50px;">
-                            <input type="text" id="button-text-text" value="#ffffff" style="flex: 1;">
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label>Font Family</label>
-                        <select id="font-family">
-                            <option value="system">System Default</option>
-                            <option value="Arial">Arial</option>
-                            <option value="Helvetica">Helvetica</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Times">Times New Roman</option>
-                            <option value="Roboto">Roboto</option>
-                            <option value="Open Sans">Open Sans</option>
-                        </select>
-                    </div>
-
-                    <div style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
-                        <h4 style="margin-bottom: 15px;">Preview</h4>
-                        <div style="position: relative; display: inline-block;">
-                            <div id="style-preview-hotspot" class="hotspot" style="position: relative; transform: none; margin: 20px;">
+                    <div class="style-preview-container">
+                        <h4>Preview</h4>
+                        <div style="text-align: center;">
+                            <div id="style-preview-hotspot" class="hotspot">
                                 <span class="hotspot-content">1</span>
                             </div>
                         </div>
                     </div>
 
-                    <button class="btn btn-primary" onclick="app.applyStyles()">Apply Styles</button>
-                    <button class="btn btn-secondary" onclick="app.resetStyles()">Reset to Default</button>
+                    <div style="margin-top: 1.5rem;">
+                        <button class="btn btn-primary" onclick="app.applyStyles()">Apply Styles</button>
+                        <button class="btn btn-secondary" onclick="app.resetStyles()">Reset to Default</button>
+                    </div>
                 </div>
 
                 <div id="list-tab" class="tab-content">
-                    <h3>Hotspot List</h3>
+                    <h3 style="margin-bottom: 1.25rem; color: var(--gray-800);">📋 Hotspot List</h3>
                     <div class="hotspot-list" id="hotspot-list">
-                        <p style="color: #6c757d;">No hotspots added yet</p>
+                        <p style="color: var(--gray-600); text-align: center; padding: 2rem;">No hotspots added yet</p>
                     </div>
                 </div>
 
                 <div id="export-tab" class="tab-content">
-                    <h3>Export HTML</h3>
-                    <p style="color: #6c757d; margin-bottom: 15px;">Generate code for your website</p>
+                    <h3 style="margin-bottom: 1rem; color: var(--gray-800);">📤 Export HTML</h3>
+                    <p style="color: var(--gray-600); margin-bottom: 1.25rem;">Generate production-ready code for your website</p>
+                    
                     <button class="btn btn-success" id="export-btn">🚀 Generate Code</button>
-                    <button class="btn btn-primary" id="copy-btn" style="display: none;">📋 Copy</button>
+                    <button class="btn btn-primary" id="copy-btn" style="display: none;">📋 Copy to Clipboard</button>
+                    
                     <div class="code-output" id="code-output"></div>
                 </div>
             </div>
@@ -880,6 +1092,7 @@
     <div class="drag-overlay" id="drag-overlay"></div>
 
     <script>
+        // Enterprise-grade Shoppable Image Creator
         class ShoppableImageCreator {
             constructor() {
                 this.hotspots = [];
@@ -888,6 +1101,7 @@
                 this.previewMode = false;
                 this.isDragging = false;
                 this.dragData = {};
+                this.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
                 this.styles = {
                     hotspotAnimation: 'pulse',
                     hoverAnimation: 'scale',
@@ -903,7 +1117,7 @@
                     priceColor: '#e74c3c',
                     buttonBg: '#e74c3c',
                     buttonTextColor: '#ffffff',
-                    fontFamily: 'system'
+                    fontFamily: 'inherit'
                 };
                 
                 this.init();
@@ -912,6 +1126,8 @@
             init() {
                 this.setupEventListeners();
                 this.setupTabSwitching();
+                this.updateColorPreviews();
+                this.updateRangeValues();
             }
 
             setupEventListeners() {
@@ -922,7 +1138,7 @@
                 uploadArea.addEventListener('click', () => fileInput.click());
                 fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
                 
-                // Drag and drop for file upload
+                // Drag and drop
                 uploadArea.addEventListener('dragover', (e) => {
                     e.preventDefault();
                     uploadArea.classList.add('dragging');
@@ -941,6 +1157,12 @@
                 // Preview toggle
                 document.getElementById('preview-toggle').addEventListener('click', () => {
                     this.togglePreviewMode();
+                });
+
+                // CTA checkbox
+                const showCta = document.getElementById('show-cta');
+                showCta.addEventListener('change', () => {
+                    document.getElementById('cta-fields').style.display = showCta.checked ? 'block' : 'none';
                 });
 
                 // Buttons
@@ -971,53 +1193,178 @@
                 // Style controls
                 this.setupStyleControls();
 
-                // Global mouse events for dragging
-                document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-                document.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+                // Global drag events
+                if (this.isTouchDevice) {
+                    document.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
+                    document.addEventListener('touchend', (e) => this.handleTouchEnd(e));
+                } else {
+                    document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+                    document.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+                }
             }
 
             setupStyleControls() {
-                // Color input synchronization
+                // Color synchronization
                 const colorPairs = [
-                    ['hotspot-color', 'hotspot-color-text'],
-                    ['hotspot-bg', 'hotspot-bg-text'],
-                    ['popup-bg', 'popup-bg-text'],
-                    ['title-color', 'title-color-text'],
-                    ['text-color', 'text-color-text'],
-                    ['price-color', 'price-color-text'],
-                    ['button-bg', 'button-bg-text'],
-                    ['button-text-color', 'button-text-text']
+                    ['hotspot-color', 'hotspot-color-text', 'hotspot-color-preview'],
+                    ['hotspot-bg', 'hotspot-bg-text', 'hotspot-bg-preview'],
+                    ['popup-bg', 'popup-bg-text', 'popup-bg-preview'],
+                    ['title-color', 'title-color-text', 'title-color-preview'],
+                    ['text-color', 'text-color-text', 'text-color-preview'],
+                    ['price-color', 'price-color-text', 'price-color-preview'],
+                    ['button-bg', 'button-bg-text', 'button-bg-preview']
                 ];
 
-                colorPairs.forEach(([colorId, textId]) => {
+                colorPairs.forEach(([colorId, textId, previewId]) => {
                     const colorInput = document.getElementById(colorId);
                     const textInput = document.getElementById(textId);
+                    const preview = document.getElementById(previewId);
                     
                     if (colorInput && textInput) {
                         colorInput.addEventListener('input', (e) => {
                             textInput.value = e.target.value;
+                            if (preview) preview.style.backgroundColor = e.target.value;
                             this.updateStylePreview();
                         });
                         
                         textInput.addEventListener('input', (e) => {
-                            colorInput.value = e.target.value;
-                            this.updateStylePreview();
+                            if (this.isValidHex(e.target.value)) {
+                                colorInput.value = e.target.value;
+                                if (preview) preview.style.backgroundColor = e.target.value;
+                                this.updateStylePreview();
+                            }
                         });
                     }
                 });
 
+                // Range inputs
+                document.getElementById('hotspot-size').addEventListener('input', (e) => {
+                    document.getElementById('size-value').textContent = e.target.value + 'px';
+                    this.updateStylePreview();
+                });
+
+                document.getElementById('border-width').addEventListener('input', (e) => {
+                    document.getElementById('border-value').textContent = e.target.value + 'px';
+                    this.updateStylePreview();
+                });
+
                 // Other style controls
-                const styleInputs = [
-                    'hotspot-animation', 'hover-animation', 'hotspot-size', 
-                    'border-width', 'border-radius', 'shadow-style', 'font-family'
+                ['hotspot-animation', 'hover-animation'].forEach(id => {
+                    document.getElementById(id)?.addEventListener('change', () => this.updateStylePreview());
+                });
+            }
+
+            isValidHex(hex) {
+                return /^#[0-9A-F]{6}$/i.test(hex);
+            }
+
+            updateRangeValues() {
+                document.getElementById('size-value').textContent = document.getElementById('hotspot-size').value + 'px';
+                document.getElementById('border-value').textContent = document.getElementById('border-width').value + 'px';
+            }
+
+            updateColorPreviews() {
+                const colorPairs = [
+                    ['hotspot-color', 'hotspot-color-preview'],
+                    ['hotspot-bg', 'hotspot-bg-preview'],
+                    ['popup-bg', 'popup-bg-preview'],
+                    ['title-color', 'title-color-preview'],
+                    ['text-color', 'text-color-preview'],
+                    ['price-color', 'price-color-preview'],
+                    ['button-bg', 'button-bg-preview']
                 ];
 
-                styleInputs.forEach(inputId => {
+                colorPairs.forEach(([inputId, previewId]) => {
                     const input = document.getElementById(inputId);
-                    if (input) {
-                        input.addEventListener('change', () => this.updateStylePreview());
+                    const preview = document.getElementById(previewId);
+                    if (input && preview) {
+                        preview.style.backgroundColor = input.value;
                     }
                 });
+            }
+
+            updateStylePreview() {
+                const preview = document.getElementById('style-preview-hotspot');
+                if (!preview) return;
+
+                const styles = this.getCurrentStyles();
+                
+                preview.style.width = styles.hotspotSize + 'px';
+                preview.style.height = styles.hotspotSize + 'px';
+                preview.style.backgroundColor = styles.hotspotBg;
+                preview.style.borderColor = styles.hotspotColor;
+                preview.style.borderWidth = styles.borderWidth + 'px';
+                
+                const content = preview.querySelector('.hotspot-content');
+                if (content) {
+                    content.style.color = styles.hotspotColor;
+                }
+
+                // Clear classes and reapply
+                preview.className = 'hotspot';
+                if (styles.hotspotAnimation !== 'none' && styles.hotspotAnimation !== 'pulse') {
+                    preview.classList.add(`anim-${styles.hotspotAnimation}`);
+                }
+            }
+
+            getCurrentStyles() {
+                return {
+                    hotspotAnimation: document.getElementById('hotspot-animation')?.value || 'pulse',
+                    hoverAnimation: document.getElementById('hover-animation')?.value || 'scale',
+                    hotspotSize: parseInt(document.getElementById('hotspot-size')?.value) || 36,
+                    hotspotColor: document.getElementById('hotspot-color')?.value || '#e74c3c',
+                    hotspotBg: document.getElementById('hotspot-bg')?.value || '#ffffff',
+                    borderWidth: parseInt(document.getElementById('border-width')?.value) || 3,
+                    borderRadius: '50%',
+                    shadowStyle: 'default',
+                    popupBg: document.getElementById('popup-bg')?.value || '#ffffff',
+                    titleColor: document.getElementById('title-color')?.value || '#212529',
+                    textColor: document.getElementById('text-color')?.value || '#6c757d',
+                    priceColor: document.getElementById('price-color')?.value || '#e74c3c',
+                    buttonBg: document.getElementById('button-bg')?.value || '#e74c3c',
+                    buttonTextColor: '#ffffff',
+                    fontFamily: 'inherit'
+                };
+            }
+
+            applyStyles() {
+                this.styles = this.getCurrentStyles();
+                this.renderHotspots();
+                this.showMessage('Styles applied successfully!', 'success');
+            }
+
+            resetStyles() {
+                const defaults = {
+                    'hotspot-animation': 'pulse',
+                    'hover-animation': 'scale',
+                    'hotspot-size': '36',
+                    'hotspot-color': '#e74c3c',
+                    'hotspot-color-text': '#e74c3c',
+                    'hotspot-bg': '#ffffff',
+                    'hotspot-bg-text': '#ffffff',
+                    'border-width': '3',
+                    'popup-bg': '#ffffff',
+                    'popup-bg-text': '#ffffff',
+                    'title-color': '#212529',
+                    'title-color-text': '#212529',
+                    'text-color': '#6c757d',
+                    'text-color-text': '#6c757d',
+                    'price-color': '#e74c3c',
+                    'price-color-text': '#e74c3c',
+                    'button-bg': '#e74c3c',
+                    'button-bg-text': '#e74c3c'
+                };
+
+                Object.entries(defaults).forEach(([id, value]) => {
+                    const element = document.getElementById(id);
+                    if (element) element.value = value;
+                });
+
+                this.updateColorPreviews();
+                this.updateRangeValues();
+                this.updateStylePreview();
+                this.applyStyles();
+                this.showMessage('Styles reset to defaults', 'success');
             }
 
             setupTabSwitching() {
@@ -1030,168 +1377,33 @@
                 });
             }
 
-            updateStylePreview() {
-                const preview = document.getElementById('style-preview-hotspot');
-                if (!preview) return;
-
-                const styles = this.getCurrentStyles();
-                
-                // Apply styles to preview
-                preview.style.width = styles.hotspotSize + 'px';
-                preview.style.height = styles.hotspotSize + 'px';
-                preview.style.backgroundColor = styles.hotspotBg;
-                preview.style.borderColor = styles.hotspotColor;
-                preview.style.borderWidth = styles.borderWidth + 'px';
-                preview.style.borderRadius = styles.borderRadius;
-                
-                const content = preview.querySelector('.hotspot-content');
-                if (content) {
-                    content.style.color = styles.hotspotColor;
-                }
-
-                // Apply animation
-                preview.className = 'hotspot';
-                if (styles.hotspotAnimation !== 'none' && styles.hotspotAnimation !== 'pulse') {
-                    preview.classList.add(`anim-${styles.hotspotAnimation}`);
-                }
-
-                // Apply hover animation class
-                preview.classList.add(`hover-${styles.hoverAnimation}`);
-
-                // Apply shadow
-                this.applyShadowStyle(preview, styles.shadowStyle, styles.hotspotColor);
-            }
-
-            applyShadowStyle(element, shadowStyle, color) {
-                switch (shadowStyle) {
-                    case 'soft':
-                        element.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
-                        break;
-                    case 'hard':
-                        element.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
-                        break;
-                    case 'glow':
-                        const rgb = this.hexToRgb(color);
-                        element.style.boxShadow = `0 0 20px rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.5)`;
-                        break;
-                    case 'none':
-                        element.style.boxShadow = 'none';
-                        break;
-                    default:
-                        element.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
-                }
-            }
-
-            hexToRgb(hex) {
-                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-                return result ? {
-                    r: parseInt(result[1], 16),
-                    g: parseInt(result[2], 16),
-                    b: parseInt(result[3], 16)
-                } : { r: 231, g: 76, b: 60 };
-            }
-
-            getCurrentStyles() {
-                return {
-                    hotspotAnimation: document.getElementById('hotspot-animation')?.value || 'pulse',
-                    hoverAnimation: document.getElementById('hover-animation')?.value || 'scale',
-                    hotspotSize: parseInt(document.getElementById('hotspot-size')?.value) || 36,
-                    hotspotColor: document.getElementById('hotspot-color')?.value || '#e74c3c',
-                    hotspotBg: document.getElementById('hotspot-bg')?.value || '#ffffff',
-                    borderWidth: parseInt(document.getElementById('border-width')?.value) || 3,
-                    borderRadius: document.getElementById('border-radius')?.value || '50%',
-                    shadowStyle: document.getElementById('shadow-style')?.value || 'default',
-                    popupBg: document.getElementById('popup-bg')?.value || '#ffffff',
-                    titleColor: document.getElementById('title-color')?.value || '#212529',
-                    textColor: document.getElementById('text-color')?.value || '#6c757d',
-                    priceColor: document.getElementById('price-color')?.value || '#e74c3c',
-                    buttonBg: document.getElementById('button-bg')?.value || '#e74c3c',
-                    buttonTextColor: document.getElementById('button-text-color')?.value || '#ffffff',
-                    fontFamily: document.getElementById('font-family')?.value || 'system'
-                };
-            }
-
-            applyStyles() {
-                this.styles = this.getCurrentStyles();
-                this.renderHotspots();
-                this.showMessage('Styles applied successfully!', 'success');
-            }
-
-            resetStyles() {
-                // Reset all form values to defaults
-                const defaults = {
-                    'hotspot-animation': 'pulse',
-                    'hover-animation': 'scale',
-                    'hotspot-size': '36',
-                    'hotspot-color': '#e74c3c',
-                    'hotspot-color-text': '#e74c3c',
-                    'hotspot-bg': '#ffffff',
-                    'hotspot-bg-text': '#ffffff',
-                    'border-width': '3',
-                    'border-radius': '50%',
-                    'shadow-style': 'default',
-                    'popup-bg': '#ffffff',
-                    'popup-bg-text': '#ffffff',
-                    'title-color': '#212529',
-                    'title-color-text': '#212529',
-                    'text-color': '#6c757d',
-                    'text-color-text': '#6c757d',
-                    'price-color': '#e74c3c',
-                    'price-color-text': '#e74c3c',
-                    'button-bg': '#e74c3c',
-                    'button-bg-text': '#e74c3c',
-                    'button-text-color': '#ffffff',
-                    'button-text-text': '#ffffff',
-                    'font-family': 'system'
-                };
-
-                Object.entries(defaults).forEach(([id, value]) => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        element.value = value;
-                    }
-                });
-
-                // Update value displays
-                document.getElementById('size-value').textContent = '36px';
-                document.getElementById('border-value').textContent = '3px';
-
-                this.updateStylePreview();
-                this.applyStyles();
-                this.showMessage('Styles reset to defaults', 'success');
-            }
-
             switchTab(tabName) {
-                // Update tab buttons
                 document.querySelectorAll('.tab-button').forEach(btn => {
                     btn.classList.remove('active');
                 });
                 document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
 
-                // Update tab content
                 document.querySelectorAll('.tab-content').forEach(content => {
                     content.classList.remove('active');
                 });
                 document.getElementById(`${tabName}-tab`).classList.add('active');
 
-                // Initialize style preview when switching to style tab
                 if (tabName === 'style') {
-                    setTimeout(() => this.updateStylePreview(), 100);
+                    setTimeout(() => {
+                        this.updateStylePreview();
+                        this.updateColorPreviews();
+                    }, 100);
                 }
             }
 
             handleFileSelect(event) {
                 const file = event.target.files[0];
-                if (file) {
-                    this.loadImage(file);
-                }
+                if (file) this.loadImage(file);
             }
 
             handleFileDrop(event) {
                 const files = event.dataTransfer.files;
-                if (files.length > 0) {
-                    this.loadImage(files[0]);
-                }
+                if (files.length > 0) this.loadImage(files[0]);
             }
 
             loadImage(file) {
@@ -1227,21 +1439,33 @@
 
                 imageContainer.appendChild(img);
 
-                // Add click handler for adding hotspots
-                imageContainer.addEventListener('click', (e) => {
-                    if (this.previewMode || this.isDragging) return;
-                    
-                    const img = imageContainer.querySelector('img');
-                    if (e.target === img) {
-                        const rect = img.getBoundingClientRect();
-                        const x = ((e.clientX - rect.left) / rect.width) * 100;
-                        const y = ((e.clientY - rect.top) / rect.height) * 100;
-                        
-                        if (x >= 0 && x <= 100 && y >= 0 && y <= 100) {
-                            this.addHotspot(x, y);
-                        }
-                    }
-                });
+                // Add click handler
+                if (this.isTouchDevice) {
+                    imageContainer.addEventListener('touchstart', (e) => this.handleImageClick(e, true));
+                } else {
+                    imageContainer.addEventListener('click', (e) => this.handleImageClick(e, false));
+                }
+            }
+
+            handleImageClick(e, isTouch) {
+                if (this.previewMode || this.isDragging) return;
+                
+                const imageContainer = document.getElementById('image-container');
+                const img = imageContainer.querySelector('img');
+                
+                const target = isTouch ? e.touches[0].target : e.target;
+                if (target !== img) return;
+                
+                const rect = img.getBoundingClientRect();
+                const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+                const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+                
+                const x = ((clientX - rect.left) / rect.width) * 100;
+                const y = ((clientY - rect.top) / rect.height) * 100;
+                
+                if (x >= 0 && x <= 100 && y >= 0 && y <= 100) {
+                    this.addHotspot(x, y);
+                }
             }
 
             addHotspot(x, y) {
@@ -1253,6 +1477,7 @@
                     description: 'Add product description',
                     price: '$99',
                     image: '',
+                    showCta: true,
                     buttonText: 'Shop Now',
                     buttonLink: 'https://example.com'
                 };
@@ -1287,22 +1512,12 @@
                 hotspotEl.style.left = hotspot.x + '%';
                 hotspotEl.style.top = hotspot.y + '%';
                 
-                // Apply current styles
+                // Apply styles
                 hotspotEl.style.width = this.styles.hotspotSize + 'px';
                 hotspotEl.style.height = this.styles.hotspotSize + 'px';
                 hotspotEl.style.backgroundColor = this.styles.hotspotBg;
                 hotspotEl.style.borderColor = this.styles.hotspotColor;
                 hotspotEl.style.borderWidth = this.styles.borderWidth + 'px';
-                hotspotEl.style.borderRadius = this.styles.borderRadius;
-                
-                // Apply shadow
-                this.applyShadowStyle(hotspotEl, this.styles.shadowStyle, this.styles.hotspotColor);
-                
-                // Apply animation classes
-                if (this.styles.hotspotAnimation !== 'none' && this.styles.hotspotAnimation !== 'pulse') {
-                    hotspotEl.classList.add(`anim-${this.styles.hotspotAnimation}`);
-                }
-                hotspotEl.classList.add(`hover-${this.styles.hoverAnimation}`);
                 
                 if (index === this.currentHotspotIndex) {
                     hotspotEl.classList.add('active');
@@ -1312,50 +1527,42 @@
 
                 // Event listeners
                 if (!this.previewMode) {
-                    hotspotEl.addEventListener('mousedown', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        this.startDragging(e, index);
-                    });
+                    if (this.isTouchDevice) {
+                        hotspotEl.addEventListener('touchstart', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            this.startDragging(e, index);
+                        });
+                    } else {
+                        hotspotEl.addEventListener('mousedown', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            this.startDragging(e, index);
+                        });
 
-                    hotspotEl.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        if (!this.isDragging) {
-                            this.selectHotspot(index);
-                        }
-                    });
-
-                    // Apply hover color change
-                    hotspotEl.addEventListener('mouseenter', () => {
-                        if (!hotspotEl.classList.contains('active') && !hotspotEl.classList.contains('dragging')) {
-                            hotspotEl.style.backgroundColor = this.styles.hotspotColor;
-                            const content = hotspotEl.querySelector('.hotspot-content');
-                            if (content) content.style.color = this.styles.hotspotBg;
-                        }
-                    });
-
-                    hotspotEl.addEventListener('mouseleave', () => {
-                        if (!hotspotEl.classList.contains('active') && !hotspotEl.classList.contains('dragging')) {
-                            hotspotEl.style.backgroundColor = this.styles.hotspotBg;
-                            const content = hotspotEl.querySelector('.hotspot-content');
-                            if (content) content.style.color = this.styles.hotspotColor;
-                        }
-                    });
+                        hotspotEl.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            if (!this.isDragging) {
+                                this.selectHotspot(index);
+                            }
+                        });
+                    }
                 } else {
-                    // Preview mode - show popup on hover
-                    let hoverTimeout;
-                    hotspotEl.addEventListener('mouseenter', () => {
-                        hoverTimeout = setTimeout(() => {
-                            this.showPopup(index);
-                        }, 200);
-                    });
+                    // Preview mode
+                    if (this.isTouchDevice) {
+                        hotspotEl.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            this.togglePopup(index);
+                        });
+                    } else {
+                        hotspotEl.addEventListener('mouseenter', () => {
+                            setTimeout(() => this.showPopup(index), 100);
+                        });
 
-                    hotspotEl.addEventListener('mouseleave', () => {
-                        clearTimeout(hoverTimeout);
-                        setTimeout(() => {
-                            this.hidePopup(index);
-                        }, 300);
-                    });
+                        hotspotEl.addEventListener('mouseleave', () => {
+                            setTimeout(() => this.hidePopup(index), 200);
+                        });
+                    }
                 }
 
                 imageContainer.appendChild(hotspotEl);
@@ -1368,14 +1575,9 @@
                 popup.className = 'popup';
                 popup.dataset.index = index;
                 
-                // Apply popup background style
                 popup.style.backgroundColor = this.styles.popupBg;
                 
-                // Apply font family
-                if (this.styles.fontFamily !== 'system') {
-                    popup.style.fontFamily = this.styles.fontFamily;
-                }
-                
+                // Position popup (will be overridden on mobile)
                 this.positionPopup(popup, hotspot.x, hotspot.y);
 
                 let popupHTML = `
@@ -1390,27 +1592,20 @@
                     <div class="popup-title" style="color: ${this.styles.titleColor}">${hotspot.title}</div>
                     <div class="popup-text" style="color: ${this.styles.textColor}">${hotspot.description}</div>
                     <div class="popup-price" style="color: ${this.styles.priceColor}">${hotspot.price}</div>
-                    <a href="${hotspot.buttonLink}" class="popup-button" style="background: ${this.styles.buttonBg}; color: ${this.styles.buttonTextColor}" target="_blank">${hotspot.buttonText}</a>
                 `;
 
-                popup.innerHTML = popupHTML;
-
-                if (this.previewMode) {
-                    popup.addEventListener('mouseenter', () => {
-                        // Keep popup open when hovering over it
-                    });
-
-                    popup.addEventListener('mouseleave', () => {
-                        setTimeout(() => {
-                            this.hidePopup(index);
-                        }, 300);
-                    });
+                if (hotspot.showCta) {
+                    popupHTML += `<a href="${hotspot.buttonLink}" class="popup-button" style="background: ${this.styles.buttonBg};" target="_blank">${hotspot.buttonText}</a>`;
                 }
+
+                popup.innerHTML = popupHTML;
 
                 imageContainer.appendChild(popup);
             }
 
             positionPopup(popup, x, y) {
+                if (window.innerWidth < 768) return; // Mobile positioning handled by CSS
+
                 if (y > 50) {
                     popup.style.bottom = (100 - y + 2) + '%';
                     popup.style.top = 'auto';
@@ -1439,9 +1634,12 @@
                 const img = document.getElementById('image-container').querySelector('img');
                 const rect = img.getBoundingClientRect();
 
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
                 this.dragData = {
-                    startX: e.clientX,
-                    startY: e.clientY,
+                    startX: clientX,
+                    startY: clientY,
                     initialX: hotspot.x,
                     initialY: hotspot.y,
                     rect: rect
@@ -1449,16 +1647,23 @@
 
                 hotspotEl.classList.add('dragging');
                 document.getElementById('drag-overlay').style.display = 'block';
-                document.body.style.cursor = 'grabbing';
             }
 
             handleMouseMove(e) {
                 if (!this.isDragging) return;
+                this.updateDragPosition(e.clientX, e.clientY);
+            }
 
+            handleTouchMove(e) {
+                if (!this.isDragging) return;
                 e.preventDefault();
-                
-                const deltaX = ((e.clientX - this.dragData.startX) / this.dragData.rect.width) * 100;
-                const deltaY = ((e.clientY - this.dragData.startY) / this.dragData.rect.height) * 100;
+                const touch = e.touches[0];
+                this.updateDragPosition(touch.clientX, touch.clientY);
+            }
+
+            updateDragPosition(clientX, clientY) {
+                const deltaX = ((clientX - this.dragData.startX) / this.dragData.rect.width) * 100;
+                const deltaY = ((clientY - this.dragData.startY) / this.dragData.rect.height) * 100;
 
                 const newX = Math.max(0, Math.min(100, this.dragData.initialX + deltaX));
                 const newY = Math.max(0, Math.min(100, this.dragData.initialY + deltaY));
@@ -1467,33 +1672,34 @@
                 hotspotEl.style.left = newX + '%';
                 hotspotEl.style.top = newY + '%';
 
-                // Update popup position
                 const popup = document.querySelector(`.popup[data-index="${this.currentHotspotIndex}"]`);
-                this.positionPopup(popup, newX, newY);
+                if (popup) this.positionPopup(popup, newX, newY);
             }
 
             handleMouseUp(e) {
                 if (!this.isDragging) return;
+                this.endDragging();
+            }
 
+            handleTouchEnd(e) {
+                if (!this.isDragging) return;
+                this.endDragging();
+            }
+
+            endDragging() {
                 this.isDragging = false;
 
-                const deltaX = ((e.clientX - this.dragData.startX) / this.dragData.rect.width) * 100;
-                const deltaY = ((e.clientY - this.dragData.startY) / this.dragData.rect.height) * 100;
+                const hotspotEl = document.querySelector(`[data-index="${this.currentHotspotIndex}"]`);
+                const newX = parseFloat(hotspotEl.style.left);
+                const newY = parseFloat(hotspotEl.style.top);
 
-                const newX = Math.max(0, Math.min(100, this.dragData.initialX + deltaX));
-                const newY = Math.max(0, Math.min(100, this.dragData.initialY + deltaY));
-
-                // Update hotspot data
                 this.hotspots[this.currentHotspotIndex].x = newX;
                 this.hotspots[this.currentHotspotIndex].y = newY;
 
-                const hotspotEl = document.querySelector(`[data-index="${this.currentHotspotIndex}"]`);
                 hotspotEl.classList.remove('dragging');
-                
                 document.getElementById('drag-overlay').style.display = 'none';
-                document.body.style.cursor = '';
 
-                this.showMessage('Hotspot moved!', 'success');
+                this.showMessage('Hotspot repositioned!', 'success');
             }
 
             selectHotspot(index) {
@@ -1514,9 +1720,11 @@
                 document.getElementById('product-description').value = hotspot.description;
                 document.getElementById('product-price').value = hotspot.price;
                 document.getElementById('product-image').value = hotspot.image;
+                document.getElementById('show-cta').checked = hotspot.showCta !== false;
                 document.getElementById('button-text').value = hotspot.buttonText;
                 document.getElementById('button-link').value = hotspot.buttonLink;
 
+                document.getElementById('cta-fields').style.display = hotspot.showCta !== false ? 'block' : 'none';
                 form.style.display = 'block';
             }
 
@@ -1526,21 +1734,22 @@
                 const hotspot = this.hotspots[this.currentHotspotIndex];
                 
                 hotspot.title = document.getElementById('product-title').value || 'Product';
-                hotspot.description = document.getElementById('product-description').value || 'Description';
-                hotspot.price = document.getElementById('product-price').value || '$99';
+                hotspot.description = document.getElementById('product-description').value || '';
+                hotspot.price = document.getElementById('product-price').value || '';
                 hotspot.image = document.getElementById('product-image').value || '';
+                hotspot.showCta = document.getElementById('show-cta').checked;
                 hotspot.buttonText = document.getElementById('button-text').value || 'Shop Now';
-                hotspot.buttonLink = document.getElementById('button-link').value || 'https://example.com';
+                hotspot.buttonLink = document.getElementById('button-link').value || '#';
 
                 this.renderHotspots();
                 this.updateHotspotList();
-                this.showMessage('Hotspot updated!', 'success');
+                this.showMessage('Hotspot saved successfully!', 'success');
             }
 
             deleteCurrentHotspot() {
                 if (this.currentHotspotIndex < 0) return;
 
-                if (confirm('Delete this hotspot?')) {
+                if (confirm('Are you sure you want to delete this hotspot?')) {
                     this.hotspots.splice(this.currentHotspotIndex, 1);
                     this.currentHotspotIndex = -1;
                     
@@ -1552,9 +1761,12 @@
             }
 
             clearAllHotspots() {
-                if (this.hotspots.length === 0) return;
+                if (this.hotspots.length === 0) {
+                    this.showMessage('No hotspots to clear', 'error');
+                    return;
+                }
 
-                if (confirm('Clear all hotspots?')) {
+                if (confirm('Are you sure you want to clear all hotspots?')) {
                     this.hotspots = [];
                     this.currentHotspotIndex = -1;
                     
@@ -1569,7 +1781,7 @@
                 const list = document.getElementById('hotspot-list');
                 
                 if (this.hotspots.length === 0) {
-                    list.innerHTML = '<p style="color: #6c757d;">No hotspots added yet</p>';
+                    list.innerHTML = '<p style="color: var(--gray-600); text-align: center; padding: 2rem;">No hotspots added yet</p>';
                     return;
                 }
 
@@ -1578,7 +1790,7 @@
                          onclick="app.selectHotspot(${index})">
                         <div>
                             <strong>${index + 1}. ${hotspot.title}</strong>
-                            <br><small style="color: #6c757d;">${hotspot.price}</small>
+                            <br><small style="color: var(--gray-600);">${hotspot.price}${hotspot.showCta === false ? ' • No CTA' : ''}</small>
                         </div>
                     </div>
                 `).join('');
@@ -1589,25 +1801,45 @@
                 const toggle = document.getElementById('preview-toggle');
                 toggle.classList.toggle('active');
 
+                // Hide all popups when switching modes
+                document.querySelectorAll('.popup').forEach(popup => {
+                    popup.classList.remove('active');
+                });
+
                 this.renderHotspots();
                 
                 if (this.previewMode) {
-                    this.showMessage('Preview mode: hover over hotspots to see popups', 'success');
+                    this.showMessage(this.isTouchDevice ? 'Preview mode: tap hotspots to view details' : 'Preview mode: hover over hotspots to view details', 'success');
                 } else {
-                    this.showMessage('Edit mode: click hotspots to edit, drag to move', 'success');
+                    this.showMessage('Edit mode: click to select, drag to move hotspots', 'success');
+                }
+            }
+
+            togglePopup(index) {
+                const popup = document.querySelector(`.popup[data-index="${index}"]`);
+                if (!popup) return;
+                
+                const isActive = popup.classList.contains('active');
+                
+                // Hide all popups
+                document.querySelectorAll('.popup').forEach(p => {
+                    p.classList.remove('active');
+                });
+                
+                // Toggle this popup
+                if (!isActive) {
+                    popup.classList.add('active');
                 }
             }
 
             showPopup(index) {
                 const popup = document.querySelector(`.popup[data-index="${index}"]`);
-                if (popup) {
-                    popup.classList.add('active');
-                }
+                if (popup) popup.classList.add('active');
             }
 
             hidePopup(index) {
                 const popup = document.querySelector(`.popup[data-index="${index}"]`);
-                if (popup && !popup.matches(':hover') && !document.querySelector(`[data-index="${index}"].hotspot:hover`)) {
+                if (popup && !popup.matches(':hover')) {
                     popup.classList.remove('active');
                 }
             }
@@ -1630,82 +1862,125 @@
             }
 
             generateHTML() {
+                const fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+                
                 const hotspotsHTML = this.hotspots.map((hotspot, index) => {
-                    const popupPosition = this.calculatePopupPosition(hotspot.x, hotspot.y);
-                    
                     return `
-        <div class="si-hotspot" style="left: ${hotspot.x}%; top: ${hotspot.y}%;">
+        <div class="si-hotspot" data-index="${index}" style="left: ${hotspot.x}%; top: ${hotspot.y}%;">
             <span class="si-content">${index + 1}</span>
         </div>
-        <div class="si-popup" data-hotspot="${index}" style="${popupPosition}">
-            <button class="si-close">×</button>
+        <div class="si-popup" data-hotspot="${index}">
+            <button class="si-close" aria-label="Close">×</button>
             ${hotspot.image ? `<img src="${hotspot.image}" alt="${hotspot.title}" class="si-image" onerror="this.style.display='none'">` : ''}
-            <div class="si-title">${hotspot.title}</div>
-            <div class="si-text">${hotspot.description}</div>
-            <div class="si-price">${hotspot.price}</div>
-            <a href="${hotspot.buttonLink}" class="si-button" target="_blank">${hotspot.buttonText}</a>
+            <div class="si-title">${this.escapeHtml(hotspot.title)}</div>
+            <div class="si-text">${this.escapeHtml(hotspot.description)}</div>
+            ${hotspot.price ? `<div class="si-price">${this.escapeHtml(hotspot.price)}</div>` : ''}
+            ${hotspot.showCta ? `<a href="${hotspot.buttonLink}" class="si-button" target="_blank" rel="noopener">${this.escapeHtml(hotspot.buttonText)}</a>` : ''}
         </div>`;
                 }).join('');
 
-                return `<div class="shoppable-image">
+                return `<!-- Shoppable Image - Enterprise Edition -->
+<div class="shoppable-image-wrapper" style="position: relative; display: inline-block; max-width: 100%;">
     <style>
-        .shoppable-image {
+        .shoppable-image-wrapper {
+            font-family: ${fontFamily};
+            line-height: 1.6;
+        }
+        .shoppable-image-container {
             position: relative;
             display: inline-block;
-            max-width: 100%;
+            width: 100%;
+            overflow: visible; /* Critical: Allow popups to extend beyond image */
         }
-        .shoppable-image img {
+        .shoppable-image-container img {
             max-width: 100%;
             height: auto;
             display: block;
+            vertical-align: bottom;
         }
         .si-hotspot {
             position: absolute;
-            width: 36px;
-            height: 36px;
-            background: white;
-            border: 3px solid #e74c3c;
+            width: ${this.styles.hotspotSize}px;
+            height: ${this.styles.hotspotSize}px;
+            background: ${this.styles.hotspotBg};
+            border: ${this.styles.borderWidth}px solid ${this.styles.hotspotColor};
             border-radius: 50%;
             cursor: pointer;
             transform: translate(-50%, -50%);
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             z-index: 10;
-            animation: si-pulse 2s infinite;
             display: flex;
             align-items: center;
             justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            animation: si-pulse 2s infinite;
         }
         @keyframes si-pulse {
-            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+            0% { box-shadow: 0 0 0 0 ${this.hexToRgba(this.styles.hotspotColor, 0.6)}; }
+            70% { box-shadow: 0 0 0 12px ${this.hexToRgba(this.styles.hotspotColor, 0)}; }
+            100% { box-shadow: 0 0 0 0 ${this.hexToRgba(this.styles.hotspotColor, 0)}; }
         }
-        .si-hotspot:hover {
-            transform: translate(-50%, -50%) scale(1.2);
-            background: #e74c3c;
+        @media (hover: hover) {
+            .si-hotspot:hover {
+                transform: translate(-50%, -50%) scale(1.15);
+                background: ${this.styles.hotspotColor};
+            }
+            .si-hotspot:hover .si-content {
+                color: ${this.styles.hotspotBg};
+            }
         }
         .si-content {
-            color: #e74c3c;
-            font-weight: bold;
+            color: ${this.styles.hotspotColor};
+            font-weight: 600;
             font-size: 14px;
-        }
-        .si-hotspot:hover .si-content {
-            color: white;
+            user-select: none;
+            pointer-events: none;
         }
         .si-popup {
             position: absolute;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            background: ${this.styles.popupBg};
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             padding: 20px;
             width: 300px;
             max-width: 90vw;
-            z-index: 100;
+            z-index: 1000;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.2s, visibility 0.2s;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            font-family: ${fontFamily};
+            box-sizing: border-box;
         }
+        
+        /* Dynamic positioning for each popup */
+        ${this.hotspots.map((h, i) => {
+            let styles = '';
+            // Position popups to avoid cutoff
+            if (h.y > 60) {
+                // Bottom half - show popup above
+                styles += `bottom: ${100 - h.y + 3}%; top: auto;`;
+            } else {
+                // Top half - show popup below
+                styles += `top: ${h.y + 3}%; bottom: auto;`;
+            }
+            
+            if (h.x < 20) {
+                // Far left - align to left edge
+                styles += `left: 5px; right: auto;`;
+            } else if (h.x > 80) {
+                // Far right - align to right edge  
+                styles += `right: 5px; left: auto;`;
+            } else if (h.x < 50) {
+                // Left side - position to right of hotspot
+                styles += `left: ${h.x}%; right: auto; transform: translateX(-20%);`;
+            } else {
+                // Right side - position to left of hotspot
+                styles += `right: ${100 - h.x}%; left: auto; transform: translateX(20%);`;
+            }
+            return `.si-popup[data-hotspot="${i}"] { ${styles} }`;
+        }).join('\n        ')}
+        
         .si-popup.active {
             opacity: 1;
             visibility: visible;
@@ -1713,125 +1988,263 @@
         }
         .si-close {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            background: #f1f3f5;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 0, 0, 0.05);
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 20px;
             color: #495057;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            line-height: 1;
+            padding: 0;
+        }
+        .si-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: #212529;
         }
         .si-image {
             width: 100%;
             height: 140px;
             object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            background: #f8f9fa;
         }
         .si-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #212529;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            color: ${this.styles.titleColor};
+            line-height: 1.3;
+            font-family: ${fontFamily};
         }
         .si-text {
-            color: #6c757d;
-            margin-bottom: 15px;
-            line-height: 1.4;
+            color: ${this.styles.textColor};
+            margin: 0 0 16px 0;
+            line-height: 1.5;
+            font-size: 15px;
+            font-family: ${fontFamily};
         }
         .si-price {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #e74c3c;
-            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: 600;
+            color: ${this.styles.priceColor};
+            margin: 0 0 16px 0;
+            font-family: ${fontFamily};
         }
         .si-button {
             display: block;
             width: 100%;
-            padding: 12px;
-            background: #e74c3c;
+            padding: 12px 20px;
+            background: ${this.styles.buttonBg};
             color: white;
             border: none;
             border-radius: 8px;
-            font-weight: 600;
+            font-size: 16px;
+            font-weight: 500;
             text-decoration: none;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: ${fontFamily};
+            box-sizing: border-box;
+            margin: 0;
         }
+        .si-button:hover {
+            background: ${this.darkenColor(this.styles.buttonBg, 10)};
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Mobile responsive styles */
         @media (max-width: 768px) {
             .si-popup {
                 position: fixed !important;
                 left: 50% !important;
                 top: 50% !important;
                 transform: translate(-50%, -50%) !important;
-                width: 90vw !important;
+                bottom: auto !important;
+                right: auto !important;
+                width: min(90vw, 360px);
+                max-height: 90vh;
+                overflow-y: auto;
             }
+            .si-hotspot {
+                width: 44px;
+                height: 44px;
+            }
+            .si-close {
+                width: 44px;
+                height: 44px;
+                font-size: 24px;
+            }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .si-hotspot {
+                width: 44px;
+                height: 44px;
+            }
+            .si-close {
+                width: 44px;
+                height: 44px;
+            }
+        }
+        
+        /* Ensure text doesn't overflow */
+        .si-popup * {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
     </style>
     
-    <img src="${this.imageUrl}" alt="Shoppable Image">
-    ${hotspotsHTML}
+    <div class="shoppable-image-container">
+        <img src="${this.imageUrl}" alt="Shoppable Image">
+        ${hotspotsHTML}
+    </div>
     
     <script>
         (function() {
-            const container = document.currentScript.parentElement;
+            const wrapper = document.currentScript.parentElement;
+            const container = wrapper.querySelector('.shoppable-image-container');
             const hotspots = container.querySelectorAll('.si-hotspot');
             const popups = container.querySelectorAll('.si-popup');
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            
+            function closeAllPopups() {
+                popups.forEach(p => p.classList.remove('active'));
+            }
+            
+            // Ensure popups stay within viewport
+            function positionPopup(popup) {
+                if (!popup.classList.contains('active')) return;
+                
+                const rect = popup.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                
+                // Reset any previous adjustments
+                popup.style.marginLeft = '';
+                popup.style.marginTop = '';
+                
+                // Check if popup extends beyond viewport
+                if (rect.right > window.innerWidth - 10) {
+                    const overflow = rect.right - (window.innerWidth - 10);
+                    popup.style.marginLeft = '-' + overflow + 'px';
+                }
+                if (rect.left < 10) {
+                    const overflow = 10 - rect.left;
+                    popup.style.marginLeft = overflow + 'px';
+                }
+                if (rect.bottom > window.innerHeight - 10) {
+                    const overflow = rect.bottom - (window.innerHeight - 10);
+                    popup.style.marginTop = '-' + overflow + 'px';
+                }
+                if (rect.top < 10) {
+                    const overflow = 10 - rect.top;
+                    popup.style.marginTop = overflow + 'px';
+                }
+            }
             
             hotspots.forEach((hotspot, index) => {
                 const popup = popups[index];
-                let hoverTimeout;
+                if (!popup) return;
                 
-                hotspot.addEventListener('mouseenter', () => {
-                    clearTimeout(hoverTimeout);
-                    hoverTimeout = setTimeout(() => {
-                        popup.classList.add('active');
-                    }, 200);
-                });
-                
-                hotspot.addEventListener('mouseleave', () => {
-                    clearTimeout(hoverTimeout);
-                    hoverTimeout = setTimeout(() => {
-                        if (!popup.matches(':hover')) {
-                            popup.classList.remove('active');
+                if (isTouchDevice) {
+                    hotspot.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const wasActive = popup.classList.contains('active');
+                        closeAllPopups();
+                        if (!wasActive) {
+                            popup.classList.add('active');
+                            setTimeout(() => positionPopup(popup), 10);
                         }
-                    }, 300);
-                });
-                
-                popup.addEventListener('mouseleave', () => {
-                    popup.classList.remove('active');
-                });
-                
-                const closeBtn = popup.querySelector('.si-close');
-                if (closeBtn) {
-                    closeBtn.addEventListener('click', () => {
+                    });
+                } else {
+                    let hoverTimeout;
+                    
+                    hotspot.addEventListener('mouseenter', function() {
+                        clearTimeout(hoverTimeout);
+                        hoverTimeout = setTimeout(() => {
+                            popup.classList.add('active');
+                            positionPopup(popup);
+                        }, 100);
+                    });
+                    
+                    hotspot.addEventListener('mouseleave', function() {
+                        clearTimeout(hoverTimeout);
+                        hoverTimeout = setTimeout(() => {
+                            if (!popup.matches(':hover')) {
+                                popup.classList.remove('active');
+                            }
+                        }, 200);
+                    });
+                    
+                    popup.addEventListener('mouseleave', function() {
                         popup.classList.remove('active');
                     });
                 }
+                
+                const closeBtn = popup.querySelector('.si-close');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        popup.classList.remove('active');
+                    });
+                }
+            });
+            
+            // Close popups when clicking outside
+            document.addEventListener('click', closeAllPopups);
+            
+            // Reposition popups on window resize
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    popups.forEach(popup => positionPopup(popup));
+                }, 100);
             });
         })();
     <\/script>
 </div>`;
             }
 
-            calculatePopupPosition(x, y) {
-                let styles = '';
-                
-                if (y > 50) {
-                    styles += `bottom: ${100 - y + 2}%; `;
-                } else {
-                    styles += `top: ${y + 2}%; `;
-                }
+            escapeHtml(text) {
+                const map = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                };
+                return text.replace(/[&<>"']/g, m => map[m]);
+            }
 
-                if (x < 50) {
-                    styles += `left: ${x + 2}%; `;
-                } else {
-                    styles += `right: ${100 - x + 2}%; `;
-                }
+            hexToRgba(hex, alpha) {
+                const r = parseInt(hex.slice(1, 3), 16);
+                const g = parseInt(hex.slice(3, 5), 16);
+                const b = parseInt(hex.slice(5, 7), 16);
+                return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            }
 
-                return styles;
+            darkenColor(hex, percent) {
+                const num = parseInt(hex.slice(1), 16);
+                const amt = Math.round(2.55 * percent);
+                const R = (num >> 16) - amt;
+                const G = (num >> 8 & 0x00FF) - amt;
+                const B = (num & 0x0000FF) - amt;
+                return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+                    (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+                    (B < 255 ? B < 1 ? 0 : B : 255))
+                    .toString(16).slice(1);
             }
 
             copyToClipboard() {
@@ -1840,12 +2253,25 @@
                     const btn = document.getElementById('copy-btn');
                     const original = btn.textContent;
                     btn.textContent = '✓ Copied!';
+                    btn.style.background = '#198754';
                     setTimeout(() => {
                         btn.textContent = original;
+                        btn.style.background = '';
                     }, 2000);
                     this.showMessage('Code copied to clipboard!', 'success');
                 }).catch(() => {
-                    this.showMessage('Copy failed. Please select and copy manually.', 'error');
+                    // Fallback for older browsers
+                    const textarea = document.createElement('textarea');
+                    textarea.value = code;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    try {
+                        document.execCommand('copy');
+                        this.showMessage('Code copied to clipboard!', 'success');
+                    } catch (err) {
+                        this.showMessage('Failed to copy. Please select and copy manually.', 'error');
+                    }
+                    document.body.removeChild(textarea);
                 });
             }
 
@@ -1861,7 +2287,7 @@
             }
         }
 
-        // Initialize the app
+        // Initialize the application
         const app = new ShoppableImageCreator();
     </script>
 </body>
