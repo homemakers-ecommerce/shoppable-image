@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Shoppable Image Creator - Enterprise Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         /* CSS Reset and Base Styles */
         * {
@@ -15,8 +16,23 @@
         }
 
         :root {
-            --primary-color: #e74c3c;
-            --primary-dark: #c0392b;
+            /* Brand Colors */
+            --primary-cornet: #B82801;
+            --primary-dark: #8B1E01;
+            --black-primary: #1A1A1A;
+            --black-secondary: #2D2D2D;
+            --black-tertiary: #404040;
+            --sandstone: #C5A572;
+            --cedar: #8B4513;
+            --linen: #F5F5DC;
+            --canvas: #F8F6F0;
+            --white: #FFFFFF;
+            
+            /* Legacy support */
+            --primary-color: var(--primary-cornet);
+            --primary-dark-color: var(--primary-dark);
+            
+            /* System Colors */
             --gray-100: #f8f9fa;
             --gray-200: #e9ecef;
             --gray-300: #dee2e6;
@@ -31,12 +47,12 @@
             --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
             --shadow-xl: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
             --border-radius: 12px;
-            --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-system: 'Lato', sans-serif;
         }
 
         body {
-            font-family: var(--font-system);
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, var(--primary-cornet) 0%, var(--primary-dark) 100%);
             min-height: 100vh;
             padding: 10px;
             line-height: 1.6;
@@ -59,7 +75,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, var(--primary-cornet) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 1.5rem;
             text-align: center;
@@ -105,7 +121,7 @@
         }
 
         .workspace {
-            background: var(--gray-100);
+            background: var(--canvas);
             border-radius: var(--border-radius);
             padding: 1rem;
             min-height: 400px;
@@ -130,7 +146,7 @@
         .workspace-header h2 {
             font-size: 1.25rem;
             font-weight: 600;
-            color: var(--gray-900);
+            color: var(--black-primary);
         }
 
         .preview-toggle {
@@ -138,7 +154,7 @@
             align-items: center;
             gap: 0.75rem;
             font-size: 0.9rem;
-            color: var(--gray-700);
+            color: var(--black-secondary);
         }
 
         .toggle-switch {
@@ -152,7 +168,7 @@
         }
 
         .toggle-switch.active {
-            background: var(--primary-color);
+            background: var(--primary-cornet);
         }
 
         .toggle-slider {
@@ -172,7 +188,7 @@
         }
 
         .upload-area {
-            border: 2px dashed var(--gray-400);
+            border: 2px dashed var(--sandstone);
             border-radius: var(--border-radius);
             padding: 2rem 1rem;
             text-align: center;
@@ -188,30 +204,30 @@
         }
 
         .upload-area:hover {
-            border-color: var(--primary-color);
-            background: rgba(231, 76, 60, 0.03);
+            border-color: var(--primary-cornet);
+            background: rgba(184, 40, 1, 0.03);
         }
 
         .upload-area.dragging {
             border-color: var(--primary-dark);
-            background: rgba(231, 76, 60, 0.05);
+            background: rgba(184, 40, 1, 0.05);
         }
 
         .upload-icon {
             width: 60px;
             height: 60px;
             margin: 0 auto 1rem;
-            stroke: var(--primary-color);
+            stroke: var(--primary-cornet);
         }
 
         .upload-content h3 {
-            color: var(--gray-800);
+            color: var(--black-primary);
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
 
         .upload-content p {
-            color: var(--gray-600);
+            color: var(--black-secondary);
             font-size: 0.9rem;
         }
 
@@ -225,7 +241,7 @@
             max-width: 100%;
             margin: 1rem auto;
             user-select: none;
-            overflow: visible; /* Allow popups to show outside during editing */
+            overflow: visible;
         }
 
         .image-container img {
@@ -267,7 +283,7 @@
             padding: 0.75rem 1rem;
             background: none;
             border: none;
-            color: var(--gray-600);
+            color: var(--black-secondary);
             font-weight: 500;
             cursor: pointer;
             border-bottom: 3px solid transparent;
@@ -278,12 +294,12 @@
         }
 
         .tab-button:hover {
-            color: var(--gray-800);
+            color: var(--black-primary);
         }
 
         .tab-button.active {
-            color: var(--primary-color);
-            border-bottom-color: var(--primary-color);
+            color: var(--primary-cornet);
+            border-bottom-color: var(--primary-cornet);
         }
 
         .tab-content {
@@ -308,7 +324,7 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            color: var(--gray-800);
+            color: var(--black-primary);
             font-size: 0.95rem;
         }
 
@@ -321,15 +337,15 @@
             border-radius: 8px;
             font-size: 0.95rem;
             transition: all 0.2s ease;
-            font-family: var(--font-system);
+            font-family: 'Lato', sans-serif;
         }
 
         .control-group input:focus,
         .control-group textarea:focus,
         .control-group select:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+            border-color: var(--primary-cornet);
+            box-shadow: 0 0 0 3px rgba(184, 40, 1, 0.1);
         }
 
         .control-group textarea {
@@ -341,7 +357,7 @@
             display: flex;
             align-items: center;
             padding: 0.875rem;
-            background: var(--gray-100);
+            background: var(--canvas);
             border-radius: 8px;
             cursor: pointer;
         }
@@ -377,7 +393,7 @@
         }
 
         .btn-primary {
-            background: var(--primary-color);
+            background: var(--primary-cornet);
             color: white;
         }
 
@@ -386,12 +402,12 @@
         }
 
         .btn-secondary {
-            background: var(--gray-600);
+            background: var(--black-secondary);
             color: white;
         }
 
         .btn-secondary:hover {
-            background: var(--gray-700);
+            background: var(--black-primary);
         }
 
         .btn-danger {
@@ -413,7 +429,7 @@
         }
 
         .instructions {
-            background: var(--gray-100);
+            background: var(--canvas);
             padding: 1.25rem;
             border-radius: var(--border-radius);
             margin-bottom: 1.5rem;
@@ -421,14 +437,14 @@
 
         .instructions h3 {
             margin-bottom: 0.75rem;
-            color: var(--gray-800);
+            color: var(--black-primary);
             font-size: 1.1rem;
             font-weight: 600;
         }
 
         .instructions ol {
             margin-left: 1.25rem;
-            color: var(--gray-700);
+            color: var(--black-secondary);
         }
 
         .instructions li {
@@ -493,7 +509,7 @@
         }
 
         .hotspot-item {
-            background: var(--gray-100);
+            background: var(--canvas);
             padding: 1rem;
             border-radius: 8px;
             margin-bottom: 0.625rem;
@@ -503,13 +519,13 @@
         }
 
         .hotspot-item:hover {
-            background: var(--gray-200);
+            background: var(--linen);
             transform: translateX(4px);
         }
 
         .hotspot-item.active {
-            background: rgba(231, 76, 60, 0.08);
-            border-color: var(--primary-color);
+            background: rgba(184, 40, 1, 0.08);
+            border-color: var(--primary-cornet);
         }
 
         .code-output {
@@ -592,7 +608,7 @@
             width: 36px;
             height: 36px;
             background: white;
-            border: 3px solid var(--primary-color);
+            border: 3px solid var(--primary-cornet);
             border-radius: 50%;
             cursor: pointer;
             transform: translate(-50%, -50%);
@@ -617,19 +633,52 @@
 
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.6);
+                box-shadow: 0 0 0 0 rgba(184, 40, 1, 0.6);
             }
             70% {
-                box-shadow: 0 0 0 12px rgba(231, 76, 60, 0);
+                box-shadow: 0 0 0 12px rgba(184, 40, 1, 0);
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+                box-shadow: 0 0 0 0 rgba(184, 40, 1, 0);
             }
         }
 
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translate(-50%, -50%); }
+            25% { transform: translate(-48%, -50%); }
+            75% { transform: translate(-52%, -50%); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(184, 40, 1, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(184, 40, 1, 0.8); }
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes scale {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .hotspot.anim-bounce { animation: bounce 1s infinite; }
+        .hotspot.anim-shake { animation: shake 0.5s infinite; }
+        .hotspot.anim-glow { animation: glow 2s infinite; }
+        .hotspot.anim-rotate { animation: rotate 2s linear infinite; }
+        .hotspot.anim-scale { animation: scale 2s infinite; }
+        .hotspot.anim-none { animation: none; }
+
         .hotspot:hover {
             transform: translate(-50%, -50%) scale(1.15);
-            background: var(--primary-color);
+            background: var(--primary-cornet);
         }
 
         .hotspot.active {
@@ -638,7 +687,7 @@
         }
 
         .hotspot-content {
-            color: var(--primary-color);
+            color: var(--primary-cornet);
             font-weight: 600;
             font-size: 14px;
             pointer-events: none;
@@ -688,6 +737,33 @@
                 bottom: auto !important;
                 right: auto !important;
                 width: min(90vw, 360px) !important;
+                max-height: 70vh !important;
+                overflow-y: auto !important;
+                z-index: 10000 !important;
+                background: white !important;
+                color: var(--black-primary) !important;
+                border: none !important;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.3) !important;
+            }
+            
+            /* Add backdrop for better modal experience */
+            .popup.active::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: -1;
+            }
+            
+            .popup-title {
+                color: var(--black-primary) !important;
+            }
+            
+            .popup-text {
+                color: var(--black-secondary) !important;
             }
         }
 
@@ -697,12 +773,12 @@
             right: 0.75rem;
             width: 32px;
             height: 32px;
-            background: var(--gray-100);
+            background: var(--canvas);
             border: none;
             border-radius: 50%;
             cursor: pointer;
             font-size: 20px;
-            color: var(--gray-600);
+            color: var(--black-secondary);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -710,8 +786,8 @@
         }
 
         .popup-close:hover {
-            background: var(--gray-200);
-            color: var(--gray-800);
+            background: var(--linen);
+            color: var(--black-primary);
         }
 
         .popup-image {
@@ -720,19 +796,19 @@
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 1rem;
-            background: var(--gray-100);
+            background: var(--canvas);
         }
 
         .popup-title {
             font-size: 1.125rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: var(--gray-900);
+            color: var(--black-primary);
             line-height: 1.3;
         }
 
         .popup-text {
-            color: var(--gray-600);
+            color: var(--black-secondary);
             margin-bottom: 1rem;
             line-height: 1.5;
             font-size: 0.95rem;
@@ -741,14 +817,14 @@
         .popup-price {
             font-size: 1.5rem;
             font-weight: 600;
-            color: var(--primary-color);
+            color: var(--primary-cornet);
             margin-bottom: 1rem;
         }
 
         .popup-button {
             width: 100%;
             padding: 0.75rem;
-            background: var(--primary-color);
+            background: var(--primary-cornet);
             color: white;
             border: none;
             border-radius: 8px;
@@ -771,13 +847,13 @@
         .style-preview-container {
             margin-top: 1.5rem;
             padding: 1.5rem;
-            background: var(--gray-100);
+            background: var(--canvas);
             border-radius: var(--border-radius);
         }
 
         .style-preview-container h4 {
             margin-bottom: 1rem;
-            color: var(--gray-800);
+            color: var(--black-primary);
             font-weight: 600;
         }
 
@@ -786,6 +862,30 @@
             transform: none !important;
             margin: 1.5rem auto;
             display: flex !important;
+        }
+
+        /* Data Management */
+        .data-management {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            background: var(--canvas);
+            border-radius: var(--border-radius);
+        }
+
+        .data-management h4 {
+            margin-bottom: 1rem;
+            color: var(--black-primary);
+            font-weight: 600;
+        }
+
+        .auto-save-indicator {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: #d1e7dd;
+            color: #0f5132;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
         }
 
         /* Touch optimizations */
@@ -809,7 +909,7 @@
             height: 20px;
             border: 3px solid var(--gray-300);
             border-radius: 50%;
-            border-top-color: var(--primary-color);
+            border-top-color: var(--primary-cornet);
             animation: spin 1s linear infinite;
         }
 
@@ -847,7 +947,7 @@
     <div class="container">
         <div class="header">
             <h1>🛍️ Shoppable Image Creator</h1>
-            <p>Create interactive product hotspots on your images</p>
+            <p>Create interactive product hotspots on your images - Enterprise Edition</p>
         </div>
 
         <div class="main-content">
@@ -891,6 +991,7 @@
                     <button class="tab-button active" data-tab="edit">Edit</button>
                     <button class="tab-button" data-tab="style">Style</button>
                     <button class="tab-button" data-tab="list">List</button>
+                    <button class="tab-button" data-tab="data">Data</button>
                     <button class="tab-button" data-tab="export">Export</button>
                 </div>
 
@@ -907,7 +1008,7 @@
                     </div>
 
                     <div class="hotspot-form" id="hotspot-form">
-                        <h3 style="margin-bottom: 1rem; color: var(--gray-800);">Hotspot Details</h3>
+                        <h3 style="margin-bottom: 1rem; color: var(--black-primary);">Hotspot Details</h3>
                         
                         <div class="control-group">
                             <label for="product-title">Product Title *</label>
@@ -956,7 +1057,7 @@
                 </div>
 
                 <div id="style-tab" class="tab-content">
-                    <h3 style="margin-bottom: 1.25rem; color: var(--gray-800);">🎨 Style Customization</h3>
+                    <h3 style="margin-bottom: 1.25rem; color: var(--black-primary);">🎨 Style Customization</h3>
                     
                     <div class="control-group">
                         <label for="hotspot-animation">Hotspot Animation</label>
@@ -985,15 +1086,15 @@
                     </div>
 
                     <div class="control-group">
-                        <label for="hotspot-size">Hotspot Size: <span id="size-value" style="color: var(--primary-color); font-weight: 600;">36px</span></label>
+                        <label for="hotspot-size">Hotspot Size: <span id="size-value" style="color: var(--primary-cornet); font-weight: 600;">36px</span></label>
                         <input type="range" id="hotspot-size" min="24" max="60" value="36">
                     </div>
 
                     <div class="control-group">
                         <label>Hotspot Color <span class="color-preview" id="hotspot-color-preview"></span></label>
                         <div class="color-input-group">
-                            <input type="color" id="hotspot-color" value="#e74c3c">
-                            <input type="text" id="hotspot-color-text" value="#e74c3c" placeholder="#e74c3c">
+                            <input type="color" id="hotspot-color" value="#B82801">
+                            <input type="text" id="hotspot-color-text" value="#B82801" placeholder="#B82801">
                         </div>
                     </div>
 
@@ -1006,13 +1107,13 @@
                     </div>
 
                     <div class="control-group">
-                        <label for="border-width">Border Width: <span id="border-value" style="color: var(--primary-color); font-weight: 600;">3px</span></label>
+                        <label for="border-width">Border Width: <span id="border-value" style="color: var(--primary-cornet); font-weight: 600;">3px</span></label>
                         <input type="range" id="border-width" min="1" max="8" value="3">
                     </div>
 
                     <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--gray-200);">
 
-                    <h4 style="margin-bottom: 1rem; color: var(--gray-800);">Popup Styling</h4>
+                    <h4 style="margin-bottom: 1rem; color: var(--black-primary);">Popup Styling</h4>
 
                     <div class="control-group">
                         <label>Popup Background <span class="color-preview" id="popup-bg-preview"></span></label>
@@ -1025,33 +1126,42 @@
                     <div class="control-group">
                         <label>Title Color <span class="color-preview" id="title-color-preview"></span></label>
                         <div class="color-input-group">
-                            <input type="color" id="title-color" value="#212529">
-                            <input type="text" id="title-color-text" value="#212529" placeholder="#212529">
+                            <input type="color" id="title-color" value="#1A1A1A">
+                            <input type="text" id="title-color-text" value="#1A1A1A" placeholder="#1A1A1A">
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label>Text Color <span class="color-preview" id="text-color-preview"></span></label>
                         <div class="color-input-group">
-                            <input type="color" id="text-color" value="#6c757d">
-                            <input type="text" id="text-color-text" value="#6c757d" placeholder="#6c757d">
+                            <input type="color" id="text-color" value="#2D2D2D">
+                            <input type="text" id="text-color-text" value="#2D2D2D" placeholder="#2D2D2D">
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label>Price Color <span class="color-preview" id="price-color-preview"></span></label>
                         <div class="color-input-group">
-                            <input type="color" id="price-color" value="#e74c3c">
-                            <input type="text" id="price-color-text" value="#e74c3c" placeholder="#e74c3c">
+                            <input type="color" id="price-color" value="#B82801">
+                            <input type="text" id="price-color-text" value="#B82801" placeholder="#B82801">
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label>Button Background <span class="color-preview" id="button-bg-preview"></span></label>
                         <div class="color-input-group">
-                            <input type="color" id="button-bg" value="#e74c3c">
-                            <input type="text" id="button-bg-text" value="#e74c3c" placeholder="#e74c3c">
+                            <input type="color" id="button-bg" value="#B82801">
+                            <input type="text" id="button-bg-text" value="#B82801" placeholder="#B82801">
                         </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="font-family">Font Family</label>
+                        <select id="font-family">
+                            <option value="system">System Default</option>
+                            <option value="Lato">Lato</option>
+                            <option value="Verdana">Verdana</option>
+                        </select>
                     </div>
 
                     <div class="style-preview-container">
@@ -1070,15 +1180,41 @@
                 </div>
 
                 <div id="list-tab" class="tab-content">
-                    <h3 style="margin-bottom: 1.25rem; color: var(--gray-800);">📋 Hotspot List</h3>
+                    <h3 style="margin-bottom: 1.25rem; color: var(--black-primary);">📋 Hotspot List</h3>
                     <div class="hotspot-list" id="hotspot-list">
-                        <p style="color: var(--gray-600); text-align: center; padding: 2rem;">No hotspots added yet</p>
+                        <p style="color: var(--black-secondary); text-align: center; padding: 2rem;">No hotspots added yet</p>
+                    </div>
+                </div>
+
+                <div id="data-tab" class="tab-content">
+                    <h3 style="margin-bottom: 1rem; color: var(--black-primary);">💾 Data Management</h3>
+                    <p style="color: var(--black-secondary); margin-bottom: 1.25rem;">Save, load, and manage your shoppable image projects</p>
+                    
+                    <div class="data-management">
+                        <h4>Auto-Save <span class="auto-save-indicator" id="auto-save-status">Enabled</span></h4>
+                        <p style="color: var(--black-secondary); font-size: 0.9rem; margin-bottom: 1rem;">Your work is automatically saved to browser storage</p>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <button class="btn btn-primary" id="save-project-btn">💾 Save Project</button>
+                            <button class="btn btn-secondary" id="load-project-btn">📂 Load Project</button>
+                            <input type="file" id="project-file-input" accept=".json" style="display: none;">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <button class="btn btn-success" id="export-project-btn">📤 Export Project</button>
+                            <button class="btn btn-danger" id="clear-storage-btn">🗑️ Clear Storage</button>
+                        </div>
+                        
+                        <div style="font-size: 0.85rem; color: var(--black-secondary); line-height: 1.4;">
+                            <strong>Storage Info:</strong>
+                            <div id="storage-info">Calculating...</div>
+                        </div>
                     </div>
                 </div>
 
                 <div id="export-tab" class="tab-content">
-                    <h3 style="margin-bottom: 1rem; color: var(--gray-800);">📤 Export HTML</h3>
-                    <p style="color: var(--gray-600); margin-bottom: 1.25rem;">Generate production-ready code for your website</p>
+                    <h3 style="margin-bottom: 1rem; color: var(--black-primary);">📤 Export HTML</h3>
+                    <p style="color: var(--black-secondary); margin-bottom: 1.25rem;">Generate production-ready code for your website</p>
                     
                     <button class="btn btn-success" id="export-btn">🚀 Generate Code</button>
                     <button class="btn btn-primary" id="copy-btn" style="display: none;">📋 Copy to Clipboard</button>
@@ -1092,7 +1228,7 @@
     <div class="drag-overlay" id="drag-overlay"></div>
 
     <script>
-        // Enterprise-grade Shoppable Image Creator
+        // Enterprise-grade Shoppable Image Creator with Data Persistence
         class ShoppableImageCreator {
             constructor() {
                 this.hotspots = [];
@@ -1102,25 +1238,29 @@
                 this.isDragging = false;
                 this.dragData = {};
                 this.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+                this.autoSaveEnabled = true;
+                this.projectName = 'shoppable-image-' + Date.now();
                 this.styles = {
                     hotspotAnimation: 'pulse',
                     hoverAnimation: 'scale',
                     hotspotSize: 36,
-                    hotspotColor: '#e74c3c',
+                    hotspotColor: '#B82801',
                     hotspotBg: '#ffffff',
                     borderWidth: 3,
                     borderRadius: '50%',
                     shadowStyle: 'default',
                     popupBg: '#ffffff',
-                    titleColor: '#212529',
-                    textColor: '#6c757d',
-                    priceColor: '#e74c3c',
-                    buttonBg: '#e74c3c',
+                    titleColor: '#1A1A1A',
+                    textColor: '#2D2D2D',
+                    priceColor: '#B82801',
+                    buttonBg: '#B82801',
                     buttonTextColor: '#ffffff',
-                    fontFamily: 'inherit'
+                    fontFamily: 'system'
                 };
                 
                 this.init();
+                this.loadFromStorage();
+                this.updateStorageInfo();
             }
 
             init() {
@@ -1128,6 +1268,7 @@
                 this.setupTabSwitching();
                 this.updateColorPreviews();
                 this.updateRangeValues();
+                this.startAutoSave();
             }
 
             setupEventListeners() {
@@ -1165,7 +1306,7 @@
                     document.getElementById('cta-fields').style.display = showCta.checked ? 'block' : 'none';
                 });
 
-                // Buttons
+                // Main buttons
                 document.getElementById('change-image-btn').addEventListener('click', () => {
                     fileInput.click();
                 });
@@ -1190,8 +1331,41 @@
                     this.copyToClipboard();
                 });
 
+                // Data management buttons
+                document.getElementById('save-project-btn').addEventListener('click', () => {
+                    this.saveToStorage();
+                });
+
+                document.getElementById('load-project-btn').addEventListener('click', () => {
+                    document.getElementById('project-file-input').click();
+                });
+
+                document.getElementById('project-file-input').addEventListener('change', (e) => {
+                    this.loadProject(e);
+                });
+
+                document.getElementById('export-project-btn').addEventListener('click', () => {
+                    this.exportProject();
+                });
+
+                document.getElementById('clear-storage-btn').addEventListener('click', () => {
+                    this.clearStorage();
+                });
+
                 // Style controls
                 this.setupStyleControls();
+
+                // Auto-save on form changes
+                ['product-title', 'product-description', 'product-price', 'product-image', 'button-text', 'button-link'].forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.addEventListener('input', () => {
+                            if (this.autoSaveEnabled) {
+                                this.autoSave();
+                            }
+                        });
+                    }
+                });
 
                 // Global drag events
                 if (this.isTouchDevice) {
@@ -1201,6 +1375,180 @@
                     document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
                     document.addEventListener('mouseup', (e) => this.handleMouseUp(e));
                 }
+            }
+
+            // Data persistence methods
+            startAutoSave() {
+                setInterval(() => {
+                    if (this.autoSaveEnabled) {
+                        this.autoSave();
+                    }
+                }, 30000); // Auto-save every 30 seconds
+            }
+
+            autoSave() {
+                try {
+                    const data = this.getProjectData();
+                    localStorage.setItem('shoppable-image-autosave', JSON.stringify(data));
+                    document.getElementById('auto-save-status').textContent = 'Saved ' + new Date().toLocaleTimeString();
+                } catch (error) {
+                    console.warn('Auto-save failed:', error);
+                    document.getElementById('auto-save-status').textContent = 'Error';
+                }
+            }
+
+            saveToStorage() {
+                try {
+                    const data = this.getProjectData();
+                    localStorage.setItem('shoppable-image-project', JSON.stringify(data));
+                    this.showMessage('Project saved to browser storage!', 'success');
+                    this.updateStorageInfo();
+                } catch (error) {
+                    this.showMessage('Failed to save project: ' + error.message, 'error');
+                }
+            }
+
+            loadFromStorage() {
+                try {
+                    const saved = localStorage.getItem('shoppable-image-autosave');
+                    if (saved) {
+                        const data = JSON.parse(saved);
+                        this.loadProjectData(data);
+                    }
+                } catch (error) {
+                    console.warn('Failed to load from storage:', error);
+                }
+            }
+
+            getProjectData() {
+                return {
+                    version: '2.0',
+                    timestamp: Date.now(),
+                    projectName: this.projectName,
+                    imageUrl: this.imageUrl,
+                    hotspots: this.hotspots,
+                    styles: this.styles,
+                    previewMode: this.previewMode
+                };
+            }
+
+            loadProjectData(data) {
+                if (data.version && data.hotspots) {
+                    this.hotspots = data.hotspots || [];
+                    this.styles = { ...this.styles, ...(data.styles || {}) };
+                    this.projectName = data.projectName || this.projectName;
+                    
+                    if (data.imageUrl) {
+                        this.imageUrl = data.imageUrl;
+                        this.displayImage();
+                    }
+                    
+                    this.updateStyleControls();
+                    this.updateHotspotList();
+                    this.renderHotspots();
+                }
+            }
+
+            loadProject(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        this.loadProjectData(data);
+                        this.showMessage('Project loaded successfully!', 'success');
+                    } catch (error) {
+                        this.showMessage('Failed to load project file', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            }
+
+            exportProject() {
+                try {
+                    const data = this.getProjectData();
+                    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${this.projectName}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    this.showMessage('Project exported successfully!', 'success');
+                } catch (error) {
+                    this.showMessage('Failed to export project', 'error');
+                }
+            }
+
+            clearStorage() {
+                if (confirm('This will clear all saved data. Continue?')) {
+                    localStorage.removeItem('shoppable-image-project');
+                    localStorage.removeItem('shoppable-image-autosave');
+                    this.showMessage('Storage cleared', 'success');
+                    this.updateStorageInfo();
+                }
+            }
+
+            updateStorageInfo() {
+                try {
+                    const project = localStorage.getItem('shoppable-image-project');
+                    const autosave = localStorage.getItem('shoppable-image-autosave');
+                    
+                    let info = '';
+                    if (project) {
+                        const size = (new Blob([project]).size / 1024).toFixed(1);
+                        info += `Project: ${size} KB<br>`;
+                    }
+                    if (autosave) {
+                        const size = (new Blob([autosave]).size / 1024).toFixed(1);
+                        const data = JSON.parse(autosave);
+                        const date = new Date(data.timestamp).toLocaleDateString();
+                        info += `Auto-save: ${size} KB (${date})<br>`;
+                    }
+                    
+                    document.getElementById('storage-info').innerHTML = info || 'No saved data';
+                } catch (error) {
+                    document.getElementById('storage-info').textContent = 'Error reading storage';
+                }
+            }
+
+            updateStyleControls() {
+                const controls = {
+                    'hotspot-animation': this.styles.hotspotAnimation,
+                    'hover-animation': this.styles.hoverAnimation,
+                    'hotspot-size': this.styles.hotspotSize,
+                    'hotspot-color': this.styles.hotspotColor,
+                    'hotspot-color-text': this.styles.hotspotColor,
+                    'hotspot-bg': this.styles.hotspotBg,
+                    'hotspot-bg-text': this.styles.hotspotBg,
+                    'border-width': this.styles.borderWidth,
+                    'popup-bg': this.styles.popupBg,
+                    'popup-bg-text': this.styles.popupBg,
+                    'title-color': this.styles.titleColor,
+                    'title-color-text': this.styles.titleColor,
+                    'text-color': this.styles.textColor,
+                    'text-color-text': this.styles.textColor,
+                    'price-color': this.styles.priceColor,
+                    'price-color-text': this.styles.priceColor,
+                    'button-bg': this.styles.buttonBg,
+                    'button-bg-text': this.styles.buttonBg,
+                    'font-family': this.styles.fontFamily
+                };
+
+                Object.entries(controls).forEach(([id, value]) => {
+                    const element = document.getElementById(id);
+                    if (element) element.value = value;
+                });
+
+                this.updateColorPreviews();
+                this.updateRangeValues();
+                this.updateStylePreview();
             }
 
             setupStyleControls() {
@@ -1249,7 +1597,7 @@
                 });
 
                 // Other style controls
-                ['hotspot-animation', 'hover-animation'].forEach(id => {
+                ['hotspot-animation', 'hover-animation', 'font-family'].forEach(id => {
                     document.getElementById(id)?.addEventListener('change', () => this.updateStylePreview());
                 });
             }
@@ -1312,18 +1660,18 @@
                     hotspotAnimation: document.getElementById('hotspot-animation')?.value || 'pulse',
                     hoverAnimation: document.getElementById('hover-animation')?.value || 'scale',
                     hotspotSize: parseInt(document.getElementById('hotspot-size')?.value) || 36,
-                    hotspotColor: document.getElementById('hotspot-color')?.value || '#e74c3c',
+                    hotspotColor: document.getElementById('hotspot-color')?.value || '#B82801',
                     hotspotBg: document.getElementById('hotspot-bg')?.value || '#ffffff',
                     borderWidth: parseInt(document.getElementById('border-width')?.value) || 3,
                     borderRadius: '50%',
                     shadowStyle: 'default',
                     popupBg: document.getElementById('popup-bg')?.value || '#ffffff',
-                    titleColor: document.getElementById('title-color')?.value || '#212529',
-                    textColor: document.getElementById('text-color')?.value || '#6c757d',
-                    priceColor: document.getElementById('price-color')?.value || '#e74c3c',
-                    buttonBg: document.getElementById('button-bg')?.value || '#e74c3c',
+                    titleColor: document.getElementById('title-color')?.value || '#1A1A1A',
+                    textColor: document.getElementById('text-color')?.value || '#2D2D2D',
+                    priceColor: document.getElementById('price-color')?.value || '#B82801',
+                    buttonBg: document.getElementById('button-bg')?.value || '#B82801',
                     buttonTextColor: '#ffffff',
-                    fontFamily: 'inherit'
+                    fontFamily: document.getElementById('font-family')?.value || 'system'
                 };
             }
 
@@ -1331,6 +1679,7 @@
                 this.styles = this.getCurrentStyles();
                 this.renderHotspots();
                 this.showMessage('Styles applied successfully!', 'success');
+                this.autoSave();
             }
 
             resetStyles() {
@@ -1338,21 +1687,22 @@
                     'hotspot-animation': 'pulse',
                     'hover-animation': 'scale',
                     'hotspot-size': '36',
-                    'hotspot-color': '#e74c3c',
-                    'hotspot-color-text': '#e74c3c',
+                    'hotspot-color': '#B82801',
+                    'hotspot-color-text': '#B82801',
                     'hotspot-bg': '#ffffff',
                     'hotspot-bg-text': '#ffffff',
                     'border-width': '3',
                     'popup-bg': '#ffffff',
                     'popup-bg-text': '#ffffff',
-                    'title-color': '#212529',
-                    'title-color-text': '#212529',
-                    'text-color': '#6c757d',
-                    'text-color-text': '#6c757d',
-                    'price-color': '#e74c3c',
-                    'price-color-text': '#e74c3c',
-                    'button-bg': '#e74c3c',
-                    'button-bg-text': '#e74c3c'
+                    'title-color': '#1A1A1A',
+                    'title-color-text': '#1A1A1A',
+                    'text-color': '#2D2D2D',
+                    'text-color-text': '#2D2D2D',
+                    'price-color': '#B82801',
+                    'price-color-text': '#B82801',
+                    'button-bg': '#B82801',
+                    'button-bg-text': '#B82801',
+                    'font-family': 'system'
                 };
 
                 Object.entries(defaults).forEach(([id, value]) => {
@@ -1393,6 +1743,8 @@
                         this.updateStylePreview();
                         this.updateColorPreviews();
                     }, 100);
+                } else if (tabName === 'data') {
+                    this.updateStorageInfo();
                 }
             }
 
@@ -1417,6 +1769,7 @@
                     this.imageUrl = e.target.result;
                     this.displayImage();
                     this.showMessage('Image uploaded successfully!', 'success');
+                    this.autoSave();
                 };
                 reader.readAsDataURL(file);
             }
@@ -1439,7 +1792,7 @@
 
                 imageContainer.appendChild(img);
 
-                // Add click handler
+                // Add click handler for creating hotspots
                 if (this.isTouchDevice) {
                     imageContainer.addEventListener('touchstart', (e) => this.handleImageClick(e, true));
                 } else {
@@ -1489,6 +1842,8 @@
                 this.loadHotspotForm();
                 this.updateHotspotList();
                 this.showMessage('Hotspot added! Fill in the details.', 'success');
+                this.switchTab('edit');
+                this.autoSave();
             }
 
             renderHotspots() {
@@ -1512,12 +1867,17 @@
                 hotspotEl.style.left = hotspot.x + '%';
                 hotspotEl.style.top = hotspot.y + '%';
                 
-                // Apply styles
+                // Apply current styles
                 hotspotEl.style.width = this.styles.hotspotSize + 'px';
                 hotspotEl.style.height = this.styles.hotspotSize + 'px';
                 hotspotEl.style.backgroundColor = this.styles.hotspotBg;
                 hotspotEl.style.borderColor = this.styles.hotspotColor;
                 hotspotEl.style.borderWidth = this.styles.borderWidth + 'px';
+                
+                // Apply animation
+                if (this.styles.hotspotAnimation !== 'none' && this.styles.hotspotAnimation !== 'pulse') {
+                    hotspotEl.classList.add(`anim-${this.styles.hotspotAnimation}`);
+                }
                 
                 if (index === this.currentHotspotIndex) {
                     hotspotEl.classList.add('active');
@@ -1528,10 +1888,30 @@
                 // Event listeners
                 if (!this.previewMode) {
                     if (this.isTouchDevice) {
+                        // On touch devices, tap to select, long press to drag
+                        let touchTimer;
                         hotspotEl.addEventListener('touchstart', (e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            this.startDragging(e, index);
+                            touchTimer = setTimeout(() => {
+                                this.startDragging(e, index);
+                            }, 300); // Long press for 300ms to drag
+                        });
+                        
+                        hotspotEl.addEventListener('touchend', (e) => {
+                            if (touchTimer) {
+                                clearTimeout(touchTimer);
+                                if (!this.isDragging) {
+                                    this.selectHotspot(index);
+                                }
+                            }
+                        });
+                        
+                        hotspotEl.addEventListener('touchmove', (e) => {
+                            if (touchTimer) {
+                                clearTimeout(touchTimer);
+                                touchTimer = null;
+                            }
                         });
                     } else {
                         hotspotEl.addEventListener('mousedown', (e) => {
@@ -1548,9 +1928,15 @@
                         });
                     }
                 } else {
-                    // Preview mode
+                    // Preview mode interactions
                     if (this.isTouchDevice) {
-                        hotspotEl.addEventListener('click', (e) => {
+                        hotspotEl.addEventListener('touchstart', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        });
+                        
+                        hotspotEl.addEventListener('touchend', (e) => {
+                            e.preventDefault();
                             e.stopPropagation();
                             this.togglePopup(index);
                         });
@@ -1589,32 +1975,38 @@
                 }
 
                 popupHTML += `
-                    <div class="popup-title" style="color: ${this.styles.titleColor}">${hotspot.title}</div>
-                    <div class="popup-text" style="color: ${this.styles.textColor}">${hotspot.description}</div>
-                    <div class="popup-price" style="color: ${this.styles.priceColor}">${hotspot.price}</div>
+                    <div class="popup-title" style="color: ${this.styles.titleColor}">${this.escapeHtml(hotspot.title)}</div>
+                    <div class="popup-text" style="color: ${this.styles.textColor}">${this.escapeHtml(hotspot.description)}</div>
+                    ${hotspot.price ? `<div class="popup-price" style="color: ${this.styles.priceColor}">${this.escapeHtml(hotspot.price)}</div>` : ''}
                 `;
 
-                if (hotspot.showCta) {
-                    popupHTML += `<a href="${hotspot.buttonLink}" class="popup-button" style="background: ${this.styles.buttonBg};" target="_blank">${hotspot.buttonText}</a>`;
+                if (hotspot.showCta && hotspot.buttonLink) {
+                    popupHTML += `<a href="${hotspot.buttonLink}" class="popup-button" style="background: ${this.styles.buttonBg};" target="_blank" rel="noopener">${this.escapeHtml(hotspot.buttonText)}</a>`;
                 }
 
                 popup.innerHTML = popupHTML;
-
                 imageContainer.appendChild(popup);
             }
 
             positionPopup(popup, x, y) {
                 if (window.innerWidth < 768) return; // Mobile positioning handled by CSS
 
-                if (y > 50) {
-                    popup.style.bottom = (100 - y + 2) + '%';
+                // Smart positioning to keep popup visible
+                if (y > 60) {
+                    popup.style.bottom = (100 - y + 3) + '%';
                     popup.style.top = 'auto';
                 } else {
-                    popup.style.top = (y + 2) + '%';
+                    popup.style.top = (y + 3) + '%';
                     popup.style.bottom = 'auto';
                 }
 
-                if (x < 50) {
+                if (x < 20) {
+                    popup.style.left = '10px';
+                    popup.style.right = 'auto';
+                } else if (x > 80) {
+                    popup.style.right = '10px';
+                    popup.style.left = 'auto';
+                } else if (x < 50) {
                     popup.style.left = (x + 2) + '%';
                     popup.style.right = 'auto';
                 } else {
@@ -1623,6 +2015,7 @@
                 }
             }
 
+            // Drag and Drop functionality
             startDragging(e, index) {
                 if (this.previewMode) return;
 
@@ -1700,8 +2093,10 @@
                 document.getElementById('drag-overlay').style.display = 'none';
 
                 this.showMessage('Hotspot repositioned!', 'success');
+                this.autoSave();
             }
 
+            // Hotspot management
             selectHotspot(index) {
                 this.currentHotspotIndex = index;
                 this.renderHotspots();
@@ -1744,6 +2139,7 @@
                 this.renderHotspots();
                 this.updateHotspotList();
                 this.showMessage('Hotspot saved successfully!', 'success');
+                this.autoSave();
             }
 
             deleteCurrentHotspot() {
@@ -1757,6 +2153,7 @@
                     this.renderHotspots();
                     this.updateHotspotList();
                     this.showMessage('Hotspot deleted', 'success');
+                    this.autoSave();
                 }
             }
 
@@ -1774,6 +2171,7 @@
                     this.renderHotspots();
                     this.updateHotspotList();
                     this.showMessage('All hotspots cleared', 'success');
+                    this.autoSave();
                 }
             }
 
@@ -1781,7 +2179,7 @@
                 const list = document.getElementById('hotspot-list');
                 
                 if (this.hotspots.length === 0) {
-                    list.innerHTML = '<p style="color: var(--gray-600); text-align: center; padding: 2rem;">No hotspots added yet</p>';
+                    list.innerHTML = '<p style="color: var(--black-secondary); text-align: center; padding: 2rem;">No hotspots added yet</p>';
                     return;
                 }
 
@@ -1789,13 +2187,14 @@
                     <div class="hotspot-item ${index === this.currentHotspotIndex ? 'active' : ''}" 
                          onclick="app.selectHotspot(${index})">
                         <div>
-                            <strong>${index + 1}. ${hotspot.title}</strong>
-                            <br><small style="color: var(--gray-600);">${hotspot.price}${hotspot.showCta === false ? ' • No CTA' : ''}</small>
+                            <strong>${index + 1}. ${this.escapeHtml(hotspot.title)}</strong>
+                            <br><small style="color: var(--black-secondary);">${this.escapeHtml(hotspot.price)}${hotspot.showCta === false ? ' • No CTA' : ''}</small>
                         </div>
                     </div>
                 `).join('');
             }
 
+            // Preview mode
             togglePreviewMode() {
                 this.previewMode = !this.previewMode;
                 const toggle = document.getElementById('preview-toggle');
@@ -1821,14 +2220,16 @@
                 
                 const isActive = popup.classList.contains('active');
                 
-                // Hide all popups
+                // Hide all popups first
                 document.querySelectorAll('.popup').forEach(p => {
                     p.classList.remove('active');
                 });
                 
-                // Toggle this popup
+                // Toggle this popup with a small delay to prevent instant close
                 if (!isActive) {
-                    popup.classList.add('active');
+                    setTimeout(() => {
+                        popup.classList.add('active');
+                    }, 50);
                 }
             }
 
@@ -1844,6 +2245,7 @@
                 }
             }
 
+            // Export functionality
             exportHTML() {
                 if (!this.imageUrl || this.hotspots.length === 0) {
                     this.showMessage('Please add an image and at least one hotspot', 'error');
@@ -1862,8 +2264,71 @@
             }
 
             generateHTML() {
-                const fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+                const getFontFamily = () => {
+                    switch(this.styles.fontFamily) {
+                        case 'Lato': return "'Lato', sans-serif";
+                        case 'Verdana': return "'Verdana', sans-serif";
+                        default: return "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
+                    }
+                };
                 
+                const fontFamily = getFontFamily();
+                const fontLink = this.styles.fontFamily !== 'system' ? `<link href="https://fonts.googleapis.com/css2?family=${this.styles.fontFamily}:wght@400;500;600&display=swap" rel="stylesheet">` : '';
+                
+                const getAnimationCSS = () => {
+                    let css = '';
+                    if (this.styles.hotspotAnimation === 'pulse') {
+                        css = 'animation: si-pulse 2s infinite;';
+                    } else if (this.styles.hotspotAnimation !== 'none') {
+                        css = `animation: si-${this.styles.hotspotAnimation} 2s infinite;`;
+                    }
+                    return css;
+                };
+                
+                const getAnimationKeyframes = () => {
+                    let keyframes = `
+        @keyframes si-pulse {
+            0% { box-shadow: 0 0 0 0 ${this.hexToRgba(this.styles.hotspotColor, 0.6)}; }
+            70% { box-shadow: 0 0 0 12px ${this.hexToRgba(this.styles.hotspotColor, 0)}; }
+            100% { box-shadow: 0 0 0 0 ${this.hexToRgba(this.styles.hotspotColor, 0)}; }
+        }`;
+                    
+                    if (this.styles.hotspotAnimation === 'bounce') {
+                        keyframes += `
+        @keyframes si-bounce {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }`;
+                    } else if (this.styles.hotspotAnimation === 'shake') {
+                        keyframes += `
+        @keyframes si-shake {
+            0%, 100% { transform: translate(-50%, -50%); }
+            25% { transform: translate(-48%, -50%); }
+            75% { transform: translate(-52%, -50%); }
+        }`;
+                    } else if (this.styles.hotspotAnimation === 'glow') {
+                        keyframes += `
+        @keyframes si-glow {
+            0%, 100% { box-shadow: 0 0 5px ${this.hexToRgba(this.styles.hotspotColor, 0.5)}; }
+            50% { box-shadow: 0 0 20px ${this.hexToRgba(this.styles.hotspotColor, 0.8)}; }
+        }`;
+                    } else if (this.styles.hotspotAnimation === 'rotate') {
+                        keyframes += `
+        @keyframes si-rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }`;
+                    } else if (this.styles.hotspotAnimation === 'scale') {
+                        keyframes += `
+        @keyframes si-scale {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }`;
+                    }
+                    
+                    return keyframes;
+                };
+
                 const hotspotsHTML = this.hotspots.map((hotspot, index) => {
                     return `
         <div class="si-hotspot" data-index="${index}" style="left: ${hotspot.x}%; top: ${hotspot.y}%;">
@@ -1871,15 +2336,16 @@
         </div>
         <div class="si-popup" data-hotspot="${index}">
             <button class="si-close" aria-label="Close">×</button>
-            ${hotspot.image ? `<img src="${hotspot.image}" alt="${hotspot.title}" class="si-image" onerror="this.style.display='none'">` : ''}
+            ${hotspot.image ? `<img src="${hotspot.image}" alt="${this.escapeHtml(hotspot.title)}" class="si-image" onerror="this.style.display='none'">` : ''}
             <div class="si-title">${this.escapeHtml(hotspot.title)}</div>
-            <div class="si-text">${this.escapeHtml(hotspot.description)}</div>
+            ${hotspot.description ? `<div class="si-text">${this.escapeHtml(hotspot.description)}</div>` : ''}
             ${hotspot.price ? `<div class="si-price">${this.escapeHtml(hotspot.price)}</div>` : ''}
-            ${hotspot.showCta ? `<a href="${hotspot.buttonLink}" class="si-button" target="_blank" rel="noopener">${this.escapeHtml(hotspot.buttonText)}</a>` : ''}
+            ${hotspot.showCta && hotspot.buttonLink ? `<a href="${hotspot.buttonLink}" class="si-button" target="_blank" rel="noopener">${this.escapeHtml(hotspot.buttonText)}</a>` : ''}
         </div>`;
                 }).join('');
 
                 return `<!-- Shoppable Image - Enterprise Edition -->
+${fontLink}
 <div class="shoppable-image-wrapper" style="position: relative; display: inline-block; max-width: 100%;">
     <style>
         .shoppable-image-wrapper {
@@ -1890,7 +2356,7 @@
             position: relative;
             display: inline-block;
             width: 100%;
-            overflow: visible; /* Critical: Allow popups to extend beyond image */
+            overflow: visible;
         }
         .shoppable-image-container img {
             max-width: 100%;
@@ -1913,13 +2379,9 @@
             align-items: center;
             justify-content: center;
             -webkit-tap-highlight-color: transparent;
-            animation: si-pulse 2s infinite;
+            ${getAnimationCSS()}
         }
-        @keyframes si-pulse {
-            0% { box-shadow: 0 0 0 0 ${this.hexToRgba(this.styles.hotspotColor, 0.6)}; }
-            70% { box-shadow: 0 0 0 12px ${this.hexToRgba(this.styles.hotspotColor, 0)}; }
-            100% { box-shadow: 0 0 0 0 ${this.hexToRgba(this.styles.hotspotColor, 0)}; }
-        }
+        ${getAnimationKeyframes()}
         @media (hover: hover) {
             .si-hotspot:hover {
                 transform: translate(-50%, -50%) scale(1.15);
@@ -1956,26 +2418,19 @@
         /* Dynamic positioning for each popup */
         ${this.hotspots.map((h, i) => {
             let styles = '';
-            // Position popups to avoid cutoff
             if (h.y > 60) {
-                // Bottom half - show popup above
                 styles += `bottom: ${100 - h.y + 3}%; top: auto;`;
             } else {
-                // Top half - show popup below
                 styles += `top: ${h.y + 3}%; bottom: auto;`;
             }
             
             if (h.x < 20) {
-                // Far left - align to left edge
                 styles += `left: 5px; right: auto;`;
             } else if (h.x > 80) {
-                // Far right - align to right edge  
                 styles += `right: 5px; left: auto;`;
             } else if (h.x < 50) {
-                // Left side - position to right of hotspot
                 styles += `left: ${h.x}%; right: auto; transform: translateX(-20%);`;
             } else {
-                // Right side - position to left of hotspot
                 styles += `right: ${100 - h.x}%; left: auto; transform: translateX(20%);`;
             }
             return `.si-popup[data-hotspot="${i}"] { ${styles} }`;
@@ -2065,25 +2520,95 @@
         
         /* Mobile responsive styles */
         @media (max-width: 768px) {
+            .shoppable-image-container {
+                position: relative;
+                overflow: visible;
+            }
+            
             .si-popup {
-                position: fixed !important;
+                position: absolute !important;
                 left: 50% !important;
                 top: 50% !important;
                 transform: translate(-50%, -50%) !important;
                 bottom: auto !important;
                 right: auto !important;
-                width: min(90vw, 360px);
-                max-height: 90vh;
-                overflow-y: auto;
+                width: min(85%, 300px) !important;
+                max-height: none !important;
+                overflow-y: visible !important;
+                z-index: 1000 !important;
+                background: white !important;
+                border-radius: 16px !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+                padding: 20px !important;
+                margin: 0 !important;
+                border: 2px solid rgba(0,0,0,0.1) !important;
             }
+            
+            .si-popup::-webkit-scrollbar {
+                display: none !important;
+            }
+            
+            /* Remove the gray backdrop overlay */
+            .si-popup.active::before {
+                display: none !important;
+            }
+            
+            .si-popup .si-title {
+                color: #1A1A1A !important;
+                font-weight: 600 !important;
+                font-size: 18px !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .si-popup .si-text {
+                color: #2D2D2D !important;
+                font-size: 15px !important;
+                line-height: 1.4 !important;
+                margin-bottom: 14px !important;
+            }
+            
+            .si-popup .si-price {
+                color: #B82801 !important;
+                font-size: 22px !important;
+                font-weight: 600 !important;
+                margin-bottom: 16px !important;
+            }
+            
+            .si-popup .si-button {
+                background: #B82801 !important;
+                color: white !important;
+                padding: 12px 20px !important;
+                font-size: 16px !important;
+                font-weight: 500 !important;
+                border-radius: 8px !important;
+                margin-top: 6px !important;
+            }
+            
+            .si-popup .si-image {
+                height: 130px !important;
+                margin-bottom: 16px !important;
+                border-radius: 10px !important;
+            }
+            
             .si-hotspot {
-                width: 44px;
-                height: 44px;
+                width: 44px !important;
+                height: 44px !important;
             }
+            
             .si-close {
-                width: 44px;
-                height: 44px;
-                font-size: 24px;
+                width: 32px !important;
+                height: 32px !important;
+                font-size: 20px !important;
+                background: rgba(0, 0, 0, 0.06) !important;
+                color: #555 !important;
+                top: 12px !important;
+                right: 12px !important;
+                border-radius: 50% !important;
+            }
+            
+            .si-close:hover,
+            .si-close:active {
+                background: rgba(0, 0, 0, 0.12) !important;
             }
         }
         
@@ -2123,33 +2648,31 @@
                 popups.forEach(p => p.classList.remove('active'));
             }
             
-            // Ensure popups stay within viewport
             function positionPopup(popup) {
                 if (!popup.classList.contains('active')) return;
                 
                 const rect = popup.getBoundingClientRect();
-                const containerRect = container.getBoundingClientRect();
                 
-                // Reset any previous adjustments
                 popup.style.marginLeft = '';
                 popup.style.marginTop = '';
                 
-                // Check if popup extends beyond viewport
-                if (rect.right > window.innerWidth - 10) {
-                    const overflow = rect.right - (window.innerWidth - 10);
-                    popup.style.marginLeft = '-' + overflow + 'px';
-                }
-                if (rect.left < 10) {
-                    const overflow = 10 - rect.left;
-                    popup.style.marginLeft = overflow + 'px';
-                }
-                if (rect.bottom > window.innerHeight - 10) {
-                    const overflow = rect.bottom - (window.innerHeight - 10);
-                    popup.style.marginTop = '-' + overflow + 'px';
-                }
-                if (rect.top < 10) {
-                    const overflow = 10 - rect.top;
-                    popup.style.marginTop = overflow + 'px';
+                if (window.innerWidth > 768) {
+                    if (rect.right > window.innerWidth - 10) {
+                        const overflow = rect.right - (window.innerWidth - 10);
+                        popup.style.marginLeft = '-' + overflow + 'px';
+                    }
+                    if (rect.left < 10) {
+                        const overflow = 10 - rect.left;
+                        popup.style.marginLeft = overflow + 'px';
+                    }
+                    if (rect.bottom > window.innerHeight - 10) {
+                        const overflow = rect.bottom - (window.innerHeight - 10);
+                        popup.style.marginTop = '-' + overflow + 'px';
+                    }
+                    if (rect.top < 10) {
+                        const overflow = 10 - rect.top;
+                        popup.style.marginTop = overflow + 'px';
+                    }
                 }
             }
             
@@ -2158,13 +2681,21 @@
                 if (!popup) return;
                 
                 if (isTouchDevice) {
-                    hotspot.addEventListener('click', function(e) {
+                    hotspot.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    });
+                    
+                    hotspot.addEventListener('touchend', function(e) {
+                        e.preventDefault();
                         e.stopPropagation();
                         const wasActive = popup.classList.contains('active');
                         closeAllPopups();
                         if (!wasActive) {
-                            popup.classList.add('active');
-                            setTimeout(() => positionPopup(popup), 10);
+                            setTimeout(() => {
+                                popup.classList.add('active');
+                                setTimeout(() => positionPopup(popup), 10);
+                            }, 50);
                         }
                     });
                 } else {
@@ -2201,10 +2732,13 @@
                 }
             });
             
-            // Close popups when clicking outside
-            document.addEventListener('click', closeAllPopups);
+            // Close popups when clicking outside, but not on touch devices during popup interaction
+            document.addEventListener('click', function(e) {
+                if (!isTouchDevice || !e.target.closest('.si-popup')) {
+                    closeAllPopups();
+                }
+            });
             
-            // Reposition popups on window resize
             let resizeTimeout;
             window.addEventListener('resize', function() {
                 clearTimeout(resizeTimeout);
@@ -2217,7 +2751,9 @@
 </div>`;
             }
 
+            // Utility functions
             escapeHtml(text) {
+                if (!text) return '';
                 const map = {
                     '&': '&amp;',
                     '<': '&lt;',
@@ -2225,7 +2761,7 @@
                     '"': '&quot;',
                     "'": '&#039;'
                 };
-                return text.replace(/[&<>"']/g, m => map[m]);
+                return String(text).replace(/[&<>"']/g, m => map[m]);
             }
 
             hexToRgba(hex, alpha) {
@@ -2238,13 +2774,10 @@
             darkenColor(hex, percent) {
                 const num = parseInt(hex.slice(1), 16);
                 const amt = Math.round(2.55 * percent);
-                const R = (num >> 16) - amt;
-                const G = (num >> 8 & 0x00FF) - amt;
-                const B = (num & 0x0000FF) - amt;
-                return '#' + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
-                    (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
-                    (B < 255 ? B < 1 ? 0 : B : 255))
-                    .toString(16).slice(1);
+                const R = Math.max(0, Math.min(255, (num >> 16) - amt));
+                const G = Math.max(0, Math.min(255, (num >> 8 & 0x00FF) - amt));
+                const B = Math.max(0, Math.min(255, (num & 0x0000FF) - amt));
+                return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
             }
 
             copyToClipboard() {
@@ -2283,12 +2816,15 @@
                 
                 setTimeout(() => {
                     message.style.display = 'none';
-                }, 3000);
+                }, 4000);
             }
         }
 
         // Initialize the application
         const app = new ShoppableImageCreator();
+        
+        // Make app globally accessible for onclick handlers
+        window.app = app;
     </script>
 </body>
 </html>
