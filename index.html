@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Shoppable Image Creator</title>
+    <title>Shoppable Image Creator - Enterprise Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         /* CSS Reset and Base Styles */
@@ -428,6 +428,15 @@
             background: #146c43;
         }
 
+        .btn-warning {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .btn-warning:hover {
+            background: #ffca2c;
+        }
+
         .instructions {
             background: var(--canvas);
             padding: 1.25rem;
@@ -482,6 +491,12 @@
             background: #f8d7da;
             color: #842029;
             border: 1px solid #f5c2c7;
+        }
+
+        .message.warning {
+            background: #fff3cd;
+            color: #664d03;
+            border: 1px solid #ffecb5;
         }
 
         .hotspot-form {
@@ -602,6 +617,25 @@
             flex: 1;
         }
 
+        .image-url-section {
+            background: rgba(184, 40, 1, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .image-url-section h4 {
+            color: var(--primary-cornet);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .image-url-section p {
+            font-size: 0.85rem;
+            color: var(--black-secondary);
+            margin-bottom: 0.75rem;
+        }
+
         /* Hotspot Styles */
         .hotspot {
             position: absolute;
@@ -613,7 +647,7 @@
             cursor: pointer;
             transform: translate(-50%, -50%);
             transition: all 0.3s ease;
-            z-index: 10;
+            z-index: 100;
             animation: pulse 2s infinite;
             display: flex;
             align-items: center;
@@ -707,7 +741,7 @@
             padding: 1.25rem;
             width: 280px;
             max-width: calc(100vw - 2rem);
-            z-index: 100;
+            z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: all 0.2s ease;
@@ -744,18 +778,6 @@
                 color: var(--black-primary) !important;
                 border: none !important;
                 box-shadow: 0 10px 40px rgba(0,0,0,0.3) !important;
-            }
-            
-            /* Add backdrop for better modal experience */
-            .popup.active::before {
-                content: '';
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: -1;
             }
             
             .popup-title {
@@ -947,7 +969,7 @@
     <div class="container">
         <div class="header">
             <h1>🛍️ Shoppable Image Creator</h1>
-            <p>Create interactive product hotspots on your images</p>
+            <p>Create interactive product hotspots on your images - Enterprise Edition</p>
         </div>
 
         <div class="main-content">
@@ -1164,6 +1186,37 @@
                         </select>
                     </div>
 
+                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--gray-200);">
+
+                    <h4 style="margin-bottom: 1rem; color: var(--black-primary);">Image Dimensions</h4>
+
+                    <div class="control-group">
+                        <label for="image-width">Width</label>
+                        <select id="image-width">
+                            <option value="100%">100% (Full Width)</option>
+                            <option value="auto">Auto (Original Size)</option>
+                            <option value="800px">800px</option>
+                            <option value="600px">600px</option>
+                            <option value="500px">500px</option>
+                            <option value="400px">400px</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                        <input type="text" id="custom-width" placeholder="e.g., 750px or 90%" style="display: none; margin-top: 0.5rem;">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="image-height">Height</label>
+                        <select id="image-height">
+                            <option value="auto">Auto (Maintain Aspect Ratio)</option>
+                            <option value="400px">400px</option>
+                            <option value="300px">300px</option>
+                            <option value="500px">500px</option>
+                            <option value="600px">600px</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                        <input type="text" id="custom-height" placeholder="e.g., 400px" style="display: none; margin-top: 0.5rem;">
+                    </div>
+
                     <div class="style-preview-container">
                         <h4>Preview</h4>
                         <div style="text-align: center;">
@@ -1216,6 +1269,15 @@
                     <h3 style="margin-bottom: 1rem; color: var(--black-primary);">📤 Export HTML</h3>
                     <p style="color: var(--black-secondary); margin-bottom: 1.25rem;">Generate production-ready code for your website</p>
                     
+                    <div class="image-url-section">
+                        <h4>⚠️ Important: Image URL Required</h4>
+                        <p>Before exporting, please specify the URL where your image will be hosted:</p>
+                        <div class="control-group">
+                            <input type="url" id="export-image-url" placeholder="https://example.com/images/your-image.jpg">
+                        </div>
+                        <button class="btn btn-warning" id="use-placeholder-url">Use Placeholder URL</button>
+                    </div>
+                    
                     <button class="btn btn-success" id="export-btn">🚀 Generate Code</button>
                     <button class="btn btn-primary" id="copy-btn" style="display: none;">📋 Copy to Clipboard</button>
                     
@@ -1228,12 +1290,13 @@
     <div class="drag-overlay" id="drag-overlay"></div>
 
     <script>
-        // Shoppable Image Creator with Data Persistence
+        // Enterprise-grade Shoppable Image Creator with Data Persistence
         class ShoppableImageCreator {
             constructor() {
                 this.hotspots = [];
                 this.currentHotspotIndex = -1;
                 this.imageUrl = '';
+                this.exportImageUrl = '';
                 this.previewMode = false;
                 this.isDragging = false;
                 this.dragData = {};
@@ -1241,21 +1304,23 @@
                 this.autoSaveEnabled = true;
                 this.projectName = 'shoppable-image-' + Date.now();
                 this.styles = {
-                    hotspotAnimation: 'pulse',
+                    hotspotAnimation: 'glow',
                     hoverAnimation: 'scale',
                     hotspotSize: 36,
-                    hotspotColor: '#B82801',
-                    hotspotBg: '#ffffff',
+                    hotspotColor: '#B32017',
+                    hotspotBg: '#FFFFFF',
                     borderWidth: 3,
                     borderRadius: '50%',
                     shadowStyle: 'default',
                     popupBg: '#ffffff',
-                    titleColor: '#1A1A1A',
-                    textColor: '#2D2D2D',
-                    priceColor: '#B82801',
-                    buttonBg: '#B82801',
+                    titleColor: '#332A2A',
+                    textColor: '#332A2A',
+                    priceColor: '#B32017',
+                    buttonBg: '#B32017',
                     buttonTextColor: '#ffffff',
-                    fontFamily: 'system'
+                    fontFamily: 'Lato',
+                    imageWidth: '100%',
+                    imageHeight: 'auto'
                 };
                 
                 this.init();
@@ -1329,6 +1394,12 @@
 
                 document.getElementById('copy-btn').addEventListener('click', () => {
                     this.copyToClipboard();
+                });
+                
+                // Export Image URL handlers
+                document.getElementById('use-placeholder-url').addEventListener('click', () => {
+                    document.getElementById('export-image-url').value = 'https://example.com/your-image.jpg';
+                    this.showMessage('Placeholder URL set. Remember to replace it with your actual image URL!', 'warning');
                 });
 
                 // Data management buttons
@@ -1426,6 +1497,7 @@
                     timestamp: Date.now(),
                     projectName: this.projectName,
                     imageUrl: this.imageUrl,
+                    exportImageUrl: this.exportImageUrl,
                     hotspots: this.hotspots,
                     styles: this.styles,
                     previewMode: this.previewMode
@@ -1437,6 +1509,7 @@
                     this.hotspots = data.hotspots || [];
                     this.styles = { ...this.styles, ...(data.styles || {}) };
                     this.projectName = data.projectName || this.projectName;
+                    this.exportImageUrl = data.exportImageUrl || '';
                     
                     if (data.imageUrl) {
                         this.imageUrl = data.imageUrl;
@@ -1446,6 +1519,11 @@
                     this.updateStyleControls();
                     this.updateHotspotList();
                     this.renderHotspots();
+                    
+                    // Restore export image URL if available
+                    if (this.exportImageUrl) {
+                        document.getElementById('export-image-url').value = this.exportImageUrl;
+                    }
                 }
             }
 
@@ -1538,13 +1616,28 @@
                     'price-color-text': this.styles.priceColor,
                     'button-bg': this.styles.buttonBg,
                     'button-bg-text': this.styles.buttonBg,
-                    'font-family': this.styles.fontFamily
+                    'font-family': this.styles.fontFamily,
+                    'image-width': this.styles.imageWidth,
+                    'image-height': this.styles.imageHeight
                 };
 
                 Object.entries(controls).forEach(([id, value]) => {
                     const element = document.getElementById(id);
                     if (element) element.value = value;
                 });
+
+                // Handle custom width/height fields
+                if (this.styles.imageWidth && !['100%', 'auto', '800px', '600px', '500px', '400px'].includes(this.styles.imageWidth)) {
+                    document.getElementById('image-width').value = 'custom';
+                    document.getElementById('custom-width').value = this.styles.imageWidth;
+                    document.getElementById('custom-width').style.display = 'block';
+                }
+
+                if (this.styles.imageHeight && !['auto', '400px', '300px', '500px', '600px'].includes(this.styles.imageHeight)) {
+                    document.getElementById('image-height').value = 'custom';
+                    document.getElementById('custom-height').value = this.styles.imageHeight;
+                    document.getElementById('custom-height').style.display = 'block';
+                }
 
                 this.updateColorPreviews();
                 this.updateRangeValues();
@@ -1597,9 +1690,25 @@
                 });
 
                 // Other style controls
-                ['hotspot-animation', 'hover-animation', 'font-family'].forEach(id => {
+                ['hotspot-animation', 'hover-animation', 'font-family', 'image-width', 'image-height'].forEach(id => {
                     document.getElementById(id)?.addEventListener('change', () => this.updateStylePreview());
                 });
+
+                // Custom width/height field toggles
+                document.getElementById('image-width')?.addEventListener('change', (e) => {
+                    const customField = document.getElementById('custom-width');
+                    customField.style.display = e.target.value === 'custom' ? 'block' : 'none';
+                    this.updateStylePreview();
+                });
+
+                document.getElementById('image-height')?.addEventListener('change', (e) => {
+                    const customField = document.getElementById('custom-height');
+                    customField.style.display = e.target.value === 'custom' ? 'block' : 'none';
+                    this.updateStylePreview();
+                });
+
+                document.getElementById('custom-width')?.addEventListener('input', () => this.updateStylePreview());
+                document.getElementById('custom-height')?.addEventListener('input', () => this.updateStylePreview());
             }
 
             isValidHex(hex) {
@@ -1656,6 +1765,22 @@
             }
 
             getCurrentStyles() {
+                const getImageWidth = () => {
+                    const widthSelect = document.getElementById('image-width')?.value;
+                    if (widthSelect === 'custom') {
+                        return document.getElementById('custom-width')?.value || '100%';
+                    }
+                    return widthSelect || '100%';
+                };
+
+                const getImageHeight = () => {
+                    const heightSelect = document.getElementById('image-height')?.value;
+                    if (heightSelect === 'custom') {
+                        return document.getElementById('custom-height')?.value || 'auto';
+                    }
+                    return heightSelect || 'auto';
+                };
+
                 return {
                     hotspotAnimation: document.getElementById('hotspot-animation')?.value || 'pulse',
                     hoverAnimation: document.getElementById('hover-animation')?.value || 'scale',
@@ -1671,7 +1796,9 @@
                     priceColor: document.getElementById('price-color')?.value || '#B82801',
                     buttonBg: document.getElementById('button-bg')?.value || '#B82801',
                     buttonTextColor: '#ffffff',
-                    fontFamily: document.getElementById('font-family')?.value || 'system'
+                    fontFamily: document.getElementById('font-family')?.value || 'system',
+                    imageWidth: getImageWidth(),
+                    imageHeight: getImageHeight()
                 };
             }
 
@@ -1684,25 +1811,27 @@
 
             resetStyles() {
                 const defaults = {
-                    'hotspot-animation': 'pulse',
+                    'hotspot-animation': 'glow',
                     'hover-animation': 'scale',
                     'hotspot-size': '36',
-                    'hotspot-color': '#B82801',
-                    'hotspot-color-text': '#B82801',
-                    'hotspot-bg': '#ffffff',
-                    'hotspot-bg-text': '#ffffff',
+                    'hotspot-color': '#B32017',
+                    'hotspot-color-text': '#B32017',
+                    'hotspot-bg': '#FFFFFF',
+                    'hotspot-bg-text': '#FFFFFF',
                     'border-width': '3',
                     'popup-bg': '#ffffff',
                     'popup-bg-text': '#ffffff',
-                    'title-color': '#1A1A1A',
-                    'title-color-text': '#1A1A1A',
-                    'text-color': '#2D2D2D',
-                    'text-color-text': '#2D2D2D',
-                    'price-color': '#B82801',
-                    'price-color-text': '#B82801',
-                    'button-bg': '#B82801',
-                    'button-bg-text': '#B82801',
-                    'font-family': 'system'
+                    'title-color': '#332A2A',
+                    'title-color-text': '#332A2A',
+                    'text-color': '#332A2A',
+                    'text-color-text': '#332A2A',
+                    'price-color': '#B32017',
+                    'price-color-text': '#B32017',
+                    'button-bg': '#B32017',
+                    'button-bg-text': '#B32017',
+                    'font-family': 'Lato',
+                    'image-width': '100%',
+                    'image-height': 'auto'
                 };
 
                 Object.entries(defaults).forEach(([id, value]) => {
@@ -2245,14 +2374,26 @@
                 }
             }
 
-            // Export functionality
+            // Export functionality - FIXED VERSION
             exportHTML() {
                 if (!this.imageUrl || this.hotspots.length === 0) {
                     this.showMessage('Please add an image and at least one hotspot', 'error');
                     return;
                 }
+                
+                // Get the export image URL
+                const exportUrl = document.getElementById('export-image-url').value.trim();
+                if (!exportUrl) {
+                    this.showMessage('Please enter the URL where your image will be hosted', 'warning');
+                    document.getElementById('export-image-url').focus();
+                    return;
+                }
+                
+                // Save the export URL for future use
+                this.exportImageUrl = exportUrl;
+                this.autoSave();
 
-                const html = this.generateHTML();
+                const html = this.generateHTML(exportUrl);
                 const output = document.getElementById('code-output');
                 const copyBtn = document.getElementById('copy-btn');
 
@@ -2263,7 +2404,7 @@
                 this.showMessage('HTML code generated successfully!', 'success');
             }
 
-            generateHTML() {
+            generateHTML(imageUrl) {
                 const getFontFamily = () => {
                     switch(this.styles.fontFamily) {
                         case 'Lato': return "'Lato', sans-serif";
@@ -2344,22 +2485,23 @@
         </div>`;
                 }).join('');
 
-                return `<!-- Shoppable Image -->
+                return `<!-- Shoppable Image - Enterprise Edition -->
 ${fontLink}
 <div class="shoppable-image-wrapper" style="position: relative; display: inline-block; max-width: 100%;">
     <style>
         .shoppable-image-wrapper {
             font-family: ${fontFamily};
             line-height: 1.6;
+            width: 100%;
         }
         .shoppable-image-container {
             position: relative;
-            display: inline-block;
+            display: block;
             width: 100%;
             overflow: visible;
         }
         .shoppable-image-container img {
-            max-width: 100%;
+            width: 100%;
             height: auto;
             display: block;
             vertical-align: bottom;
@@ -2374,7 +2516,7 @@ ${fontLink}
             cursor: pointer;
             transform: translate(-50%, -50%);
             transition: all 0.3s ease;
-            z-index: 10;
+            z-index: 4;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2386,6 +2528,7 @@ ${fontLink}
             .si-hotspot:hover {
                 transform: translate(-50%, -50%) scale(1.15);
                 background: ${this.styles.hotspotColor};
+                z-index: 4;
             }
             .si-hotspot:hover .si-content {
                 color: ${this.styles.hotspotBg};
@@ -2406,7 +2549,7 @@ ${fontLink}
             padding: 20px;
             width: 300px;
             max-width: 90vw;
-            z-index: 1000;
+            z-index: 5;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
@@ -2415,19 +2558,20 @@ ${fontLink}
             box-sizing: border-box;
         }
         
-        /* Dynamic positioning for each popup */
+        /* Dynamic positioning for each popup - responsive to image size */
         ${this.hotspots.map((h, i) => {
             let styles = '';
+            // Position popups relative to the image container, not fixed positions
             if (h.y > 60) {
-                styles += `bottom: ${100 - h.y + 3}%; top: auto;`;
+                styles += `bottom: calc(${100 - h.y}% + 10px); top: auto;`;
             } else {
-                styles += `top: ${h.y + 3}%; bottom: auto;`;
+                styles += `top: calc(${h.y}% + 10px); bottom: auto;`;
             }
             
             if (h.x < 20) {
-                styles += `left: 5px; right: auto;`;
+                styles += `left: 10px; right: auto; transform: none;`;
             } else if (h.x > 80) {
-                styles += `right: 5px; left: auto;`;
+                styles += `right: 10px; left: auto; transform: none;`;
             } else if (h.x < 50) {
                 styles += `left: ${h.x}%; right: auto; transform: translateX(-20%);`;
             } else {
@@ -2440,6 +2584,7 @@ ${fontLink}
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
+            z-index: 5;
         }
         .si-close {
             position: absolute;
@@ -2522,7 +2667,6 @@ ${fontLink}
         @media (max-width: 768px) {
             .shoppable-image-container {
                 position: relative;
-                overflow: visible;
             }
             
             .si-popup {
@@ -2532,84 +2676,37 @@ ${fontLink}
                 transform: translate(-50%, -50%) !important;
                 bottom: auto !important;
                 right: auto !important;
-                width: min(85%, 300px) !important;
-                max-height: none !important;
-                overflow-y: visible !important;
-                z-index: 1000 !important;
-                background: white !important;
-                border-radius: 16px !important;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
-                padding: 20px !important;
-                margin: 0 !important;
-                border: 2px solid rgba(0,0,0,0.1) !important;
+                width: min(90vw, 320px) !important;
+                max-height: 70vh !important;
+                overflow-y: auto !important;
+                z-index: 3 !important;
             }
             
-            .si-popup::-webkit-scrollbar {
-                display: none !important;
-            }
-            
-            /* Remove the gray backdrop overlay */
-            .si-popup.active::before {
-                display: none !important;
-            }
-            
-            .si-popup .si-title {
-                color: #1A1A1A !important;
-                font-weight: 600 !important;
-                font-size: 18px !important;
-                margin-bottom: 10px !important;
-            }
-            
-            .si-popup .si-text {
-                color: #2D2D2D !important;
-                font-size: 15px !important;
-                line-height: 1.4 !important;
-                margin-bottom: 14px !important;
-            }
-            
-            .si-popup .si-price {
-                color: #B82801 !important;
-                font-size: 22px !important;
-                font-weight: 600 !important;
-                margin-bottom: 16px !important;
-            }
-            
-            .si-popup .si-button {
-                background: #B82801 !important;
-                color: white !important;
-                padding: 12px 20px !important;
-                font-size: 16px !important;
-                font-weight: 500 !important;
-                border-radius: 8px !important;
-                margin-top: 6px !important;
-            }
-            
-            .si-popup .si-image {
-                height: 130px !important;
-                margin-bottom: 16px !important;
-                border-radius: 10px !important;
+            .si-popup.active {
+                z-index: 5 !important;
             }
             
             .si-hotspot {
                 width: 44px !important;
                 height: 44px !important;
+                z-index: 4 !important;
             }
             
             .si-close {
-                width: 32px !important;
-                height: 32px !important;
-                font-size: 20px !important;
-                background: rgba(0, 0, 0, 0.06) !important;
-                color: #555 !important;
-                top: 12px !important;
-                right: 12px !important;
-                border-radius: 50% !important;
+                width: 44px !important;
+                height: 44px !important;
+                font-size: 24px !important;
             }
-            
-            .si-close:hover,
-            .si-close:active {
-                background: rgba(0, 0, 0, 0.12) !important;
-            }
+        }
+        
+        /* Mobile centering overrides for each popup */
+        @media (max-width: 768px) {
+            ${this.hotspots.map((h, i) => {
+                return `.si-popup[data-hotspot="${i}"] { position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; right: auto !important; bottom: auto !important; z-index: 5 !important; }`;
+            }).join('\n            ')}
+            ${this.hotspots.map((h, i) => {
+                return `.si-popup[data-hotspot="${i}"].active { z-index: 5 !important; }`;
+            }).join('\n            ')}
         }
         
         /* Touch device optimizations */
@@ -2623,57 +2720,22 @@ ${fontLink}
                 height: 44px;
             }
         }
-        
-        /* Ensure text doesn't overflow */
-        .si-popup * {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
     </style>
     
     <div class="shoppable-image-container">
-        <img src="${this.imageUrl}" alt="Shoppable Image">
+        <img src="${imageUrl}" alt="Shoppable Image">
         ${hotspotsHTML}
     </div>
     
     <script>
         (function() {
-            const wrapper = document.currentScript.parentElement;
-            const container = wrapper.querySelector('.shoppable-image-container');
+            const container = document.currentScript.parentElement.querySelector('.shoppable-image-container');
             const hotspots = container.querySelectorAll('.si-hotspot');
             const popups = container.querySelectorAll('.si-popup');
             const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
             
             function closeAllPopups() {
                 popups.forEach(p => p.classList.remove('active'));
-            }
-            
-            function positionPopup(popup) {
-                if (!popup.classList.contains('active')) return;
-                
-                const rect = popup.getBoundingClientRect();
-                
-                popup.style.marginLeft = '';
-                popup.style.marginTop = '';
-                
-                if (window.innerWidth > 768) {
-                    if (rect.right > window.innerWidth - 10) {
-                        const overflow = rect.right - (window.innerWidth - 10);
-                        popup.style.marginLeft = '-' + overflow + 'px';
-                    }
-                    if (rect.left < 10) {
-                        const overflow = 10 - rect.left;
-                        popup.style.marginLeft = overflow + 'px';
-                    }
-                    if (rect.bottom > window.innerHeight - 10) {
-                        const overflow = rect.bottom - (window.innerHeight - 10);
-                        popup.style.marginTop = '-' + overflow + 'px';
-                    }
-                    if (rect.top < 10) {
-                        const overflow = 10 - rect.top;
-                        popup.style.marginTop = overflow + 'px';
-                    }
-                }
             }
             
             hotspots.forEach((hotspot, index) => {
@@ -2692,10 +2754,7 @@ ${fontLink}
                         const wasActive = popup.classList.contains('active');
                         closeAllPopups();
                         if (!wasActive) {
-                            setTimeout(() => {
-                                popup.classList.add('active');
-                                setTimeout(() => positionPopup(popup), 10);
-                            }, 50);
+                            popup.classList.add('active');
                         }
                     });
                 } else {
@@ -2703,9 +2762,9 @@ ${fontLink}
                     
                     hotspot.addEventListener('mouseenter', function() {
                         clearTimeout(hoverTimeout);
+                        closeAllPopups();
                         hoverTimeout = setTimeout(() => {
                             popup.classList.add('active');
-                            positionPopup(popup);
                         }, 100);
                     });
                     
@@ -2732,19 +2791,10 @@ ${fontLink}
                 }
             });
             
-            // Close popups when clicking outside, but not on touch devices during popup interaction
             document.addEventListener('click', function(e) {
-                if (!isTouchDevice || !e.target.closest('.si-popup')) {
+                if (!e.target.closest('.si-hotspot') && !e.target.closest('.si-popup')) {
                     closeAllPopups();
                 }
-            });
-            
-            let resizeTimeout;
-            window.addEventListener('resize', function() {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    popups.forEach(popup => positionPopup(popup));
-                }, 100);
             });
         })();
     <\/script>
