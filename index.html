@@ -2545,7 +2545,7 @@ ${fontLink}
             position: absolute;
             background: ${this.styles.popupBg};
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(51, 42, 42, 0.2);
             padding: 20px;
             width: 300px;
             max-width: 90vw;
@@ -2553,7 +2553,8 @@ ${fontLink}
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.2s ease, visibility 0.2s ease;
+            transition: cubic-bezier(0.18, 0.58, 0.28, 0.98) .4s;
+            transition-property: opacity, visibility;
             font-family: ${fontFamily};
             box-sizing: border-box;
         }
@@ -2592,12 +2593,12 @@ ${fontLink}
             right: 12px;
             width: 32px;
             height: 32px;
-            background: rgba(0, 0, 0, 0.05);
+            background: rgba(51, 42, 42, 0.1);
             border: none;
             border-radius: 50%;
             cursor: pointer;
             font-size: 20px;
-            color: #495057;
+            color: #332A2A;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2606,8 +2607,8 @@ ${fontLink}
             padding: 0;
         }
         .si-close:hover {
-            background: rgba(0, 0, 0, 0.1);
-            color: #212529;
+            background: rgba(51, 42, 42, 0.2);
+            color: #332A2A;
         }
         .si-image {
             width: 100%;
@@ -2615,7 +2616,7 @@ ${fontLink}
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 16px;
-            background: #f8f9fa;
+            background: #FFFEFC;
         }
         .si-title {
             font-size: 18px;
@@ -2640,26 +2641,29 @@ ${fontLink}
             font-family: ${fontFamily};
         }
         .si-button {
-            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            padding: 12px 20px;
+            padding: 0 25px;
+            height: 48px;
             background: ${this.styles.buttonBg};
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 700;
             text-decoration: none;
-            text-align: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: cubic-bezier(0.18, 0.58, 0.28, 0.98) .4s;
+            transition-property: background-color, border-color;
             font-family: ${fontFamily};
             box-sizing: border-box;
             margin: 0;
         }
         .si-button:hover {
             background: ${this.darkenColor(this.styles.buttonBg, 10)};
-            transform: translateY(-1px);
+            color: #FFFFFF;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         
@@ -2693,8 +2697,8 @@ ${fontLink}
             }
             
             .si-close {
-                width: 44px !important;
-                height: 44px !important;
+                width: 36px !important;
+                height: 36px !important;
                 font-size: 24px !important;
             }
         }
