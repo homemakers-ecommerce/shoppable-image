@@ -17,51 +17,57 @@
 
         :root {
             /* Brand Colors */
-            --primary-cornet: #B82801;
-            --primary-dark: #8B1E01;
-            --black-primary: #1A1A1A;
-            --black-secondary: #2D2D2D;
-            --black-tertiary: #404040;
-            --sandstone: #C5A572;
-            --cedar: #8B4513;
-            --linen: #F5F5DC;
-            --canvas: #F8F6F0;
+            --primary-cornel: #B32017;
+            --primary-poppy: #CD4941;
+            --black-primary: #332A2A;
+            --black-secondary: #4C4443;
+            --black-tertiary: #B1A9A9;
+            --sandstone: #E5D7C5;
+            --cedar: #CCA066;
+            --linen: #F0EBE6;
+            --canvas: #F6F3EE;
             --white: #FFFFFF;
-            
+
             /* Legacy support */
-            --primary-color: var(--primary-cornet);
-            --primary-dark-color: var(--primary-dark);
-            
+            --primary-color: var(--primary-cornel);
+            --primary-poppy-color: var(--primary-poppy);
+
             /* System Colors */
-            --gray-100: #f8f9fa;
-            --gray-200: #e9ecef;
-            --gray-300: #dee2e6;
-            --gray-400: #ced4da;
-            --gray-500: #adb5bd;
-            --gray-600: #6c757d;
-            --gray-700: #495057;
-            --gray-800: #343a40;
-            --gray-900: #212529;
-            --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-            --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-            --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
-            --shadow-xl: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
-            --border-radius: 12px;
+            --success-500: #2C6724;
+            --success-100: #D5DED1;
+            --danger-500: #C35100;
+            --danger-100: #FFDCCB;
+            --destructive-500: #B32017;
+            --destructive-100: #F8D4D2;
+            --black-100: #F3F1F1;
+            --black-200: #E3DEDE;
+            --black-300: #CBC3C2;
+            --black-400: #B1A9A9;
+            --black-500: #998F8F;
+            --black-600: #817574;
+            --black-700: #675C5B;
+            --black-800: #4C4443;
+            --black-900: #332A2A;
+            --shadow-sm: 0 0.125rem 0.25rem rgba(51, 42, 42, 0.15);
+            --shadow-md: 0 0.5rem 1rem rgba(51, 42, 42, 0.175);
+            --shadow-lg: 0 1rem 3rem rgba(51, 42, 42, 0.2);
+            --shadow-xl: 0 1.5rem 4rem rgba(51, 42, 42, 0.25);
+            --border-radius: 8px;
             --font-system: 'Lato', sans-serif;
         }
 
         body {
             font-family: 'Lato', sans-serif;
-            background: linear-gradient(135deg, var(--primary-cornet) 0%, var(--primary-dark) 100%);
+            background: var(--black-100);
+            color: var(--black-900);
             min-height: 100vh;
-            padding: 10px;
+            padding: 20px;
             line-height: 1.6;
-            color: var(--gray-900);
         }
 
         @media (min-width: 768px) {
             body {
-                padding: 20px;
+                padding: 40px;
             }
         }
 
@@ -75,7 +81,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary-cornet) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, var(--primary-cornel) 0%, var(--primary-poppy) 100%);
             color: white;
             padding: 1.5rem;
             text-align: center;
@@ -96,9 +102,11 @@
             .header {
                 padding: 2rem;
             }
+
             .header h1 {
                 font-size: 2.25rem;
             }
+
             .header p {
                 font-size: 1rem;
             }
@@ -161,14 +169,14 @@
             position: relative;
             width: 48px;
             height: 26px;
-            background: var(--gray-400);
+            background: var(--black-400);
             border-radius: 13px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         .toggle-switch.active {
-            background: var(--primary-cornet);
+            background: var(--primary-cornel);
         }
 
         .toggle-slider {
@@ -204,20 +212,21 @@
         }
 
         .upload-area:hover {
-            border-color: var(--primary-cornet);
+            border-color: var(--primary-cornel);
             background: rgba(184, 40, 1, 0.03);
         }
 
         .upload-area.dragging {
-            border-color: var(--primary-dark);
+            border-color: var(--primary-poppy);
             background: rgba(184, 40, 1, 0.05);
+            box-shadow: var(--shadow-md);
         }
 
         .upload-icon {
             width: 60px;
             height: 60px;
             margin: 0 auto 1rem;
-            stroke: var(--primary-cornet);
+            stroke: var(--primary-cornel);
         }
 
         .upload-content h3 {
@@ -267,9 +276,10 @@
 
         .control-tabs {
             display: flex;
-            gap: 2px;
+            gap: 0px;
+            width: 100%;
+            justify-content: center;
             margin-bottom: 1.5rem;
-            border-bottom: 2px solid var(--gray-200);
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
@@ -279,6 +289,12 @@
             display: none;
         }
 
+        @media (max-width: 767px) {
+            .control-tabs {
+                justify-content: start;
+            }
+        }
+
         .tab-button {
             padding: 0.75rem 1rem;
             background: none;
@@ -286,11 +302,11 @@
             color: var(--black-secondary);
             font-weight: 500;
             cursor: pointer;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -2px;
+            border-bottom: 2px solid var(--black-200);
             white-space: nowrap;
             transition: all 0.2s ease;
             font-size: 0.95rem;
+            width: 100%;
         }
 
         .tab-button:hover {
@@ -298,8 +314,14 @@
         }
 
         .tab-button.active {
-            color: var(--primary-cornet);
-            border-bottom-color: var(--primary-cornet);
+            color: var(--primary-cornel);
+            border-bottom-color: var(--primary-cornel);
+        }
+
+        @media (max-width: 767px) {
+            .tab-button {
+                width: auto;
+            }
         }
 
         .tab-content {
@@ -312,8 +334,12 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         .control-group {
@@ -333,7 +359,7 @@
         .control-group select {
             width: 100%;
             padding: 0.625rem 0.875rem;
-            border: 1.5px solid var(--gray-300);
+            border: 1.5px solid var(--black-300);
             border-radius: 8px;
             font-size: 0.95rem;
             transition: all 0.2s ease;
@@ -344,7 +370,7 @@
         .control-group textarea:focus,
         .control-group select:focus {
             outline: none;
-            border-color: var(--primary-cornet);
+            border-color: var(--primary-cornel);
             box-shadow: 0 0 0 3px rgba(184, 40, 1, 0.1);
         }
 
@@ -378,7 +404,7 @@
             padding: 0.625rem 1.25rem;
             border: none;
             border-radius: 8px;
-            font-weight: 500;
+            font-weight: 700;
             cursor: pointer;
             margin-right: 0.625rem;
             margin-bottom: 0.625rem;
@@ -389,52 +415,64 @@
 
         .btn:hover {
             transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-primary {
-            background: var(--primary-cornet);
+            background: var(--black-primary);
             color: white;
+            border: 1px solid var(--black-primary);
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
+            background: var(--black-secondary);
+            color: white;
+            border: 1px solid var(--black-secondary);
         }
 
         .btn-secondary {
-            background: var(--black-secondary);
-            color: white;
+            background: transparent;
+            color: var(--black-primary);
+            border: 1px solid var(--black-primary);
         }
 
         .btn-secondary:hover {
-            background: var(--black-primary);
+            background: var(--black-secondary);
+            color: white;
+            border: 1px solid var(--black-secondary);
         }
 
         .btn-danger {
-            background: #dc3545;
+            background: var(--destructive-500);
             color: white;
+            border: 1px solid var(--destructive-500);
         }
 
         .btn-danger:hover {
-            background: #bb2d3b;
+            background: var(--destructive-100);
+            color: var(--destructive-500);
         }
 
         .btn-success {
-            background: #198754;
+            background: var(--success-500);
             color: white;
+            border: 1px solid var(--success-500);
         }
 
         .btn-success:hover {
-            background: #146c43;
+            background: var(--success-100);
+            color: var(--success-500);
         }
 
         .btn-warning {
-            background: #ffc107;
-            color: #000;
+            background: var(--danger-500);
+            color: white;
+            border: 1px solid var(--danger-500);
         }
 
         .btn-warning:hover {
-            background: #ffca2c;
+            background: var(--danger-100);
+            color: var(--danger-500);
         }
 
         .instructions {
@@ -464,39 +502,40 @@
         .message {
             padding: 0.875rem 1.25rem;
             border-radius: 8px;
-            margin-bottom: 1rem;
-            display: none;
             font-size: 0.95rem;
-            animation: slideDown 0.3s ease;
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            max-width: 600px;
+            height: auto;
+            z-index: 9999;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
-        @keyframes slideDown {
-            from {
-                transform: translateY(-10px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        .message.show {
+            display: block;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
 
         .message.success {
-            background: #d1e7dd;
-            color: #0f5132;
-            border: 1px solid #badbcc;
+            background: var(--success-100);
+            color: var(--success-500);
+            border: 1px solid var(--success-500);
         }
 
         .message.error {
-            background: #f8d7da;
-            color: #842029;
-            border: 1px solid #f5c2c7;
+            background: var(--destructive-100);
+            color: var(--destructive-500);
+            border: 1px solid var(--destructive-500);
         }
 
         .message.warning {
-            background: #fff3cd;
-            color: #664d03;
-            border: 1px solid #ffecb5;
+            background: var(--danger-100);
+            color: var(--danger-500);
+            border: 1px solid var(--danger-500);
         }
 
         .hotspot-form {
@@ -504,10 +543,10 @@
         }
 
         .hotspot-list {
-            max-height: 300px;
+            max-height: 600px;
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: var(--gray-400) transparent;
+            scrollbar-color: var(--black-400) transparent;
         }
 
         .hotspot-list::-webkit-scrollbar {
@@ -519,7 +558,7 @@
         }
 
         .hotspot-list::-webkit-scrollbar-thumb {
-            background: var(--gray-400);
+            background: var(--black-400);
             border-radius: 3px;
         }
 
@@ -535,12 +574,11 @@
 
         .hotspot-item:hover {
             background: var(--linen);
-            transform: translateX(4px);
         }
 
         .hotspot-item.active {
             background: rgba(184, 40, 1, 0.08);
-            border-color: var(--primary-cornet);
+            border-color: var(--primary-cornel);
         }
 
         .code-output {
@@ -593,7 +631,7 @@
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 2px solid var(--gray-300);
+            border: 2px solid var(--black-300);
             border-radius: 4px;
             vertical-align: middle;
             margin-left: 0.5rem;
@@ -610,7 +648,7 @@
             height: 36px;
             padding: 2px;
             cursor: pointer;
-            border: 1.5px solid var(--gray-300);
+            border: 1.5px solid var(--black-300);
         }
 
         .color-input-group input[type="text"] {
@@ -625,7 +663,7 @@
         }
 
         .image-url-section h4 {
-            color: var(--primary-cornet);
+            color: var(--primary-cornel);
             margin-bottom: 0.5rem;
             font-size: 0.95rem;
         }
@@ -642,7 +680,7 @@
             width: 36px;
             height: 36px;
             background: white;
-            border: 3px solid var(--primary-cornet);
+            border: 3px solid var(--primary-cornel);
             border-radius: 50%;
             cursor: pointer;
             transform: translate(-50%, -50%);
@@ -678,50 +716,93 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.1); }
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
         }
 
         @keyframes shake {
-            0%, 100% { transform: translate(-50%, -50%); }
-            25% { transform: translate(-48%, -50%); }
-            75% { transform: translate(-52%, -50%); }
+            0%,
+            100% {
+                transform: translate(-50%, -50%);
+            }
+            25% {
+                transform: translate(-48%, -50%);
+            }
+            75% {
+                transform: translate(-52%, -50%);
+            }
         }
 
         @keyframes glow {
-            0%, 100% { box-shadow: 0 0 5px rgba(184, 40, 1, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(184, 40, 1, 0.8); }
+            0%,
+            100% {
+                box-shadow: 0 0 5px rgba(184, 40, 1, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(184, 40, 1, 0.8);
+            }
         }
 
         @keyframes rotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
 
         @keyframes scale {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.2); }
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
         }
 
-        .hotspot.anim-bounce { animation: bounce 1s infinite; }
-        .hotspot.anim-shake { animation: shake 0.5s infinite; }
-        .hotspot.anim-glow { animation: glow 2s infinite; }
-        .hotspot.anim-rotate { animation: rotate 2s linear infinite; }
-        .hotspot.anim-scale { animation: scale 2s infinite; }
-        .hotspot.anim-none { animation: none; }
+        .hotspot.anim-bounce {
+            animation: bounce 1s infinite;
+        }
+
+        .hotspot.anim-shake {
+            animation: shake 0.5s infinite;
+        }
+
+        .hotspot.anim-glow {
+            animation: glow 2s infinite;
+        }
+
+        .hotspot.anim-rotate {
+            animation: rotate 2s linear infinite;
+        }
+
+        .hotspot.anim-scale {
+            animation: scale 2s infinite;
+        }
+
+        .hotspot.anim-none {
+            animation: none;
+        }
 
         .hotspot:hover {
             transform: translate(-50%, -50%) scale(1.15);
-            background: var(--primary-cornet);
+            background: var(--primary-cornel);
         }
 
         .hotspot.active {
-            background: var(--primary-dark);
-            border-color: var(--primary-dark);
+            background: var(--primary-poppy);
+            border-color: var(--primary-poppy);
         }
 
         .hotspot-content {
-            color: var(--primary-cornet);
+            color: var(--primary-cornel);
             font-weight: 600;
             font-size: 14px;
             pointer-events: none;
@@ -777,13 +858,13 @@
                 background: white !important;
                 color: var(--black-primary) !important;
                 border: none !important;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.3) !important;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
             }
-            
+
             .popup-title {
                 color: var(--black-primary) !important;
             }
-            
+
             .popup-text {
                 color: var(--black-secondary) !important;
             }
@@ -839,14 +920,14 @@
         .popup-price {
             font-size: 1.5rem;
             font-weight: 600;
-            color: var(--primary-cornet);
+            color: var(--primary-cornel);
             margin-bottom: 1rem;
         }
 
         .popup-button {
             width: 100%;
             padding: 0.75rem;
-            background: var(--primary-cornet);
+            background: var(--primary-cornel);
             color: white;
             border: none;
             border-radius: 8px;
@@ -860,7 +941,7 @@
         }
 
         .popup-button:hover {
-            background: var(--primary-dark);
+            background: var(--primary-poppy);
             transform: translateY(-1px);
             box-shadow: var(--shadow-md);
         }
@@ -903,8 +984,8 @@
         .auto-save-indicator {
             display: inline-block;
             padding: 0.25rem 0.5rem;
-            background: #d1e7dd;
-            color: #0f5132;
+            background: var(--success-100);
+            color: var(--success-500);
             border-radius: 4px;
             font-size: 0.8rem;
             margin-left: 0.5rem;
@@ -916,7 +997,7 @@
                 width: 44px;
                 height: 44px;
             }
-            
+
             .popup-close {
                 width: 44px;
                 height: 44px;
@@ -929,14 +1010,16 @@
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 3px solid var(--gray-300);
+            border: 3px solid var(--black-300);
             border-radius: 50%;
-            border-top-color: var(--primary-cornet);
+            border-top-color: var(--primary-cornel);
             animation: spin 1s linear infinite;
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Accessibility */
@@ -957,6 +1040,7 @@
             body {
                 background: white;
             }
+
             .controls,
             .btn,
             .popup-close {
@@ -968,11 +1052,12 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🛍️ Shoppable Image Creator</h1>
+            <h1>Shoppable Image Creator</h1>
             <p>Create interactive product hotspots on your images - Enterprise Edition</p>
         </div>
 
         <div class="main-content">
+            <div class="message" id="message"></div>
             <div class="workspace">
                 <div class="workspace-header">
                     <h2>Workspace</h2>
@@ -983,7 +1068,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="upload-area" id="upload-area">
                     <div class="upload-content">
                         <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -993,13 +1078,12 @@
                         </svg>
                         <h3>Upload Your Image</h3>
                         <p>Click to browse or drag and drop</p>
-                        <p style="color: var(--gray-500); font-size: 0.875rem; margin-top: 0.25rem;">Supports: JPG, PNG, GIF, WebP</p>
+                        <p style="color: var(--black-500); font-size: 0.875rem; margin-top: 0.25rem;">Supports: JPG, PNG, GIF, WebP</p>
                     </div>
                     <input type="file" id="file-input" accept="image/*">
                 </div>
 
                 <div class="image-wrapper" id="image-wrapper">
-                    <div class="message" id="message"></div>
                     <div class="image-container" id="image-container"></div>
                     <div style="margin-top: 1.5rem; text-align: center;">
                         <button class="btn btn-primary" id="change-image-btn">Change Image</button>
@@ -1019,7 +1103,7 @@
 
                 <div id="edit-tab" class="tab-content active">
                     <div class="instructions">
-                        <h3>📌 Quick Guide</h3>
+                        <h3>Quick Guide</h3>
                         <ol>
                             <li>Upload an image to get started</li>
                             <li>Click on the image to add hotspots</li>
@@ -1030,57 +1114,58 @@
                     </div>
 
                     <div class="hotspot-form" id="hotspot-form">
-                        <h3 style="margin-bottom: 1rem; color: var(--black-primary);">Hotspot Details</h3>
-                        
+                        <h3 id="hotspot-details-heading" style="margin-bottom: 1rem; color: var(--black-primary);">
+                            Hotspot Details</h3>
+
                         <div class="control-group">
                             <label for="product-title">Product Title *</label>
                             <input type="text" id="product-title" placeholder="Enter product name">
                         </div>
-                        
+
                         <div class="control-group">
                             <label for="product-description">Description</label>
                             <textarea id="product-description" placeholder="Describe the product"></textarea>
                         </div>
-                        
+
                         <div class="control-group">
                             <label for="product-price">Price</label>
                             <input type="text" id="product-price" placeholder="$99.99">
                         </div>
-                        
+
                         <div class="control-group">
                             <label for="product-image">Product Image URL</label>
                             <input type="url" id="product-image" placeholder="https://example.com/product.jpg">
                         </div>
-                        
+
                         <div class="control-group">
                             <div class="checkbox-group">
                                 <input type="checkbox" id="show-cta" checked>
                                 <label for="show-cta">Show Call-to-Action Button</label>
                             </div>
                         </div>
-                        
+
                         <div id="cta-fields">
                             <div class="control-group">
                                 <label for="button-text">Button Text</label>
                                 <input type="text" id="button-text" placeholder="Shop Now">
                             </div>
-                            
+
                             <div class="control-group">
                                 <label for="button-link">Button Link</label>
                                 <input type="url" id="button-link" placeholder="https://example.com/product">
                             </div>
                         </div>
-                        
+
                         <div style="margin-top: 1.5rem;">
-                            <button class="btn btn-primary" id="save-hotspot-btn">💾 Save Changes</button>
-                            <button class="btn btn-danger" id="delete-hotspot-btn">🗑️ Delete</button>
+                            <button class="btn btn-primary" id="save-hotspot-btn">Save Changes</button>
+                            <button class="btn btn-danger" id="delete-hotspot-btn">Delete</button>
                         </div>
                     </div>
                 </div>
 
                 <div id="style-tab" class="tab-content">
-                    <h3 style="margin-bottom: 1.25rem; color: var(--black-primary);">🎨 Style Customization</h3>
-                    
+                    <h3 style="margin-bottom: 1.25rem; color: var(--black-primary);">Style Customization</h3>
+
                     <div class="control-group">
                         <label for="hotspot-animation">Hotspot Animation</label>
                         <select id="hotspot-animation">
@@ -1097,7 +1182,7 @@
                     <div class="control-group">
                         <label for="hover-animation">Hover Animation</label>
                         <select id="hover-animation">
-                            <option value="scale">Scale Up</option>
+                            <option value="scale">Scale Up (Default)</option>
                             <option value="bounce">Bounce</option>
                             <option value="wobble">Wobble</option>
                             <option value="flip">Flip</option>
@@ -1108,7 +1193,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label for="hotspot-size">Hotspot Size: <span id="size-value" style="color: var(--primary-cornet); font-weight: 600;">36px</span></label>
+                        <label for="hotspot-size">Hotspot Size: <span id="size-value" style="color: var(--primary-cornel); font-weight: 600;">36px</span></label>
                         <input type="range" id="hotspot-size" min="24" max="60" value="36">
                     </div>
 
@@ -1129,11 +1214,11 @@
                     </div>
 
                     <div class="control-group">
-                        <label for="border-width">Border Width: <span id="border-value" style="color: var(--primary-cornet); font-weight: 600;">3px</span></label>
+                        <label for="border-width">Border Width: <span id="border-value" style="color: var(--primary-cornel); font-weight: 600;">3px</span></label>
                         <input type="range" id="border-width" min="1" max="8" value="3">
                     </div>
 
-                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--gray-200);">
+                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--black-200);">
 
                     <h4 style="margin-bottom: 1rem; color: var(--black-primary);">Popup Styling</h4>
 
@@ -1186,7 +1271,7 @@
                         </select>
                     </div>
 
-                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--gray-200);">
+                    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--black-200);">
 
                     <h4 style="margin-bottom: 1rem; color: var(--black-primary);">Image Dimensions</h4>
 
@@ -1233,31 +1318,31 @@
                 </div>
 
                 <div id="list-tab" class="tab-content">
-                    <h3 style="margin-bottom: 1.25rem; color: var(--black-primary);">📋 Hotspot List</h3>
+                    <h3 style="margin-bottom: 1.25rem; color: var(--black-primary);">Hotspot List</h3>
                     <div class="hotspot-list" id="hotspot-list">
                         <p style="color: var(--black-secondary); text-align: center; padding: 2rem;">No hotspots added yet</p>
                     </div>
                 </div>
 
                 <div id="data-tab" class="tab-content">
-                    <h3 style="margin-bottom: 1rem; color: var(--black-primary);">💾 Data Management</h3>
+                    <h3 style="margin-bottom: 1rem; color: var(--black-primary);">Data Management</h3>
                     <p style="color: var(--black-secondary); margin-bottom: 1.25rem;">Save, load, and manage your shoppable image projects</p>
-                    
+
                     <div class="data-management">
                         <h4>Auto-Save <span class="auto-save-indicator" id="auto-save-status">Enabled</span></h4>
                         <p style="color: var(--black-secondary); font-size: 0.9rem; margin-bottom: 1rem;">Your work is automatically saved to browser storage</p>
-                        
+
                         <div style="margin-bottom: 1.5rem;">
-                            <button class="btn btn-primary" id="save-project-btn">💾 Save Project</button>
-                            <button class="btn btn-secondary" id="load-project-btn">📂 Load Project</button>
+                            <button class="btn btn-primary" id="save-project-btn">Save Project</button>
+                            <button class="btn btn-secondary" id="load-project-btn">Load Project</button>
                             <input type="file" id="project-file-input" accept=".json" style="display: none;">
                         </div>
 
                         <div style="margin-bottom: 1.5rem;">
-                            <button class="btn btn-success" id="export-project-btn">📤 Export Project</button>
-                            <button class="btn btn-danger" id="clear-storage-btn">🗑️ Clear Storage</button>
+                            <button class="btn btn-success" id="export-project-btn">Export Project</button>
+                            <button class="btn btn-danger" id="clear-storage-btn">Clear Storage</button>
                         </div>
-                        
+
                         <div style="font-size: 0.85rem; color: var(--black-secondary); line-height: 1.4;">
                             <strong>Storage Info:</strong>
                             <div id="storage-info">Calculating...</div>
@@ -1266,21 +1351,21 @@
                 </div>
 
                 <div id="export-tab" class="tab-content">
-                    <h3 style="margin-bottom: 1rem; color: var(--black-primary);">📤 Export HTML</h3>
+                    <h3 style="margin-bottom: 1rem; color: var(--black-primary);">Export HTML</h3>
                     <p style="color: var(--black-secondary); margin-bottom: 1.25rem;">Generate production-ready code for your website</p>
-                    
+
                     <div class="image-url-section">
-                        <h4>⚠️ Important: Image URL Required</h4>
+                        <h4>Important: Image URL Required</h4>
                         <p>Before exporting, please specify the URL where your image will be hosted:</p>
                         <div class="control-group">
                             <input type="url" id="export-image-url" placeholder="https://example.com/images/your-image.jpg">
                         </div>
                         <button class="btn btn-warning" id="use-placeholder-url">Use Placeholder URL</button>
                     </div>
-                    
-                    <button class="btn btn-success" id="export-btn">🚀 Generate Code</button>
-                    <button class="btn btn-primary" id="copy-btn" style="display: none;">📋 Copy to Clipboard</button>
-                    
+
+                    <button class="btn btn-success" id="export-btn">Generate Code</button>
+                    <button class="btn btn-primary" id="copy-btn" style="display: none;">Copy to Clipboard</button>
+
                     <div class="code-output" id="code-output"></div>
                 </div>
             </div>
@@ -1304,7 +1389,7 @@
                 this.autoSaveEnabled = true;
                 this.projectName = 'shoppable-image-' + Date.now();
                 this.styles = {
-                    hotspotAnimation: 'glow',
+                    hotspotAnimation: 'pulse',
                     hoverAnimation: 'scale',
                     hotspotSize: 36,
                     hotspotColor: '#B32017',
@@ -1322,7 +1407,7 @@
                     imageWidth: '100%',
                     imageHeight: 'auto'
                 };
-                
+
                 this.init();
                 this.loadFromStorage();
                 this.updateStorageInfo();
@@ -1340,20 +1425,20 @@
                 // File upload
                 const uploadArea = document.getElementById('upload-area');
                 const fileInput = document.getElementById('file-input');
-                
+
                 uploadArea.addEventListener('click', () => fileInput.click());
                 fileInput.addEventListener('change', (e) => this.handleFileSelect(e));
-                
+
                 // Drag and drop
                 uploadArea.addEventListener('dragover', (e) => {
                     e.preventDefault();
                     uploadArea.classList.add('dragging');
                 });
-                
+
                 uploadArea.addEventListener('dragleave', () => {
                     uploadArea.classList.remove('dragging');
                 });
-                
+
                 uploadArea.addEventListener('drop', (e) => {
                     e.preventDefault();
                     uploadArea.classList.remove('dragging');
@@ -1395,7 +1480,7 @@
                 document.getElementById('copy-btn').addEventListener('click', () => {
                     this.copyToClipboard();
                 });
-                
+
                 // Export Image URL handlers
                 document.getElementById('use-placeholder-url').addEventListener('click', () => {
                     document.getElementById('export-image-url').value = 'https://example.com/your-image.jpg';
@@ -1510,16 +1595,16 @@
                     this.styles = { ...this.styles, ...(data.styles || {}) };
                     this.projectName = data.projectName || this.projectName;
                     this.exportImageUrl = data.exportImageUrl || '';
-                    
+
                     if (data.imageUrl) {
                         this.imageUrl = data.imageUrl;
                         this.displayImage();
                     }
-                    
+
                     this.updateStyleControls();
                     this.updateHotspotList();
                     this.renderHotspots();
-                    
+
                     // Restore export image URL if available
                     if (this.exportImageUrl) {
                         document.getElementById('export-image-url').value = this.exportImageUrl;
@@ -1549,7 +1634,7 @@
                     const data = this.getProjectData();
                     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
                     const url = URL.createObjectURL(blob);
-                    
+
                     const a = document.createElement('a');
                     a.href = url;
                     a.download = `${this.projectName}.json`;
@@ -1557,7 +1642,7 @@
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
-                    
+
                     this.showMessage('Project exported successfully!', 'success');
                 } catch (error) {
                     this.showMessage('Failed to export project', 'error');
@@ -1577,7 +1662,7 @@
                 try {
                     const project = localStorage.getItem('shoppable-image-project');
                     const autosave = localStorage.getItem('shoppable-image-autosave');
-                    
+
                     let info = '';
                     if (project) {
                         const size = (new Blob([project]).size / 1024).toFixed(1);
@@ -1589,7 +1674,7 @@
                         const date = new Date(data.timestamp).toLocaleDateString();
                         info += `Auto-save: ${size} KB (${date})<br>`;
                     }
-                    
+
                     document.getElementById('storage-info').innerHTML = info || 'No saved data';
                 } catch (error) {
                     document.getElementById('storage-info').textContent = 'Error reading storage';
@@ -1660,14 +1745,14 @@
                     const colorInput = document.getElementById(colorId);
                     const textInput = document.getElementById(textId);
                     const preview = document.getElementById(previewId);
-                    
+
                     if (colorInput && textInput) {
                         colorInput.addEventListener('input', (e) => {
                             textInput.value = e.target.value;
                             if (preview) preview.style.backgroundColor = e.target.value;
                             this.updateStylePreview();
                         });
-                        
+
                         textInput.addEventListener('input', (e) => {
                             if (this.isValidHex(e.target.value)) {
                                 colorInput.value = e.target.value;
@@ -1745,13 +1830,13 @@
                 if (!preview) return;
 
                 const styles = this.getCurrentStyles();
-                
+
                 preview.style.width = styles.hotspotSize + 'px';
                 preview.style.height = styles.hotspotSize + 'px';
                 preview.style.backgroundColor = styles.hotspotBg;
                 preview.style.borderColor = styles.hotspotColor;
                 preview.style.borderWidth = styles.borderWidth + 'px';
-                
+
                 const content = preview.querySelector('.hotspot-content');
                 if (content) {
                     content.style.color = styles.hotspotColor;
@@ -1811,7 +1896,7 @@
 
             resetStyles() {
                 const defaults = {
-                    'hotspot-animation': 'glow',
+                    'hotspot-animation': 'pulse',
                     'hover-animation': 'scale',
                     'hotspot-size': '36',
                     'hotspot-color': '#B32017',
@@ -1912,7 +1997,7 @@
                 imageWrapper.style.display = 'block';
 
                 imageContainer.innerHTML = '';
-                
+
                 const img = document.createElement('img');
                 img.src = this.imageUrl;
                 img.onload = () => {
@@ -1931,20 +2016,20 @@
 
             handleImageClick(e, isTouch) {
                 if (this.previewMode || this.isDragging) return;
-                
+
                 const imageContainer = document.getElementById('image-container');
                 const img = imageContainer.querySelector('img');
-                
+
                 const target = isTouch ? e.touches[0].target : e.target;
                 if (target !== img) return;
-                
+
                 const rect = img.getBoundingClientRect();
                 const clientX = isTouch ? e.touches[0].clientX : e.clientX;
                 const clientY = isTouch ? e.touches[0].clientY : e.clientY;
-                
+
                 const x = ((clientX - rect.left) / rect.width) * 100;
                 const y = ((clientY - rect.top) / rect.height) * 100;
-                
+
                 if (x >= 0 && x <= 100 && y >= 0 && y <= 100) {
                     this.addHotspot(x, y);
                 }
@@ -1956,7 +2041,7 @@
                     x: x,
                     y: y,
                     title: `Product ${this.hotspots.length + 1}`,
-                    description: 'Add product description',
+                    description: '',
                     price: '$99',
                     image: '',
                     showCta: true,
@@ -1966,10 +2051,11 @@
 
                 this.hotspots.push(hotspot);
                 this.currentHotspotIndex = this.hotspots.length - 1;
-                
+
                 this.renderHotspots();
                 this.loadHotspotForm();
                 this.updateHotspotList();
+                this.updateHotspotHeading(this.currentHotspotIndex);
                 this.showMessage('Hotspot added! Fill in the details.', 'success');
                 this.switchTab('edit');
                 this.autoSave();
@@ -1977,7 +2063,7 @@
 
             renderHotspots() {
                 const imageContainer = document.getElementById('image-container');
-                
+
                 // Remove existing hotspots and popups
                 imageContainer.querySelectorAll('.hotspot, .popup').forEach(el => el.remove());
 
@@ -1989,25 +2075,25 @@
 
             createHotspotElement(hotspot, index) {
                 const imageContainer = document.getElementById('image-container');
-                
+
                 const hotspotEl = document.createElement('div');
                 hotspotEl.className = 'hotspot';
                 hotspotEl.dataset.index = index;
                 hotspotEl.style.left = hotspot.x + '%';
                 hotspotEl.style.top = hotspot.y + '%';
-                
+
                 // Apply current styles
                 hotspotEl.style.width = this.styles.hotspotSize + 'px';
                 hotspotEl.style.height = this.styles.hotspotSize + 'px';
                 hotspotEl.style.backgroundColor = this.styles.hotspotBg;
                 hotspotEl.style.borderColor = this.styles.hotspotColor;
                 hotspotEl.style.borderWidth = this.styles.borderWidth + 'px';
-                
+
                 // Apply animation
                 if (this.styles.hotspotAnimation !== 'none' && this.styles.hotspotAnimation !== 'pulse') {
                     hotspotEl.classList.add(`anim-${this.styles.hotspotAnimation}`);
                 }
-                
+
                 if (index === this.currentHotspotIndex) {
                     hotspotEl.classList.add('active');
                 }
@@ -2026,7 +2112,7 @@
                                 this.startDragging(e, index);
                             }, 300); // Long press for 300ms to drag
                         });
-                        
+
                         hotspotEl.addEventListener('touchend', (e) => {
                             if (touchTimer) {
                                 clearTimeout(touchTimer);
@@ -2035,7 +2121,7 @@
                                 }
                             }
                         });
-                        
+
                         hotspotEl.addEventListener('touchmove', (e) => {
                             if (touchTimer) {
                                 clearTimeout(touchTimer);
@@ -2063,7 +2149,7 @@
                             e.preventDefault();
                             e.stopPropagation();
                         });
-                        
+
                         hotspotEl.addEventListener('touchend', (e) => {
                             e.preventDefault();
                             e.stopPropagation();
@@ -2085,13 +2171,13 @@
 
             createPopupElement(hotspot, index) {
                 const imageContainer = document.getElementById('image-container');
-                
+
                 const popup = document.createElement('div');
                 popup.className = 'popup';
                 popup.dataset.index = index;
-                
+
                 popup.style.backgroundColor = this.styles.popupBg;
-                
+
                 // Position popup (will be overridden on mobile)
                 this.positionPopup(popup, hotspot.x, hotspot.y);
 
@@ -2118,111 +2204,137 @@
             }
 
             positionPopup(popup, x, y) {
-                if (window.innerWidth < 768) return; // Mobile positioning handled by CSS
+                if (window.innerWidth < 768) return; // Mobile handled by CSS
 
-                // Smart positioning to keep popup visible
+                // --- Horizontal centering ---
+                popup.style.left = x + '%';
+                popup.style.right = 'auto';
+                popup.style.transform = 'translateX(-50%)';
+
+                // --- Vertical placement ---
                 if (y > 60) {
-                    popup.style.bottom = (100 - y + 3) + '%';
+                    // Place above hotspot
+                    popup.style.bottom = (100 - y + 5) + '%';
                     popup.style.top = 'auto';
                 } else {
-                    popup.style.top = (y + 3) + '%';
+                    // Place below hotspot
+                    popup.style.top = (y + 5) + '%';
                     popup.style.bottom = 'auto';
-                }
-
-                if (x < 20) {
-                    popup.style.left = '10px';
-                    popup.style.right = 'auto';
-                } else if (x > 80) {
-                    popup.style.right = '10px';
-                    popup.style.left = 'auto';
-                } else if (x < 50) {
-                    popup.style.left = (x + 2) + '%';
-                    popup.style.right = 'auto';
-                } else {
-                    popup.style.right = (100 - x + 2) + '%';
-                    popup.style.left = 'auto';
                 }
             }
 
-            // Drag and Drop functionality
+            // --- Start drag ---
             startDragging(e, index) {
                 if (this.previewMode) return;
 
-                this.isDragging = true;
-                this.currentHotspotIndex = index;
-                
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
                 const hotspot = this.hotspots[index];
                 const hotspotEl = document.querySelector(`[data-index="${index}"]`);
                 const img = document.getElementById('image-container').querySelector('img');
                 const rect = img.getBoundingClientRect();
 
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                // Calculate pointer offset relative to hotspot
+                const hotspotLeft = (hotspot.x / 100) * rect.width;
+                const hotspotTop = (hotspot.y / 100) * rect.height;
+                const offsetX = clientX - rect.left - hotspotLeft;
+                const offsetY = clientY - rect.top - hotspotTop;
 
                 this.dragData = {
                     startX: clientX,
                     startY: clientY,
                     initialX: hotspot.x,
                     initialY: hotspot.y,
-                    rect: rect
+                    rect: rect,
+                    index: index,
+                    hasDragged: false,
+                    offsetX: offsetX,
+                    offsetY: offsetY
                 };
-
-                hotspotEl.classList.add('dragging');
-                document.getElementById('drag-overlay').style.display = 'block';
             }
 
-            handleMouseMove(e) {
-                if (!this.isDragging) return;
-                this.updateDragPosition(e.clientX, e.clientY);
+            // --- Move handler ---
+            handleMove(clientX, clientY) {
+                if (!this.dragData) return;
+
+                const deltaX = Math.abs(clientX - this.dragData.startX);
+                const deltaY = Math.abs(clientY - this.dragData.startY);
+
+                if (!this.dragData.hasDragged && (deltaX > 3 || deltaY > 3)) {
+                    this.isDragging = true;
+                    this.currentHotspotIndex = this.dragData.index;
+                    this.dragData.hasDragged = true;
+
+                    const hotspotEl = document.querySelector(`[data-index="${this.currentHotspotIndex}"]`);
+                    hotspotEl.classList.add('dragging');
+                    document.getElementById('drag-overlay').style.display = 'block';
+
+                    // Select hotspot immediately
+                    this.selectHotspot(this.currentHotspotIndex);
+                }
+
+                if (this.dragData.hasDragged) {
+                    const container = document.getElementById('image-container'); // hotspot parent
+                    const containerRect = container.getBoundingClientRect();
+
+                    // Compute position relative to container, applying pointer offset
+                    let newX = ((clientX - containerRect.left - this.dragData.offsetX) / containerRect.width) * 100;
+                    let newY = ((clientY - containerRect.top - this.dragData.offsetY) / containerRect.height) * 100;
+
+                    // Clamp to 0–100%
+                    newX = Math.max(0, Math.min(100, newX));
+                    newY = Math.max(0, Math.min(100, newY));
+
+                    const hotspotEl = document.querySelector(`[data-index="${this.currentHotspotIndex}"]`);
+                    hotspotEl.style.left = newX + '%';
+                    hotspotEl.style.top = newY + '%';
+
+                    const popup = document.querySelector(`.popup[data-index="${this.currentHotspotIndex}"]`);
+                    if (popup) this.positionPopup(popup, newX, newY);
+                }
             }
 
+            // --- Mouse / touch handlers ---
+            handleMouseMove(e) { this.handleMove(e.clientX, e.clientY); }
             handleTouchMove(e) {
-                if (!this.isDragging) return;
+                if (!this.dragData) return;
                 e.preventDefault();
                 const touch = e.touches[0];
-                this.updateDragPosition(touch.clientX, touch.clientY);
+                this.handleMove(touch.clientX, touch.clientY);
             }
 
-            updateDragPosition(clientX, clientY) {
-                const deltaX = ((clientX - this.dragData.startX) / this.dragData.rect.width) * 100;
-                const deltaY = ((clientY - this.dragData.startY) / this.dragData.rect.height) * 100;
+            // --- Mouse / touch up ---
+            handleMouseUp(e) { this.endDragOrSelect(); }
+            handleTouchEnd(e) { this.endDragOrSelect(); }
 
-                const newX = Math.max(0, Math.min(100, this.dragData.initialX + deltaX));
-                const newY = Math.max(0, Math.min(100, this.dragData.initialY + deltaY));
+            // --- Decide if click or drag ---
+            endDragOrSelect() {
+                if (!this.dragData) return;
 
-                const hotspotEl = document.querySelector(`[data-index="${this.currentHotspotIndex}"]`);
-                hotspotEl.style.left = newX + '%';
-                hotspotEl.style.top = newY + '%';
+                const index = this.dragData.index;
+                const hotspotEl = document.querySelector(`[data-index="${index}"]`);
 
-                const popup = document.querySelector(`.popup[data-index="${this.currentHotspotIndex}"]`);
-                if (popup) this.positionPopup(popup, newX, newY);
-            }
+                if (!this.dragData.hasDragged) {
+                    // Click: select hotspot
+                    this.selectHotspot(index);
+                } else {
+                    // Finish dragging
+                    const newX = parseFloat(hotspotEl.style.left);
+                    const newY = parseFloat(hotspotEl.style.top);
 
-            handleMouseUp(e) {
-                if (!this.isDragging) return;
-                this.endDragging();
-            }
+                    this.hotspots[index].x = newX;
+                    this.hotspots[index].y = newY;
 
-            handleTouchEnd(e) {
-                if (!this.isDragging) return;
-                this.endDragging();
-            }
+                    hotspotEl.classList.remove('dragging');
+                    document.getElementById('drag-overlay').style.display = 'none';
 
-            endDragging() {
+                    this.showMessage('Hotspot repositioned!', 'success');
+                    this.autoSave();
+                }
+
+                this.dragData = null;
                 this.isDragging = false;
-
-                const hotspotEl = document.querySelector(`[data-index="${this.currentHotspotIndex}"]`);
-                const newX = parseFloat(hotspotEl.style.left);
-                const newY = parseFloat(hotspotEl.style.top);
-
-                this.hotspots[this.currentHotspotIndex].x = newX;
-                this.hotspots[this.currentHotspotIndex].y = newY;
-
-                hotspotEl.classList.remove('dragging');
-                document.getElementById('drag-overlay').style.display = 'none';
-
-                this.showMessage('Hotspot repositioned!', 'success');
-                this.autoSave();
             }
 
             // Hotspot management
@@ -2231,7 +2343,17 @@
                 this.renderHotspots();
                 this.loadHotspotForm();
                 this.updateHotspotList();
+                this.updateHotspotHeading(this.currentHotspotIndex)
                 this.switchTab('edit');
+            }
+
+            updateHotspotHeading(index = this.currentHotspotIndex) {
+                const heading = document.querySelector('#hotspot-details-heading');
+                if (!heading || !this.hotspots[index]) return;
+
+                const hotspot = this.hotspots[index];
+                const name = hotspot.title?.trim() || `Product ${index + 1}`;
+                heading.textContent = `Hotspot Details: ${name}`;
             }
 
             loadHotspotForm() {
@@ -2239,7 +2361,7 @@
 
                 const hotspot = this.hotspots[this.currentHotspotIndex];
                 const form = document.getElementById('hotspot-form');
-                
+
                 document.getElementById('product-title').value = hotspot.title;
                 document.getElementById('product-description').value = hotspot.description;
                 document.getElementById('product-price').value = hotspot.price;
@@ -2250,13 +2372,24 @@
 
                 document.getElementById('cta-fields').style.display = hotspot.showCta !== false ? 'block' : 'none';
                 form.style.display = 'block';
+
+                const titleInput = document.querySelector('#product-title');
+                if (titleInput) {
+                    titleInput.addEventListener('input', (e) => {
+                        const newTitle = e.target.value.trim();
+                        if (this.hotspots[this.currentHotspotIndex]) {
+                            this.hotspots[this.currentHotspotIndex].title = newTitle;
+                            this.updateHotspotHeading(this.currentHotspotIndex);
+                        }
+                    });
+                }
             }
 
             saveCurrentHotspot() {
                 if (this.currentHotspotIndex < 0) return;
 
                 const hotspot = this.hotspots[this.currentHotspotIndex];
-                
+
                 hotspot.title = document.getElementById('product-title').value || 'Product';
                 hotspot.description = document.getElementById('product-description').value || '';
                 hotspot.price = document.getElementById('product-price').value || '';
@@ -2267,6 +2400,7 @@
 
                 this.renderHotspots();
                 this.updateHotspotList();
+                this.updateHotspotHeading(this.currentHotspotIndex);
                 this.showMessage('Hotspot saved successfully!', 'success');
                 this.autoSave();
             }
@@ -2277,7 +2411,7 @@
                 if (confirm('Are you sure you want to delete this hotspot?')) {
                     this.hotspots.splice(this.currentHotspotIndex, 1);
                     this.currentHotspotIndex = -1;
-                    
+
                     document.getElementById('hotspot-form').style.display = 'none';
                     this.renderHotspots();
                     this.updateHotspotList();
@@ -2295,7 +2429,7 @@
                 if (confirm('Are you sure you want to clear all hotspots?')) {
                     this.hotspots = [];
                     this.currentHotspotIndex = -1;
-                    
+
                     document.getElementById('hotspot-form').style.display = 'none';
                     this.renderHotspots();
                     this.updateHotspotList();
@@ -2306,7 +2440,7 @@
 
             updateHotspotList() {
                 const list = document.getElementById('hotspot-list');
-                
+
                 if (this.hotspots.length === 0) {
                     list.innerHTML = '<p style="color: var(--black-secondary); text-align: center; padding: 2rem;">No hotspots added yet</p>';
                     return;
@@ -2335,7 +2469,7 @@
                 });
 
                 this.renderHotspots();
-                
+
                 if (this.previewMode) {
                     this.showMessage(this.isTouchDevice ? 'Preview mode: tap hotspots to view details' : 'Preview mode: hover over hotspots to view details', 'success');
                 } else {
@@ -2346,14 +2480,14 @@
             togglePopup(index) {
                 const popup = document.querySelector(`.popup[data-index="${index}"]`);
                 if (!popup) return;
-                
+
                 const isActive = popup.classList.contains('active');
-                
+
                 // Hide all popups first
                 document.querySelectorAll('.popup').forEach(p => {
                     p.classList.remove('active');
                 });
-                
+
                 // Toggle this popup with a small delay to prevent instant close
                 if (!isActive) {
                     setTimeout(() => {
@@ -2380,7 +2514,7 @@
                     this.showMessage('Please add an image and at least one hotspot', 'error');
                     return;
                 }
-                
+
                 // Get the export image URL
                 const exportUrl = document.getElementById('export-image-url').value.trim();
                 if (!exportUrl) {
@@ -2388,7 +2522,7 @@
                     document.getElementById('export-image-url').focus();
                     return;
                 }
-                
+
                 // Save the export URL for future use
                 this.exportImageUrl = exportUrl;
                 this.autoSave();
@@ -2406,16 +2540,16 @@
 
             generateHTML(imageUrl) {
                 const getFontFamily = () => {
-                    switch(this.styles.fontFamily) {
+                    switch (this.styles.fontFamily) {
                         case 'Lato': return "'Lato', sans-serif";
                         case 'Verdana': return "'Verdana', sans-serif";
                         default: return "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
                     }
                 };
-                
+
                 const fontFamily = getFontFamily();
                 const fontLink = this.styles.fontFamily !== 'system' ? `<link href="https://fonts.googleapis.com/css2?family=${this.styles.fontFamily}:wght@400;500;600&display=swap" rel="stylesheet">` : '';
-                
+
                 const getAnimationCSS = () => {
                     let css = '';
                     if (this.styles.hotspotAnimation === 'pulse') {
@@ -2425,7 +2559,7 @@
                     }
                     return css;
                 };
-                
+
                 const getAnimationKeyframes = () => {
                     let keyframes = `
         @keyframes si-pulse {
@@ -2433,7 +2567,7 @@
             70% { box-shadow: 0 0 0 12px ${this.hexToRgba(this.styles.hotspotColor, 0)}; }
             100% { box-shadow: 0 0 0 0 ${this.hexToRgba(this.styles.hotspotColor, 0)}; }
         }`;
-                    
+
                     if (this.styles.hotspotAnimation === 'bounce') {
                         keyframes += `
         @keyframes si-bounce {
@@ -2466,7 +2600,7 @@
             50% { transform: translate(-50%, -50%) scale(1.2); }
         }`;
                     }
-                    
+
                     return keyframes;
                 };
 
@@ -2560,26 +2694,28 @@ ${fontLink}
         }
         
         /* Dynamic positioning for each popup - responsive to image size */
-        ${this.hotspots.map((h, i) => {
-            let styles = '';
-            // Position popups relative to the image container, not fixed positions
-            if (h.y > 60) {
-                styles += `bottom: calc(${100 - h.y}% + 10px); top: auto;`;
-            } else {
-                styles += `top: calc(${h.y}% + 10px); bottom: auto;`;
-            }
-            
-            if (h.x < 20) {
-                styles += `left: 10px; right: auto; transform: none;`;
-            } else if (h.x > 80) {
-                styles += `right: 10px; left: auto; transform: none;`;
-            } else if (h.x < 50) {
-                styles += `left: ${h.x}%; right: auto; transform: translateX(-20%);`;
-            } else {
-                styles += `right: ${100 - h.x}%; left: auto; transform: translateX(20%);`;
-            }
-            return `.si-popup[data-hotspot="${i}"] { ${styles} }`;
-        }).join('\n        ')}
+${this.hotspots.map((h, i) => {
+                    let styles = '';
+
+                    // --- Vertical positioning: above or below ---
+                    if (h.y > 60) {
+                        // Place above
+                        styles += `bottom: calc(${100 - h.y}% + 10px); top: auto;`;
+                    } else {
+                        // Place below
+                        styles += `top: calc(${h.y}% + 10px); bottom: auto;`;
+                    }
+
+                    // --- Horizontal centering ---
+                    styles += `
+        left: ${h.x}%;
+        right: auto;
+        transform: translateX(-50%);
+    `;
+
+                    return `.si-popup[data-hotspot="${i}"] { ${styles} }`;
+                }).join('\n        ')}
+
         
         .si-popup.active {
             opacity: 1;
@@ -2706,11 +2842,11 @@ ${fontLink}
         /* Mobile centering overrides for each popup */
         @media (max-width: 768px) {
             ${this.hotspots.map((h, i) => {
-                return `.si-popup[data-hotspot="${i}"] { position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; right: auto !important; bottom: auto !important; z-index: 5 !important; }`;
-            }).join('\n            ')}
+                    return `.si-popup[data-hotspot="${i}"] { position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; right: auto !important; bottom: auto !important; z-index: 5 !important; }`;
+                }).join('\n            ')}
             ${this.hotspots.map((h, i) => {
-                return `.si-popup[data-hotspot="${i}"].active { z-index: 5 !important; }`;
-            }).join('\n            ')}
+                    return `.si-popup[data-hotspot="${i}"].active { z-index: 5 !important; }`;
+                }).join('\n            ')}
         }
         
         /* Touch device optimizations */
@@ -2866,17 +3002,17 @@ ${fontLink}
                 const message = document.getElementById('message');
                 message.textContent = text;
                 message.className = `message ${type}`;
-                message.style.display = 'block';
-                
+                message.classList.add('show');
+
                 setTimeout(() => {
-                    message.style.display = 'none';
-                }, 4000);
+                    message.classList.remove('show');
+                }, 2500);
             }
         }
 
         // Initialize the application
         const app = new ShoppableImageCreator();
-        
+
         // Make app globally accessible for onclick handlers
         window.app = app;
     </script>
