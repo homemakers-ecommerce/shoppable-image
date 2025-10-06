@@ -2217,33 +2217,34 @@
             handleTouchEnd(e) { this.endDragOrSelect(); }
 
             // --- Decide if click or drag ---
-            endDragOrSelect() {
-                if (!this.dragData) return;
+// --- Decide if click or drag ---
+endDragOrSelect() {
+    if (!this.dragData) return;
 
-                const index = this.dragData.index;
-                const hotspotEl = document.querySelector(`[data-index="${index}"]`);
+    const index = this.dragData.index;
+    const hotspotEl = document.querySelector(`[data-index="${index}"]`);
 
-                if (!this.dragData.hasDragged) {
-                    if (this.currentHotspotIndex >= 0 && this.hotspots[this.currentHotspotIndex]) {
-                        this.selectHotspot(this.currentHotspotIndex);
-                    }
-                } else {
-                    const newX = parseFloat(hotspotEl.style.left);
-                    const newY = parseFloat(hotspotEl.style.top);
+    if (!this.dragData.hasDragged) {
+        // This was a click, not a drag - select the clicked hotspot
+        this.selectHotspot(index);  // Changed from this.currentHotspotIndex to index
+    } else {
+        // This was an actual drag - save the new position
+        const newX = parseFloat(hotspotEl.style.left);
+        const newY = parseFloat(hotspotEl.style.top);
 
-                    this.hotspots[index].x = newX;
-                    this.hotspots[index].y = newY;
+        this.hotspots[index].x = newX;
+        this.hotspots[index].y = newY;
 
-                    hotspotEl.classList.remove('dragging');
-                    document.getElementById('drag-overlay').style.display = 'none';
+        hotspotEl.classList.remove('dragging');
+        document.getElementById('drag-overlay').style.display = 'none';
 
-                    this.showMessage('Hotspot repositioned!', 'success');
-                    this.autoSave();
-                }
+        this.showMessage('Hotspot repositioned!', 'success');
+        this.autoSave();
+    }
 
-                this.dragData = null;
-                this.isDragging = false;
-            }
+    this.dragData = null;
+    this.isDragging = false;
+}
 
             addHotspot(x, y) {
                 const hotspot = {
