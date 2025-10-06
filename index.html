@@ -892,26 +892,29 @@
         }
 
         .popup-close {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    width: 28px;
-    height: 28px;
-    background: var(--canvas);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 20px;
-    color: var(--black-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all cubic-bezier(0.18, 0.58, 0.28, 0.98) .4s;
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 28px;
+            height: 28px;
+            background: var(--canvas);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--black-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all cubic-bezier(0.18, 0.58, 0.28, 0.98) .4s;
         }
 
         .popup-close:hover {
-    background: var(--linen);
-    color: var(--black-primary);
+            background: var(--linen);
+            color: var(--primary-cornel);
+        }
+
+        .popup-close svg {
+            pointer-events: none;
         }
 
         .popup-image {
@@ -1022,7 +1025,6 @@
             .popup-close {
                 width: 28px;
                 height: 28px;
-                font-size: 24px;
             }
         }
 
@@ -2089,7 +2091,11 @@
                 this.positionPopup(popup, hotspot.x, hotspot.y);
 
                 let popupHTML = `
-                    <button class="popup-close" onclick="app.hidePopup(${index})"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none"><g clip-path="url(#clip0_1218_14026)"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.51538 9.08559C9.10117 9.08559 8.76538 9.42137 8.76538 9.83559C8.76538 10.2498 9.10117 10.5856 9.51538 10.5856H9.75219L10.5112 11.391L11.4922 12.4321L12.9696 14L11.4922 15.5678L10.5112 16.6089L9.75219 17.4144H9.51538C9.10117 17.4144 8.76538 17.7502 8.76538 18.1644C8.76538 18.5786 9.10117 18.9144 9.51538 18.9144H10.076C10.2826 18.9144 10.4801 18.8291 10.6218 18.6788L11.6029 17.6376L12.5839 16.5965L14.0001 15.0936L15.4164 16.5965L16.3974 17.6376L16.4033 17.6439C16.2732 17.7788 16.1932 17.9622 16.1932 18.1644C16.1932 18.5786 16.529 18.9144 16.9432 18.9144H17.9243H18.4849C18.8991 18.9144 19.2349 18.5786 19.2349 18.1644C19.2349 17.7502 18.8991 17.4144 18.4849 17.4144H18.2481L17.4891 16.6089L16.508 15.5678L15.0306 14L16.508 12.4321L17.4891 11.391L18.2481 10.5856H18.4849C18.8991 10.5856 19.2349 10.2498 19.2349 9.83559C19.2349 9.42137 18.8991 9.08559 18.4849 9.08559H17.9243C17.7176 9.08559 17.5202 9.17084 17.3784 9.32124L16.3974 10.3623L15.4164 11.4034L14.0001 12.9064L12.5839 11.4034L11.6029 10.3623L11.597 10.3561C11.727 10.2212 11.807 10.0377 11.807 9.83559C11.807 9.42137 11.4712 9.08559 11.057 9.08559H10.076H9.51538Z" fill="#332A2A"/></g><defs><clipPath id="clip0_1218_14026"><rect width="28" height="28" fill="white"/></clipPath></defs></svg></button>
+                    <button class="popup-close" onclick="app.hidePopup(${index})">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
                 `;
 
                 if (hotspot.image) {
@@ -2217,34 +2223,33 @@
             handleTouchEnd(e) { this.endDragOrSelect(); }
 
             // --- Decide if click or drag ---
-// --- Decide if click or drag ---
-endDragOrSelect() {
-    if (!this.dragData) return;
+            endDragOrSelect() {
+                if (!this.dragData) return;
 
-    const index = this.dragData.index;
-    const hotspotEl = document.querySelector(`[data-index="${index}"]`);
+                const index = this.dragData.index;
+                const hotspotEl = document.querySelector(`[data-index="${index}"]`);
 
-    if (!this.dragData.hasDragged) {
-        // This was a click, not a drag - select the clicked hotspot
-        this.selectHotspot(index);  // Changed from this.currentHotspotIndex to index
-    } else {
-        // This was an actual drag - save the new position
-        const newX = parseFloat(hotspotEl.style.left);
-        const newY = parseFloat(hotspotEl.style.top);
+                if (!this.dragData.hasDragged) {
+                    // This was a click, not a drag - select the clicked hotspot
+                    this.selectHotspot(index);
+                } else {
+                    // This was an actual drag - save the new position
+                    const newX = parseFloat(hotspotEl.style.left);
+                    const newY = parseFloat(hotspotEl.style.top);
 
-        this.hotspots[index].x = newX;
-        this.hotspots[index].y = newY;
+                    this.hotspots[index].x = newX;
+                    this.hotspots[index].y = newY;
 
-        hotspotEl.classList.remove('dragging');
-        document.getElementById('drag-overlay').style.display = 'none';
+                    hotspotEl.classList.remove('dragging');
+                    document.getElementById('drag-overlay').style.display = 'none';
 
-        this.showMessage('Hotspot repositioned!', 'success');
-        this.autoSave();
-    }
+                    this.showMessage('Hotspot repositioned!', 'success');
+                    this.autoSave();
+                }
 
-    this.dragData = null;
-    this.isDragging = false;
-}
+                this.dragData = null;
+                this.isDragging = false;
+            }
 
             addHotspot(x, y) {
                 const hotspot = {
@@ -2546,7 +2551,11 @@ endDragOrSelect() {
              role="dialog"
              aria-modal="true"
              aria-labelledby="si-title-${index}">
-            <button class="si-close" aria-label="Close product details">×</button>
+            <button class="si-close" aria-label="Close product details">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
             ${hotspot.image ? `<img src="${hotspot.image}" alt="${this.escapeHtml(hotspot.title)}" class="si-image" onerror="this.style.display='none'">` : ''}
             <div class="si-title" id="si-title-${index}">${this.escapeHtml(hotspot.title)}</div>
             ${hotspot.description ? `<div class="si-text">${this.escapeHtml(hotspot.description)}</div>` : ''}
@@ -2680,9 +2689,7 @@ ${this.hotspots.map((h, i) => {
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 20px;
             color: #332A2A;
-            fill: #332A2A;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2693,7 +2700,9 @@ ${this.hotspots.map((h, i) => {
         .si-close:hover {
             background: rgba(51, 42, 42, 0.2);
             color: #B32017;
-            fill: #B32017;
+        }
+        .si-close svg {
+            pointer-events: none;
         }
         .si-close:focus {
             outline: 3px solid #005fcc;
@@ -2806,7 +2815,6 @@ ${this.hotspots.map((h, i) => {
             .si-close {
                 width: 28px !important;
                 height: 28px !important;
-                font-size: 24px !important;
             }
         }
         
